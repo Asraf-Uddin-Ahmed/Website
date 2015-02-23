@@ -1,0 +1,10 @@
+C:\Users\Ratul\Desktop\Website\Website.Foundation\obj\Debug\Website.Foundation.csprojResolveAssemblyReference.cache
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\Website.Foundation.dll.config
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\Website.Foundation.dll
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\Website.Foundation.pdb
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\EntityFramework.dll
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\EntityFramework.xml
+C:\Users\Ratul\Desktop\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Ratul\Desktop\Website\Website.Foundation\obj\Debug\Website.Foundation.dll
+C:\Users\Ratul\Desktop\Website\Website.Foundation\obj\Debug\Website.Foundation.pdb
