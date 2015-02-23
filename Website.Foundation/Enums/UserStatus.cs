@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Website.Foundation.Enums
 {
-    public enum UserType
+    public enum UserStatus
     {
-        Anonymous,
-        Admin
+        Unverified,
+        Active,
+        Blocked
     }
 }

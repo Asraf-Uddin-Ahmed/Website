@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Website.Foundation.Enums;
 
 namespace Website.Foundation.Aggregates
 {
@@ -17,7 +18,22 @@ namespace Website.Foundation.Aggregates
         public string Password { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
+
+        [Required]
+        public UserType TypeOfUser { get; set; }
+
+        [Required]
+        public UserStatus Status { get; set; }
+        
+        [Required]
+        public DateTime? LastLogin { get; set; }
+
+        [Required]
+        public int WrongPasswordAttempt { get; set; }
+
+        [Required]
+        public DateTime? LastWrongPasswordAttempt { get; set; }
 
         [Required]
         public DateTime CreationTime { get; set; }
