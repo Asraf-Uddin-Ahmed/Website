@@ -1,0 +1,2 @@
+# Website
+Sample project architecture
