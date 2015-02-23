@@ -48,8 +48,11 @@
   <ItemGroup>
     <Compile Include="Aggregates\Entity.cs" />
     <Compile Include="Aggregates\IEntity.cs" />
+    <Compile Include="Aggregates\ISettings.cs" />
     <Compile Include="Aggregates\IUser.cs" />
+    <Compile Include="Aggregates\Settings.cs" />
     <Compile Include="Aggregates\User.cs" />
+    <Compile Include="Enums\SettingsType.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

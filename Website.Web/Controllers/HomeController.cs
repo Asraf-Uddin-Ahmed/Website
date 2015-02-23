@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Website.Foundation.Repositories;
 
 namespace Website.Web.Controllers
 {
@@ -10,6 +11,7 @@ namespace Website.Web.Controllers
     {
         public ActionResult Index()
         {
+            new UserRepository().GetAll();
             return View();
         }
 
