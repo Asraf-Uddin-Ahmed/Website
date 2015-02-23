@@ -19,17 +19,17 @@ namespace Website.Foundation.Repositories
 
         public ICollection<User> GetAll()
         {
-            return _context.User.ToList();
+            return _context.Users.ToList();
         }
 
         public User Get(Guid ID)
         {
-            return _context.User.Find(ID);   // .Where(row => row.ConfessionID == id).SingleOrDefault();
+            return _context.Users.Find(ID);   // .Where(row => row.ConfessionID == id).SingleOrDefault();
         }
 
         public void Add(User entity)
         {
-            _context.User.Add(entity);
+            _context.Users.Add(entity);
             _context.SaveChanges();
         }
 
@@ -47,7 +47,7 @@ namespace Website.Foundation.Repositories
             User currentItem = Get(ID);
             if (currentItem == null)
                 return;
-            _context.User.Remove(currentItem);
+            _context.Users.Remove(currentItem);
             _context.SaveChanges();
         }
     }

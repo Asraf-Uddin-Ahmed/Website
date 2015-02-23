@@ -26,13 +26,11 @@ namespace Website.Foundation.Aggregates
         [Required]
         public UserStatus Status { get; set; }
         
-        [Required]
         public DateTime? LastLogin { get; set; }
 
         [Required]
         public int WrongPasswordAttempt { get; set; }
 
-        [Required]
         public DateTime? LastWrongPasswordAttempt { get; set; }
 
         [Required]
