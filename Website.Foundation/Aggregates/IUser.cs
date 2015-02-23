@@ -1,11 +1,10 @@
 ﻿using System;
 namespace Website.Foundation.Aggregates
 {
-    interface IUser
+    public interface IUser : IEntity
     {
         DateTime CreationTime { get; set; }
         string Email { get; set; }
-        Guid ID { get; set; }
         string Password { get; set; }
         DateTime UpdateTime { get; set; }
         string UserName { get; set; }

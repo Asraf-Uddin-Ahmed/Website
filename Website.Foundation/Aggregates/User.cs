@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Website.Foundation.Aggregates
 {
-    public class User : Website.Foundation.Aggregates.IUser
+    public class User : Entity, IUser
     {
-        [Required]
-        public Guid ID { get; set; }
-        
         [Required]
         public string UserName { get; set; }
 

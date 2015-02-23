@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\Entity.cs" />
+    <Compile Include="Aggregates\IEntity.cs" />
     <Compile Include="Aggregates\IUser.cs" />
     <Compile Include="Aggregates\User.cs" />
     <Compile Include="Enums\UserType.cs" />

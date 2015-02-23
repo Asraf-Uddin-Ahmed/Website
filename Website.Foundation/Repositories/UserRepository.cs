@@ -19,35 +19,35 @@ namespace Website.Foundation.Repositories
 
         public ICollection<User> GetAll()
         {
-            return _context.Confessions.ToList();
+            return _context.User.ToList();
         }
 
-        public User Get(int confessionID)
+        public User Get(Guid ID)
         {
-            return _context.Confessions.Find(confessionID);   // .Where(row => row.ConfessionID == id).SingleOrDefault();
+            return _context.User.Find(ID);   // .Where(row => row.ConfessionID == id).SingleOrDefault();
         }
 
-        public void Add(User item)
+        public void Add(User entity)
         {
-            _context.Confessions.Add(item);
+            _context.User.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Update(User item)
+        public void Update(User entity)
         {
-            User currentItem = Get(item.ConfessionID);
+            User currentItem = Get(entity.ID);
             if (currentItem == null)
                 return;
-            _context.Entry(currentItem).CurrentValues.SetValues(item);
+            _context.Entry(currentItem).CurrentValues.SetValues(entity);
             _context.SaveChanges();
         }
 
-        public void Remove(int confessionID)
+        public void Remove(Guid ID)
         {
-            User currentItem = Get(confessionID);
+            User currentItem = Get(ID);
             if (currentItem == null)
                 return;
-            _context.Confessions.Remove(currentItem);
+            _context.User.Remove(currentItem);
             _context.SaveChanges();
         }
     }

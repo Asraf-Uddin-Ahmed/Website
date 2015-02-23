@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Website.Foundation.Repositories
 {
-    public interface IRepository<Type>
+    public interface IRepository<TEntity>
     {
-        void Add(Type item);
-        void Update(Type item);
-        void Remove(int id);
-        Type Get(int id);
-        ICollection<Type> GetAll();
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Remove(Guid ID);
+        TEntity Get(Guid ID);
+        ICollection<TEntity> GetAll();
     }
 }
