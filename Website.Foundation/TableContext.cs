@@ -16,6 +16,7 @@ namespace Foundation.Repositories
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserVerification> UserVerifications { get; set; }
         public DbSet<Settings> Settings { get; set; }
 
     }

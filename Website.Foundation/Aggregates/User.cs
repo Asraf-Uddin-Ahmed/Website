@@ -38,5 +38,8 @@ namespace Website.Foundation.Aggregates
 
         [Required]
         public DateTime UpdateTime { get; set; }
+
+
+        public ICollection<UserVerification> UserVerifications { get; set; }
     }
 }

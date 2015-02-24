@@ -50,7 +50,9 @@
     <Compile Include="Aggregates\IEntity.cs" />
     <Compile Include="Aggregates\ISettings.cs" />
     <Compile Include="Aggregates\IUser.cs" />
+    <Compile Include="Aggregates\IUserVerification.cs" />
     <Compile Include="Aggregates\Settings.cs" />
+    <Compile Include="Aggregates\UserVerification.cs" />
     <Compile Include="Aggregates\User.cs" />
     <Compile Include="Enums\SettingsType.cs" />
     <Compile Include="Enums\UserStatus.cs" />
