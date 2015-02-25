@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Website.Web.Models;
+using Website.Web.Models.Account;
 
 namespace Website.Web.Controllers
 {
@@ -64,9 +65,9 @@ namespace Website.Web.Controllers
         }
 
         //
-        // GET: /Account/ConfirmEmail
+        // GET: /Account/ConfirmUser
         [AllowAnonymous]
-        public ActionResult ConfirmEmail(string userId, string code)
+        public ActionResult ConfirmUser(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -95,7 +96,7 @@ namespace Website.Web.Controllers
                 return View(model);
             }
 
-            return View(model);
+            return RedirectToAction("ForgotPasswordConfirmation");
         }
 
         //
@@ -107,9 +108,9 @@ namespace Website.Web.Controllers
         }
 
         //
-        // GET: /Account/ResetPassword
+        // GET: /Account/ChangePassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ChangePassword(string code)
         {
             return code == null ? View("Error") : View();
         }
@@ -119,20 +120,20 @@ namespace Website.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPasswordViewModel model)
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            
-            return View();
+
+            return RedirectToAction("ChangePasswordConfirmation");
         }
 
         //
-        // GET: /Account/ResetPasswordConfirmation
+        // GET: /Account/ChangePasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public ActionResult ChangePasswordConfirmation()
         {
             return View();
         }
