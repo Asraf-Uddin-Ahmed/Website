@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Website.Foundation.Repositories
 {
-    public interface IRepository<TEntity>
+    public interface IBaseEfRepository<TEntity>
     {
         void Add(TEntity entity);
         void Update(TEntity entity);

@@ -7,7 +7,7 @@ using Website.Foundation.Aggregates;
 
 namespace Website.Foundation.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IBaseEfRepository<User>
     {
     }
 }
