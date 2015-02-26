@@ -13,12 +13,13 @@ namespace Website.Web.Controllers
     {
         public ActionResult Index()
         {
+            Guid UserID = Guid.NewGuid();
             UserRepository ur = new UserRepository();
             ur.Add(new User()
                 {
                     CreationTime = DateTime.UtcNow,
                     EmailAddress = "test@test.com",
-                    ID = Guid.NewGuid(),
+                    ID = UserID,
                     LastLogin = null,
                     LastWrongPasswordAttempt = null,
                     Password = "test",
@@ -29,6 +30,14 @@ namespace Website.Web.Controllers
                     WrongPasswordAttempt = 0
                 });
             ICollection<User> l = ur.GetAll();
+            UserVerificationRepository uvr = new UserVerificationRepository();
+            uvr.Add(new UserVerification()
+                {
+                    CreationTime = DateTime.UtcNow,
+                    ID = Guid.NewGuid(),
+                    UserID = UserID,
+                    VerificationCode = Guid.NewGuid().ToString()
+                });
             return View();
         }
 
