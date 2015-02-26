@@ -60,7 +60,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IBaseEfRepository.cs" />
     <Compile Include="Repositories\BaseEfRepository.cs" />
+    <Compile Include="Repositories\ISettingsRepository.cs" />
     <Compile Include="Repositories\IUserVerificationRepository.cs" />
+    <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\UserVerificationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
