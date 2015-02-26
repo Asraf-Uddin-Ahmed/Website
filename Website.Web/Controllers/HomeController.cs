@@ -38,15 +38,15 @@ namespace Website.Web.Controllers
             //        UserID = UserID,
             //        VerificationCode = Guid.NewGuid().ToString()
             //    });
-            SettingsRepository sr = new SettingsRepository();
-            sr.Add(new Settings() 
-            { 
-                DisplayName = "dis name",
-                ID = Guid.NewGuid(),
-                Name = "main name",
-                Type = SettingsType.String,
-                Value = "hello"
-            });
+            //SettingsRepository sr = new SettingsRepository();
+            //sr.Add(new Settings() 
+            //{ 
+            //    DisplayName = "dis name",
+            //    ID = Guid.NewGuid(),
+            //    Name = "main name",
+            //    Type = SettingsType.String,
+            //    Value = "hello"
+            //});
             return View();
         }
 
