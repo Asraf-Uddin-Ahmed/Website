@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.Web", "Website.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.Foundation", "Website.Foundation\Website.Foundation.csproj", "{73069F52-24E1-4003-BB07-E7384C2821AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratul.Mvc", "Ratul.Mvc\Ratul.Mvc.csproj", "{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{73069F52-24E1-4003-BB07-E7384C2821AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73069F52-24E1-4003-BB07-E7384C2821AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73069F52-24E1-4003-BB07-E7384C2821AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

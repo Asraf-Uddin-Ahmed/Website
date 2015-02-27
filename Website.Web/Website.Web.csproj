@@ -157,6 +157,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Codes\UserSession.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,6 +226,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ratul.Mvc\Ratul.Mvc.csproj">
+      <Project>{5dc64b9e-7e84-4f5d-a61d-b39671008e9a}</Project>
+      <Name>Ratul.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Website.Foundation\Website.Foundation.csproj">
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>
