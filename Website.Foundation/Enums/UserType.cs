@@ -9,6 +9,7 @@ namespace Website.Foundation.Enums
     public enum UserType
     {
         Anonymous,
-        Admin
+        Admin,
+        Employee
     }
 }

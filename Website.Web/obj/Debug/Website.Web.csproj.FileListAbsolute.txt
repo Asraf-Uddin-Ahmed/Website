@@ -224,3 +224,5 @@ E:\EXPERIMENT\HOME\Website\Website.Web\obj\Debug\Website.Web.dll
 E:\EXPERIMENT\HOME\Website\Website.Web\obj\Debug\Website.Web.pdb
 E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ratul.Mvc.dll
 E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ratul.Mvc.pdb
+H:\Work\Website\Website.Web\bin\Ratul.Mvc.dll
+H:\Work\Website\Website.Web\bin\Ratul.Mvc.pdb
