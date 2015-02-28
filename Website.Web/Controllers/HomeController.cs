@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,9 +13,10 @@ namespace Website.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IUserRepository _ur;
-        IUserVerificationRepository _uvr;
-        ISettingsRepository _sr;
+        //IUserRepository _ur;
+        //IUserVerificationRepository _uvr;
+        //ISettingsRepository _sr;
+        //[Inject]
         //public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr)
         //{
         //    _ur = ur;
@@ -24,23 +26,22 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
-            _ur = NinjectWebCommon.GetConcreteInstance<IUserRepository>();
-            Guid UserID = Guid.NewGuid();
-            IUser user = NinjectWebCommon.GetConcreteInstance<IUser>();
-            user.CreationTime = DateTime.UtcNow;
-            user.EmailAddress = "test@test.com";
-            user.ID = UserID;
-            user.LastLogin = null;
-            user.LastWrongPasswordAttempt = null;
-            user.Password = "test";
-            user.Status = UserStatus.Active;
-            user.TypeOfUser = UserType.Admin;
-            user.UpdateTime = DateTime.UtcNow;
-            user.UserName = "test";
-            user.WrongPasswordAttempt = 0;
-            _ur.Add(user);
-            IUser u = (IUser)_ur.Get(user.ID);
-            ICollection<IUser> listU = _ur.GetAll().Cast<IUser>().ToList();
+            //Guid UserID = Guid.NewGuid();
+            //IUser user = NinjectWebCommon.GetConcreteInstance<IUser>();
+            //user.CreationTime = DateTime.UtcNow;
+            //user.EmailAddress = "test@test.com";
+            //user.ID = UserID;
+            //user.LastLogin = null;
+            //user.LastWrongPasswordAttempt = null;
+            //user.Password = "test";
+            //user.Status = UserStatus.Active;
+            //user.TypeOfUser = UserType.Admin;
+            //user.UpdateTime = DateTime.UtcNow;
+            //user.UserName = "test";
+            //user.WrongPasswordAttempt = 0;
+            //_ur.Add(user);
+            //IUser u = (IUser)_ur.Get(user.ID);
+            //ICollection<IUser> listU = _ur.GetAll().Cast<IUser>().ToList();
             //IUserVerificationRepository uvr = NinjectWebCommon.GetConcreteInstance<IUserVerificationRepository>();
             //uvr.Add(new UserVerification()
             //    {

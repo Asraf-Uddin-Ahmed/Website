@@ -231,3 +231,5 @@ H:\Work\Website\Website.Web\bin\Ninject.Web.Common.dll
 H:\Work\Website\Website.Web\bin\WebActivatorEx.dll
 H:\Work\Website\Website.Web\bin\Ninject.xml
 H:\Work\Website\Website.Web\bin\Ninject.Web.Common.xml
+H:\Work\Website\Website.Web\bin\Ninject.Web.Mvc.dll
+H:\Work\Website\Website.Web\bin\Ninject.Web.Mvc.xml

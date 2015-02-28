@@ -43,23 +43,23 @@ namespace Website.Web.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            return Container;
+            return _Kernel;
         }
 
-        static IKernel _container;
-        private static IKernel Container
+        static IKernel _kernel;
+        private static IKernel _Kernel
         {
             get
             {
-                if (_container == null)
+                if (_kernel == null)
                 {
-                    _container = new StandardKernel();
-                    _container.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                    _container.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                    _kernel = new StandardKernel();
+                    _kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                    _kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                    RegisterServices(_container);
+                    RegisterServices(_kernel);
                 }
-                return _container;
+                return _kernel;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Website.Web.App_Start
         /// <returns></returns>
         public static T GetConcreteInstance<T>()
         {
-            object instance = Container.TryGet<T>();
+            object instance = _Kernel.TryGet<T>();
             if (instance != null)
                 return (T)instance;
             throw new InvalidOperationException(string.Format("Unable to create an instance of {0}", typeof(T).FullName));
