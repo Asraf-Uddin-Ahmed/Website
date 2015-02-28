@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Website.Codes
+namespace Website.Web.Codes
 {
     public static class UserSession
     {

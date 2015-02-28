@@ -12,8 +12,8 @@ namespace Website.Web.App_Start
     using Ninject.Web.Common;
     using Ninject.Modules;
     using System.Web.Security;
-    using Website.Codes;
     using Foundation;
+    using Website.Web.Codes;
     
     public static class NinjectWebCommon
     {
@@ -71,8 +71,8 @@ namespace Website.Web.App_Start
         {
             kernel.Load(new INinjectModule[]
             {
-                //new GlobalModule(),
-                //new FoundationModule()
+                new NinjectWebModule(),
+                new NinjectFoundationModule()
             });
         }
 

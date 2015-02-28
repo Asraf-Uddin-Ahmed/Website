@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using Website.Foundation.Aggregates;
 
-namespace Foundation.Repositories
+namespace Website.Foundation
 {
     internal class TableContext : DbContext
     {

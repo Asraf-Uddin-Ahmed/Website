@@ -1,5 +1,4 @@
 ﻿using Website.Foundation.Aggregates;
-using Foundation.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,25 +29,25 @@ namespace Website.Foundation.Repositories
         }
 
 
-        public ICollection<TEntity> GetAll()
+        public ICollection<IEntity> GetAll()
         {
-            return _entitySet.ToList();
+            return _entitySet.ToList<IEntity>();
         }
 
-        public TEntity Get(Guid ID)
+        public IEntity Get(Guid ID)
         {
             return _entitySet.Where(c => c.ID == ID).FirstOrDefault();
         }
 
-        public void Add(TEntity entity)
+        public void Add(IEntity entity)
         {
-            _entitySet.Add(entity);
+            _entitySet.Add((TEntity)entity);
             _context.SaveChanges();
         }
 
-        public void Update(TEntity entity)
+        public void Update(IEntity entity)
         {
-            TEntity currentItem = Get(entity.ID);
+            IEntity currentItem = Get(entity.ID);
             if (currentItem == null)
                 return;
             _context.Entry(currentItem).CurrentValues.SetValues(entity);
@@ -57,10 +56,10 @@ namespace Website.Foundation.Repositories
 
         public void Remove(Guid ID)
         {
-            TEntity currentItem = Get(ID);
+            IEntity currentItem = Get(ID);
             if (currentItem == null)
                 return;
-            _entitySet.Remove(currentItem);
+            _entitySet.Remove((TEntity)currentItem);
             _context.SaveChanges();
         }
     }

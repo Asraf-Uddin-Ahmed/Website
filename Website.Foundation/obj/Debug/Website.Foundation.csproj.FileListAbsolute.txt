@@ -18,3 +18,5 @@ H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.dll
 H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.dll
 H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.xml
 H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.xml
+H:\Work\Website\Website.Foundation\bin\Debug\Ninject.dll
+H:\Work\Website\Website.Foundation\bin\Debug\Ninject.xml
