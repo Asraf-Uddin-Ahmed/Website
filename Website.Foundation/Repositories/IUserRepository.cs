@@ -9,5 +9,7 @@ namespace Website.Foundation.Repositories
 {
     public interface IUserRepository : IBaseEfRepository<User>
     {
+        bool IsUserNameExist(string userName);
+        bool IsEmailExist(string email);
     }
 }

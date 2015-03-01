@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Reflection;
+using Ninject;
 
 namespace Website.Foundation.Repositories
 {
@@ -13,9 +14,10 @@ namespace Website.Foundation.Repositories
     {
         private TableContext _context;
         private DbSet<TEntity> _entitySet;
-        public BaseEfRepository()
+        [Inject]
+        public BaseEfRepository(TableContext context)
         {
-            _context = new TableContext();
+            _context = context;
 
             PropertyInfo[] infos = _context.GetType().GetProperties();
             foreach(PropertyInfo info in infos)

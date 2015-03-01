@@ -12,6 +12,8 @@ namespace Website.Foundation
     {
         public override void Load()
         {
+            Bind<ITableContext>().To<TableContext>();
+
             // ENTITY
             Bind<IUser>().To<User>();
             Bind<IUserVerification>().To<UserVerification>();

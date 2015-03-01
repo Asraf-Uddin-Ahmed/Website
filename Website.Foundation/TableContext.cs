@@ -8,7 +8,7 @@ using Website.Foundation.Aggregates;
 
 namespace Website.Foundation
 {
-    internal class TableContext : DbContext
+    public class TableContext : DbContext, ITableContext
     {
         public TableContext()
             : base("name=DbConnectionString")
