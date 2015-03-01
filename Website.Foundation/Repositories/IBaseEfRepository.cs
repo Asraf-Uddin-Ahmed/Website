@@ -14,5 +14,6 @@ namespace Website.Foundation.Repositories
         void Remove(Guid ID);
         IEntity Get(Guid ID);
         ICollection<IEntity> GetAll();
+        int GetTotal();
     }
 }

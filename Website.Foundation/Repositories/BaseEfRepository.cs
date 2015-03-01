@@ -62,5 +62,10 @@ namespace Website.Foundation.Repositories
             _entitySet.Remove((TEntity)currentItem);
             _context.SaveChanges();
         }
+
+        public int GetTotal()
+        {
+            return _entitySet.Count();
+        }
     }
 }
