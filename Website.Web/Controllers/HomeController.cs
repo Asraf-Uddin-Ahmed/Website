@@ -1,4 +1,6 @@
 ﻿using Ninject;
+using Ratul.Utility;
+using Ratul.Utility.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +61,36 @@ namespace Website.Web.Controllers
             //    Type = SettingsType.String,
             //    Value = "hello"
             //});
+
+            //Guid salt = GuidUtility.GetNewSequentialGuid();
+            //string original = "ratul";
+            //string encrpyted = CryptographicUtility.Encrypt(original, salt);
+            //string decrpyted = CryptographicUtility.Decrypt(encrpyted, salt);
+
+            //EmailSettings emailSettings = new EmailSettings();
+            //emailSettings.EnableSsl = true;
+            //emailSettings.Host = "smtp.gmail.com";
+            //emailSettings.Port = 587;
+            //emailSettings.UserName = "ratul@proggasoft.com";
+            //emailSettings.Password = "progg@soft";
+
+            //MessageSettings messageSettings = new MessageSettings();
+            //messageSettings.Subject = "Test Utility Email";
+            //messageSettings.Body = string.Format("hello {0}, how are you.\noriginal is {1}\nencrypted: {2}\ndecrypted: {3}", salt, original, encrpyted, decrpyted);
+            //messageSettings.IsBodyHtml = false;
+            //messageSettings.ToList = new List<NameWithEmail>() { new NameWithEmail("ratul_gmail", "13ratul@gmail.com"), new NameWithEmail("ratul_yahoo", "ratul840@yahoo.com") };
+            //messageSettings.From = new NameWithEmail("ratul_progga", "ratul@proggasoft.com");
+            //messageSettings.ReplyToList = new List<NameWithEmail>() { new NameWithEmail("noreply_1", "noreply1@proggasoft.com"), new NameWithEmail("noreply_2", "noreply2@proggasoft.com") };
+
+            //EmailSender es = new EmailSender(emailSettings);
+            //try
+            //{
+            //    bool isSend = es.Send(messageSettings);
+            //}
+            //catch (Exception ex)
+            //{
+            //}
+
             return View();
         }
 

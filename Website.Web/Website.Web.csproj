@@ -244,6 +244,10 @@
       <Project>{5dc64b9e-7e84-4f5d-a61d-b39671008e9a}</Project>
       <Name>Ratul.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ratul.Utility\Ratul.Utility.csproj">
+      <Project>{bd432f12-90b9-428b-af6d-eeb83e8898b0}</Project>
+      <Name>Ratul.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Website.Foundation\Website.Foundation.csproj">
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>
