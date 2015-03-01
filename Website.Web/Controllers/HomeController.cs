@@ -15,16 +15,16 @@ namespace Website.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IUserRepository _ur;
-        IUserVerificationRepository _uvr;
-        ISettingsRepository _sr;
-        [Inject]
-        public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr)
-        {
-            _ur = ur;
-            _uvr = uvr;
-            _sr = sr;
-        }
+        //IUserRepository _ur;
+        //IUserVerificationRepository _uvr;
+        //ISettingsRepository _sr;
+        //[Inject]
+        //public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr)
+        //{
+        //    _ur = ur;
+        //    _uvr = uvr;
+        //    _sr = sr;
+        //}
 
         public ActionResult Index()
         {

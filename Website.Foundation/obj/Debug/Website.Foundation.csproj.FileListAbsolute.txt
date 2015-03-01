@@ -20,3 +20,5 @@ H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.xml
 H:\Work\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.xml
 H:\Work\Website\Website.Foundation\bin\Debug\Ninject.dll
 H:\Work\Website\Website.Foundation\bin\Debug\Ninject.xml
+H:\Work\Website\Website.Foundation\bin\Debug\Ratul.Utility.dll
+H:\Work\Website\Website.Foundation\bin\Debug\Ratul.Utility.pdb
