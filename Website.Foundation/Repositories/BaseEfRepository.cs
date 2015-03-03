@@ -69,5 +69,12 @@ namespace Website.Foundation.Repositories
         {
             return _entitySet.Count();
         }
+
+        public ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize)
+        {
+            int skip = pageNumber * pageSize;
+            return _entitySet.Skip(skip).Take(pageSize).ToList<IEntity>();
+        }
+
     }
 }
