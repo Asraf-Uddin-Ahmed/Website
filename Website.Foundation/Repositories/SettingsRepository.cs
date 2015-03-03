@@ -12,8 +12,7 @@ namespace Website.Foundation.Repositories
     {
         private TableContext _context;
         [Inject]
-        public SettingsRepository(TableContext context)
-            : base(context)
+        public SettingsRepository(TableContext context) : base(context)
         {
             _context = context;
         }
