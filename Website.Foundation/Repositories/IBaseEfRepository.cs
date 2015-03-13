@@ -12,6 +12,7 @@ namespace Website.Foundation.Repositories
         void Add(IEntity entity);
         void Update(IEntity entity);
         void Remove(Guid ID);
+        void Remove(IEntity currentItem);
         IEntity Get(Guid ID);
         ICollection<IEntity> GetAll();
         int GetTotal();

@@ -61,6 +61,11 @@ namespace Website.Foundation.Repositories
             IEntity currentItem = Get(ID);
             if (currentItem == null)
                 return;
+            Remove(currentItem);
+        }
+
+        public void Remove(IEntity currentItem)
+        {
             _entitySet.Remove((TEntity)currentItem);
             _context.SaveChanges();
         }
