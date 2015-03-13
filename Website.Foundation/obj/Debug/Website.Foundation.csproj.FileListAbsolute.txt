@@ -22,3 +22,17 @@ H:\Work\Website\Website.Foundation\bin\Debug\Ninject.dll
 H:\Work\Website\Website.Foundation\bin\Debug\Ninject.xml
 H:\Work\Website\Website.Foundation\bin\Debug\Ratul.Utility.dll
 H:\Work\Website\Website.Foundation\bin\Debug\Ratul.Utility.pdb
+G:\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.dll.config
+G:\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.dll
+G:\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.pdb
+G:\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.dll
+G:\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.dll
+G:\HOME\Website\Website.Foundation\bin\Debug\Ninject.dll
+G:\HOME\Website\Website.Foundation\bin\Debug\Ratul.Utility.dll
+G:\HOME\Website\Website.Foundation\bin\Debug\Ratul.Utility.pdb
+G:\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.xml
+G:\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.xml
+G:\HOME\Website\Website.Foundation\bin\Debug\Ninject.xml
+G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csprojResolveAssemblyReference.cache
+G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.dll
+G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.pdb

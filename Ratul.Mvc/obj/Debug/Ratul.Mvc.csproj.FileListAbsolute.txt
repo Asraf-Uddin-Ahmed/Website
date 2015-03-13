@@ -8,3 +8,8 @@ H:\Work\Website\Ratul.Mvc\bin\Debug\Ratul.Mvc.pdb
 H:\Work\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.csprojResolveAssemblyReference.cache
 H:\Work\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.dll
 H:\Work\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.pdb
+G:\HOME\Website\Ratul.Mvc\bin\Debug\Ratul.Mvc.dll
+G:\HOME\Website\Ratul.Mvc\bin\Debug\Ratul.Mvc.pdb
+G:\HOME\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.csprojResolveAssemblyReference.cache
+G:\HOME\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.dll
+G:\HOME\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.pdb

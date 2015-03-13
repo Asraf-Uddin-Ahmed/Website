@@ -16,5 +16,36 @@ namespace Website.Foundation.Repositories
         {
             _context = context;
         }
+
+        private List<ISettings> _listAllSettings;
+        private List<ISettings> _ListAllSettings
+        {
+            get
+            {
+                if(_listAllSettings == null)
+                {
+                    try
+                    {
+                        _listAllSettings = _context.Settings.ToList<ISettings>();
+                    }
+                    catch(Exception)
+                    {
+                        _listAllSettings = new List<ISettings>();
+                    }
+                }
+                return _listAllSettings;
+            }
+        }
+
+        public string GetValueByName(string name)
+        {
+            string value = _ListAllSettings.Where(col => col.Name == name).FirstOrDefault().Value;
+            return value;
+        }
+        public string GetDisplayNameByName(string name)
+        {
+            string displayName = _ListAllSettings.Where(col => col.Name == name).FirstOrDefault().DisplayName;
+            return displayName;
+        }
     }
 }

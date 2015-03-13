@@ -9,5 +9,7 @@ namespace Website.Foundation.Repositories
 {
     public interface ISettingsRepository : IBaseEfRepository<Settings>
     {
+        string GetValueByName(string name);
+        string GetDisplayNameByName(string name);
     }
 }
