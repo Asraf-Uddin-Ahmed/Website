@@ -20,7 +20,7 @@ namespace Website.Foundation.Repositories
             _context = context;
 
             PropertyInfo[] infos = _context.GetType().GetProperties();
-            foreach(PropertyInfo info in infos)
+            foreach (PropertyInfo info in infos)
             {
                 if (info.PropertyType == typeof(DbSet<TEntity>))
                 {
@@ -59,13 +59,13 @@ namespace Website.Foundation.Repositories
         public void Remove(Guid ID)
         {
             IEntity currentItem = Get(ID);
-            if (currentItem == null)
-                return;
             Remove(currentItem);
         }
 
         public void Remove(IEntity currentItem)
         {
+            if (currentItem == null)
+                return;
             _entitySet.Remove((TEntity)currentItem);
             _context.SaveChanges();
         }
