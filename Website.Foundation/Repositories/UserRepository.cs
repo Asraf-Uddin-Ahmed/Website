@@ -24,16 +24,6 @@ namespace Website.Foundation.Repositories
             _repositorySearchHelper = repositorySearchHelper;
         }
 
-        public bool IsUserNameExist(string userName)
-        {
-            bool isExist = _context.Users.Any(col => col.UserName == userName);
-            return isExist;
-        }
-        public bool IsEmailExist(string email)
-        {
-            bool isExist = _context.Users.Any(col => col.EmailAddress == email);
-            return isExist;
-        }
         public new void Add(IEntity entity)
         {
             User user = (User)entity;
@@ -62,7 +52,19 @@ namespace Website.Foundation.Repositories
             string password = CryptographicUtility.Decrypt(user.Password, user.ID);
             return password;
         }
+
+        public bool IsUserNameExist(string userName)
+        {
+            bool isExist = _context.Users.Any(col => col.UserName == userName);
+            return isExist;
+        }
+        public bool IsEmailExist(string email)
+        {
+            bool isExist = _context.Users.Any(col => col.EmailAddress == email);
+            return isExist;
+        }
         
+
         private Func<IUser, bool> GetAndSearchCondition(UserSearch searchItem)
         {
             Func<IUser, bool> predicate = (col) =>
