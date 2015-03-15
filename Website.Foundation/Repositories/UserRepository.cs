@@ -6,17 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Ninject;
 using Website.Foundation.Container;
+using Website.Foundation.Helpers;
 
 namespace Website.Foundation.Repositories
 {
     public class UserRepository : BaseEfRepository<User>, IUserRepository
     {
         private TableContext _context;
+        private IRepositorySearchHelper _repositorySearchHelper;
         [Inject]
-        public UserRepository(TableContext context)
+        public UserRepository(TableContext context, IRepositorySearchHelper repositorySearchHelper)
             : base(context)
         {
             _context = context;
+            _repositorySearchHelper = repositorySearchHelper;
         }
 
         public bool IsUserNameExist(string userName)
@@ -29,9 +32,10 @@ namespace Website.Foundation.Repositories
             bool isExist = _context.Users.Any(col => col.EmailAddress == email);
             return isExist;
         }
-        public int GetTotalAnd(UserSearch searchItem)
+
+        private Func<IUser, bool> GetAndSearchCondition(UserSearch searchItem)
         {
-            int total = _context.Users.Count(col =>
+            Func<IUser, bool> predicate = (col) =>
                 (searchItem.EmailAddress == null || searchItem.EmailAddress == col.EmailAddress)
                 && (searchItem.UserName == null || searchItem.UserName == col.UserName)
                 && (searchItem.TypeOfUser == null || searchItem.TypeOfUser == col.TypeOfUser)
@@ -39,20 +43,13 @@ namespace Website.Foundation.Repositories
                 && (searchItem.WrongPasswordAttempt == null || searchItem.WrongPasswordAttempt == col.WrongPasswordAttempt)
                 && (searchItem.LastWrongPasswordAttempt == null || searchItem.LastWrongPasswordAttempt == col.LastWrongPasswordAttempt)
                 && (searchItem.CreationTime == null || searchItem.CreationTime == col.CreationTime)
-                && (searchItem.UpdateTime == null || searchItem.UpdateTime == col.UpdateTime));
-            return total;
+                && (searchItem.UpdateTime == null || searchItem.UpdateTime == col.UpdateTime);
+            return predicate;
         }
-        public int GetTotalOr(UserSearch searchItem)
+        private Func<IUser, bool> GetOrSearchCondition(UserSearch searchItem)
         {
-            bool isAllNull = searchItem.EmailAddress == null 
-                && searchItem.UserName == null 
-                && searchItem.TypeOfUser == null
-                && searchItem.Status == null
-                && searchItem.WrongPasswordAttempt == null
-                && searchItem.LastWrongPasswordAttempt == null
-                && searchItem.CreationTime == null
-                && searchItem.UpdateTime == null;
-            int total = _context.Users.Count(col =>
+            bool isAllNull = _repositorySearchHelper.IsAllPropertyNull(searchItem);
+            Func<IUser, bool> predicate = (col) =>
                 (searchItem.EmailAddress != null && searchItem.EmailAddress == col.EmailAddress)
                 || (searchItem.UserName != null && searchItem.UserName == col.UserName)
                 || (searchItem.TypeOfUser != null && searchItem.TypeOfUser == col.TypeOfUser)
@@ -61,8 +58,32 @@ namespace Website.Foundation.Repositories
                 || (searchItem.LastWrongPasswordAttempt != null && searchItem.LastWrongPasswordAttempt == col.LastWrongPasswordAttempt)
                 || (searchItem.CreationTime != null && searchItem.CreationTime == col.CreationTime)
                 || (searchItem.UpdateTime != null && searchItem.UpdateTime == col.UpdateTime)
-                || isAllNull);
+                || isAllNull;
+            return predicate;
+        }
+        public int GetTotalAnd(UserSearch searchItem)
+        {
+            int total = base.GetTotalBy(GetAndSearchCondition(searchItem));
             return total;
+        }
+        public int GetTotalOr(UserSearch searchItem)
+        {
+
+            int total = base.GetTotalBy(GetOrSearchCondition(searchItem));
+            return total;
+        }
+
+        public IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
+        {
+            Func<IUser, bool> where = GetAndSearchCondition(searchItem);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, orderBy, where);
+            return listUser.Cast<IUser>();
+        }
+        public IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
+        {
+            Func<IUser, bool> where = GetOrSearchCondition(searchItem);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, orderBy, where);
+            return listUser.Cast<IUser>();
         }
     }
 }

@@ -75,11 +75,27 @@ namespace Website.Foundation.Repositories
             return _entitySet.Count();
         }
 
-        public ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize)
+        public ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize, Func<TEntity, dynamic> orderBy)
         {
-            int skip = pageNumber * pageSize;
-            return _entitySet.Skip(skip).Take(pageSize).ToList<IEntity>();
+            int skip = (pageNumber - 1) * pageSize;
+            ICollection<IEntity> listEntity = _entitySet.OrderBy(orderBy).Skip(skip).Take(pageSize).ToList<IEntity>();
+            return listEntity;
         }
 
+
+
+        protected int GetTotalBy(Func<TEntity, bool> count)
+        {
+            return _entitySet.Count(count);
+        }
+        protected IEnumerable<IEntity> GetPagedBy(int pageNumber, int pageSize, Func<TEntity, dynamic> orderBy, Func<TEntity, bool> where)
+        {
+            int skip = (pageNumber - 1) * pageSize;
+            IEnumerable<IEntity> listEntity = _entitySet
+                .Where(where)
+                .OrderBy(orderBy)
+                .Skip(skip).Take(pageSize);
+            return listEntity;
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace Website.Foundation.Repositories
         bool IsEmailExist(string email);
         int GetTotalAnd(UserSearch searchItem);
         int GetTotalOr(UserSearch searchItem);
+        IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy);
+        IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy);
     }
 }
