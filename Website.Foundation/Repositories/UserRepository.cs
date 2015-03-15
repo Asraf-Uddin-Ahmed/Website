@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Ninject;
 using Website.Foundation.Container;
 using Website.Foundation.Helpers;
+using Ratul.Utility;
+using System.IO;
 
 namespace Website.Foundation.Repositories
 {
@@ -32,7 +34,35 @@ namespace Website.Foundation.Repositories
             bool isExist = _context.Users.Any(col => col.EmailAddress == email);
             return isExist;
         }
-
+        public new void Add(IEntity entity)
+        {
+            User user = (User)entity;
+            user.Password = CryptographicUtility.Encrypt(user.Password, user.ID);
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+        public new void Update(IEntity entity)
+        {
+            IUser currentUser = (IUser)Get(entity.ID);
+            if (currentUser == null)
+                return;
+            currentUser.Password = CryptographicUtility.Encrypt(currentUser.Password, currentUser.ID);
+            _context.Entry(currentUser).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
+        }
+        public string ResetPassword(IUser user)
+        {
+            string password = Path.GetRandomFileName().Substring(0, 8);
+            user.Password = password;
+            this.Update(user);
+            return password;
+        }
+        public string GetPassword(IUser user)
+        {
+            string password = CryptographicUtility.Decrypt(user.Password, user.ID);
+            return password;
+        }
+        
         private Func<IUser, bool> GetAndSearchCondition(UserSearch searchItem)
         {
             Func<IUser, bool> predicate = (col) =>

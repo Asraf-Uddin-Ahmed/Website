@@ -12,6 +12,8 @@ namespace Website.Foundation.Repositories
     {
         bool IsUserNameExist(string userName);
         bool IsEmailExist(string email);
+        string ResetPassword(IUser user);
+        string GetPassword(IUser user); 
         int GetTotalAnd(UserSearch searchItem);
         int GetTotalOr(UserSearch searchItem);
         IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy);
