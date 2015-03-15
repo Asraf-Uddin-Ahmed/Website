@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Website.Foundation.Aggregates;
+using Website.Foundation.Container;
 using Website.Foundation.Enums;
 using Website.Foundation.Repositories;
 using Website.Web.App_Start;
@@ -28,11 +29,6 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
-            bool isU = _ur.IsEmailExist("test@test.com");
-            bool isU1 = _ur.IsEmailExist("test1@test.com");
-            bool isE = _ur.IsUserNameExist("test");
-            bool isE1 = _ur.IsUserNameExist("test1");
-            List<ISettings> ls = _sr.GetAll().Cast<ISettings>().ToList();
             return View();
         }
 
