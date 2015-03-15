@@ -75,25 +75,25 @@ namespace Website.Foundation.Repositories
             return _entitySet.Count();
         }
 
-        public ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize, Func<TEntity, dynamic> orderBy)
+        public ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize, Func<TEntity, dynamic> predicateOrderBy)
         {
             int skip = (pageNumber - 1) * pageSize;
-            ICollection<IEntity> listEntity = _entitySet.OrderBy(orderBy).Skip(skip).Take(pageSize).ToList<IEntity>();
+            ICollection<IEntity> listEntity = _entitySet.OrderBy(predicateOrderBy).Skip(skip).Take(pageSize).ToList<IEntity>();
             return listEntity;
         }
 
 
 
-        protected int GetTotalBy(Func<TEntity, bool> count)
+        protected int GetTotalBy(Func<TEntity, bool> predicateCount)
         {
-            return _entitySet.Count(count);
+            return _entitySet.Count(predicateCount);
         }
-        protected IEnumerable<IEntity> GetPagedBy(int pageNumber, int pageSize, Func<TEntity, dynamic> orderBy, Func<TEntity, bool> where)
+        protected IEnumerable<IEntity> GetPagedBy(int pageNumber, int pageSize, Func<TEntity, dynamic> predicateOrderBy, Func<TEntity, bool> predicateWhere)
         {
             int skip = (pageNumber - 1) * pageSize;
             IEnumerable<IEntity> listEntity = _entitySet
-                .Where(where)
-                .OrderBy(orderBy)
+                .Where(predicateWhere)
+                .OrderBy(predicateOrderBy)
                 .Skip(skip).Take(pageSize);
             return listEntity;
         }

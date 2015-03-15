@@ -16,6 +16,6 @@ namespace Website.Foundation.Repositories
         IEntity Get(Guid ID);
         ICollection<IEntity> GetAll();
         int GetTotal();
-        ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize, Func<TEntity, dynamic> orderBy);
+        ICollection<IEntity> GetAllPaged(int pageNumber, int pageSize, Func<TEntity, dynamic> predicateOrderBy);
     }
 }

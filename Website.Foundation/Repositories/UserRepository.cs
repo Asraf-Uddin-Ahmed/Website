@@ -63,26 +63,27 @@ namespace Website.Foundation.Repositories
         }
         public int GetTotalAnd(UserSearch searchItem)
         {
-            int total = base.GetTotalBy(GetAndSearchCondition(searchItem));
+            Func<IUser, bool> predicateCount = GetAndSearchCondition(searchItem);
+            int total = base.GetTotalBy(predicateCount);
             return total;
         }
         public int GetTotalOr(UserSearch searchItem)
         {
-
-            int total = base.GetTotalBy(GetOrSearchCondition(searchItem));
+            Func<IUser, bool> predicateCount = GetOrSearchCondition(searchItem);
+            int total = base.GetTotalBy(predicateCount);
             return total;
         }
 
-        public IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
+        public IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> predicateOrderBy)
         {
-            Func<IUser, bool> where = GetAndSearchCondition(searchItem);
-            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, orderBy, where);
+            Func<IUser, bool> predicateWhere = GetAndSearchCondition(searchItem);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, predicateOrderBy, predicateWhere);
             return listUser.Cast<IUser>();
         }
-        public IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
+        public IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> predicateOrderBy)
         {
-            Func<IUser, bool> where = GetOrSearchCondition(searchItem);
-            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, orderBy, where);
+            Func<IUser, bool> predicateWhere = GetOrSearchCondition(searchItem);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, predicateOrderBy, predicateWhere);
             return listUser.Cast<IUser>();
         }
     }
