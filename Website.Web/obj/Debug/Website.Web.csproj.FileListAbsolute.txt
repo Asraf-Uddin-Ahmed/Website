@@ -305,3 +305,14 @@ G:\HOME\Website\Website.Web\obj\Debug\Website.Web.dll
 G:\HOME\Website\Website.Web\obj\Debug\Website.Web.pdb
 G:\HOME\Website\Website.Web\bin\log4net.dll
 G:\HOME\Website\Website.Web\bin\log4net.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\log4net.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Web.Common.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Web.Mvc.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ratul.Utility.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\WebActivatorEx.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ratul.Utility.pdb
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\log4net.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Web.Common.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Web.Mvc.xml

@@ -36,3 +36,17 @@ G:\HOME\Website\Website.Foundation\bin\Debug\Ninject.xml
 G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csprojResolveAssemblyReference.cache
 G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.dll
 G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.pdb
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.dll.config
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Website.Foundation.pdb
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ratul.Utility.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ratul.Utility.pdb
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.xml
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\EntityFramework.SqlServer.xml
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.xml
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csprojResolveAssemblyReference.cache
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.pdb
