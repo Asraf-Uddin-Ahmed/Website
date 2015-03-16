@@ -30,7 +30,7 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
-            logger.Error("testing 1 2 3 4 5");
+            logger.Error("Custom error message");
             return View();
         }
 

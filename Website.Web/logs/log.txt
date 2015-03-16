@@ -1,0 +1,5 @@
+ERROR 2015-03-16 08:31:06,962   739ms HomeController         Index              - hello test logger
+ERROR 2015-03-16 08:45:43,574   510ms HomeController         Index              - testing 1 2 3
+ERROR 2015-03-16 08:59:55,176   513ms HomeController         Index              - testing 1 2 3
+ERROR 2015-03-16 09:02:31,067 156404ms HomeController         Index              - testing 1 2 3
+ERROR 2015-03-16 09:25:25,945   686ms HomeController         Index              - Custom error message
