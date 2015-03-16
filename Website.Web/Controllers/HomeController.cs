@@ -26,9 +26,11 @@ namespace Website.Web.Controllers
             _uvr = uvr;
             _sr = sr;
         }
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ActionResult Index()
         {
+            logger.Error("testing 1 2 3 4 5");
             return View();
         }
 

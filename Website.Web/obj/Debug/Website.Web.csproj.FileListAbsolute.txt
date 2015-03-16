@@ -303,3 +303,5 @@ G:\HOME\Website\Website.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 G:\HOME\Website\Website.Web\obj\Debug\Website.Web.csprojResolveAssemblyReference.cache
 G:\HOME\Website\Website.Web\obj\Debug\Website.Web.dll
 G:\HOME\Website\Website.Web\obj\Debug\Website.Web.pdb
+G:\HOME\Website\Website.Web\bin\log4net.dll
+G:\HOME\Website\Website.Web\bin\log4net.xml
