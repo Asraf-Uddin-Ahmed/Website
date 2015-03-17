@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Ninject;
 using Ninject.Extensions.Logging;
+using Ratul.Mvc;
 using Ratul.Utility;
 using Ratul.Utility.Email;
 using System;
@@ -16,12 +17,12 @@ using Website.Web.App_Start;
 
 namespace Website.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private IUserRepository _ur;
         private ILogger _logger;
         [Inject]
-        public HomeController(IUserRepository ur, ILogger logger)
+        public HomeController(IUserRepository ur, ILogger logger) : base(logger)
         {
             _ur = ur;
             _logger = logger;
@@ -29,10 +30,14 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
-            _logger.Error("Custom error message -> " + DateTime.Now);
-            _logger.Info("Custom info message -> " + DateTime.Now);
+            throw new Exception();
+            //_logger.Error("Custom error message -> " + DateTime.Now);
+            //_logger.Info("Custom info message -> " + DateTime.Now);
+            //_logger.Fatal("Custom info message -> " + DateTime.Now);
             return View();
         }
 
+        
+        
     }
 }
