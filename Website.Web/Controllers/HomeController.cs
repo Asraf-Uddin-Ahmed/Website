@@ -19,15 +19,11 @@ namespace Website.Web.Controllers
     public class HomeController : Controller
     {
         private IUserRepository _ur;
-        private IUserVerificationRepository _uvr;
-        private ISettingsRepository _sr;
         private ILogger _logger;
         [Inject]
-        public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr, ILogger logger)
+        public HomeController(IUserRepository ur, ILogger logger)
         {
             _ur = ur;
-            _uvr = uvr;
-            _sr = sr;
             _logger = logger;
         }
 
