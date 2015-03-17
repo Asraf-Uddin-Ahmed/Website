@@ -34,6 +34,7 @@ namespace Website.Web.Controllers
         public ActionResult Index()
         {
             _logger.Error("Custom error message -> " + DateTime.Now);
+            _logger.Info("Custom info message -> " + DateTime.Now);
             return View();
         }
 
