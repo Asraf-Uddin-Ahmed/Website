@@ -25,7 +25,7 @@ namespace Ratul.Mvc
                 // User valid
                 if (_identity.TypeOfUser != _typeOfUser.ToString())
                 {
-                    throw new HttpException(502, "User is not authorized to access.");
+                    throw new HttpException((int)System.Net.HttpStatusCode.Unauthorized, "User is not authorized to access.");
                 }
 
                 // User exist

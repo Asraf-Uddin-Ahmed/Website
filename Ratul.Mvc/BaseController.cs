@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Ratul.Mvc
@@ -18,16 +19,8 @@ namespace Ratul.Mvc
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            if (filterContext.ExceptionHandled)
-            {
-                return;
-            }
-            //filterContext.Result = new ViewResult
-            //{
-            //    ViewName = "~/Views/Shared/Error.aspx"
-            //};
             _logger.Fatal(filterContext.Exception, "Fatal Error Occurred");
-            filterContext.ExceptionHandled = true;
+            throw new HttpException((int)System.Net.HttpStatusCode.InternalServerError, "Internal Server Error");
         }
     }
 }
