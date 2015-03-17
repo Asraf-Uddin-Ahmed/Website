@@ -32,8 +32,6 @@ namespace Website.Web.Controllers
         {
             return View();
         }
-
-        
         
     }
 }
