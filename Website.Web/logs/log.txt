@@ -8,3 +8,8 @@ ERROR 2015-03-16 12:19:00,609  1654ms HomeController         Index              
 ERROR 2015-03-16 14:07:21,668  1502ms HomeController         Index              - Custom error message -> 3/16/2015 2:07:21 PM
 ERROR 2015-03-16 14:12:26,960   463ms HomeController         Index              - Custom error message -> 3/16/2015 2:12:26 PM
 ERROR 2015-03-16 14:18:11,635   480ms HomeController         Index              - Custom error message -> 3/16/2015 2:18:11 PM
+ERROR 2015-03-17 16:37:45,483   236ms HomeController         Index              - Custom error message -> 3/17/2015 4:37:45 PM
+ERROR 2015-03-17 16:51:38,019   149ms HomeController         Index              - Custom error message -> 3/17/2015 4:51:38 PM
+ERROR 2015-03-17 16:59:14,408   525ms HomeController         Error              - Custom error message -> 3/17/2015 4:59:14 PM
+ERROR 2015-03-17 17:00:14,839  2197ms HomeController         Error              - Custom error message -> 3/17/2015 5:00:14 PM
+ERROR 2015-03-17 17:01:31,931  1932ms HomeController         Error              - Custom error message -> 3/17/2015 5:01:31 PM

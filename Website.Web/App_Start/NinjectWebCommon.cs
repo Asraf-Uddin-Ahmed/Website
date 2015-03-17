@@ -14,6 +14,7 @@ namespace Website.Web.App_Start
     using System.Web.Security;
     using Foundation;
     using Website.Web.Codes;
+    using Ninject.Extensions.Logging.Log4net;
     
     public static class NinjectWebCommon
     {
@@ -27,6 +28,7 @@ namespace Website.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         /// <summary>

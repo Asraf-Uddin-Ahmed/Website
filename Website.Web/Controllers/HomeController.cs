@@ -1,4 +1,6 @@
-﻿using Ninject;
+﻿using log4net;
+using Ninject;
+using Ninject.Extensions.Logging;
 using Ratul.Utility;
 using Ratul.Utility.Email;
 using System;
@@ -16,21 +18,22 @@ namespace Website.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IUserRepository _ur;
-        IUserVerificationRepository _uvr;
-        ISettingsRepository _sr;
+        private IUserRepository _ur;
+        private IUserVerificationRepository _uvr;
+        private ISettingsRepository _sr;
+        private ILogger _logger;
         [Inject]
-        public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr)
+        public HomeController(IUserRepository ur, IUserVerificationRepository uvr, ISettingsRepository sr, ILogger logger)
         {
             _ur = ur;
             _uvr = uvr;
             _sr = sr;
+            _logger = logger;
         }
-        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ActionResult Index()
         {
-            logger.Error("Custom error message -> " + DateTime.Now);
+            _logger.Error("Custom error message -> " + DateTime.Now);
             return View();
         }
 
