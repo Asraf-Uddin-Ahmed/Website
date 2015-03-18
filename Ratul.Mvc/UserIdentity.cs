@@ -8,8 +8,15 @@ namespace Ratul.Mvc
 {
     public class UserIdentity
     {
-        public Guid ID { get; set; }
-        public string TypeOfUser { get; set; }
-        public string Name { get; set; }
+        public Guid ID { get; private set; }
+        public string TypeOfUser { get; private set; }
+        public string Name { get; private set; }
+
+        public UserIdentity(Guid id, string typeOfUser, string name)
+        {
+            ID = id;
+            TypeOfUser = typeOfUser;
+            Name = name;
+        }
     }
 }

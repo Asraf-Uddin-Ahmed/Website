@@ -17,6 +17,7 @@ using Website.Web.App_Start;
 
 namespace Website.Web.Controllers
 {
+    [AreaAuthorize("/Account/Login", "Admin")]
     public class HomeController : BaseController
     {
         private IUserRepository _ur;

@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Website.Web.Models;
 using Website.Web.Models.Account;
+using Website.Web.Codes;
+using Website.Foundation.Enums;
 
 namespace Website.Web.Controllers
 {
@@ -36,8 +38,8 @@ namespace Website.Web.Controllers
             {
                 return View(model);
             }
-
-            return View(model);
+            UserSession.CurrentUser = new Ratul.Mvc.UserIdentity(Guid.NewGuid(), UserType.Admin.ToString(), "AdMe");
+            return RedirectToAction("Index", "Home");
         }
 
         //
