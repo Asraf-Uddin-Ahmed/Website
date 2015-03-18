@@ -12,12 +12,17 @@ using Website.Web.Models;
 using Website.Web.Models.Account;
 using Website.Web.Codes;
 using Website.Foundation.Enums;
+using Ratul.Mvc;
+using Ninject.Extensions.Logging;
 
 namespace Website.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
+        public AccountController(ILogger logger) : base(logger)
+        { }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]

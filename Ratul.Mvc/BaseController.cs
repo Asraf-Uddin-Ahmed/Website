@@ -19,8 +19,10 @@ namespace Ratul.Mvc
 
         protected override void OnException(ExceptionContext filterContext)
         {
+            //if (filterContext.ExceptionHandled)
+            //    return;
+            //filterContext.ExceptionHandled = true;
             _logger.Fatal(filterContext.Exception, "Fatal Error Occurred");
-            throw new HttpException((int)System.Net.HttpStatusCode.InternalServerError, "Internal Server Error");
         }
     }
 }
