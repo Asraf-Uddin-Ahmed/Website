@@ -24,35 +24,6 @@ namespace Website.Foundation.Repositories
             _repositorySearchHelper = repositorySearchHelper;
         }
 
-        public new void Add(IEntity entity)
-        {
-            User user = (User)entity;
-            user.Password = CryptographicUtility.Encrypt(user.Password, user.ID);
-            _context.Users.Add(user);
-            _context.SaveChanges();
-        }
-        public new void Update(IEntity entity)
-        {
-            IUser currentUser = (IUser)Get(entity.ID);
-            if (currentUser == null)
-                return;
-            currentUser.Password = CryptographicUtility.Encrypt(currentUser.Password, currentUser.ID);
-            _context.Entry(currentUser).CurrentValues.SetValues(entity);
-            _context.SaveChanges();
-        }
-        public string ResetPassword(IUser user)
-        {
-            string password = Path.GetRandomFileName().Substring(0, 8);
-            user.Password = password;
-            this.Update(user);
-            return password;
-        }
-        public string GetPassword(IUser user)
-        {
-            string password = CryptographicUtility.Decrypt(user.Password, user.ID);
-            return password;
-        }
-
         public bool IsUserNameExist(string userName)
         {
             bool isExist = _context.Users.Any(col => col.UserName == userName);

@@ -14,6 +14,7 @@ using Website.Foundation.Container;
 using Website.Foundation.Enums;
 using Website.Foundation.Repositories;
 using Website.Web.App_Start;
+using Website.Web.Codes;
 
 namespace Website.Web.Controllers
 {
@@ -22,7 +23,8 @@ namespace Website.Web.Controllers
         private IUserRepository _ur;
         private ILogger _logger;
         [Inject]
-        public HomeController(IUserRepository ur, ILogger logger) : base(logger)
+        public HomeController(IUserRepository ur, ILogger logger)
+            : base(logger)
         {
             _ur = ur;
             _logger = logger;
@@ -30,8 +32,21 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
+            IMembershipService ms = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
+            string name = "test8";
+            ms.CreateUser(new UserCreationData()
+            {
+                Email = name + "@test.com",
+                HasVerificationCode = true,
+                Name = name,
+                Password = name + "123456",
+                TypeOfUser = UserType.Admin,
+                UserName = name,
+                UserStatus = UserStatus.Unverified
+            });
+
             return View();
         }
-        
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ratul.Utility;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,10 +16,14 @@ namespace Website.Foundation.Aggregates
         public string UserName { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        [Column("Password")]
+        public string EncryptedPassword { get; set; }
 
         [Required]
         public string EmailAddress { get; set; }
+        
+        [Required]
+        public string Name { get; set; }
 
         [Required]
         public UserType TypeOfUser { get; set; }
@@ -41,5 +46,17 @@ namespace Website.Foundation.Aggregates
 
 
         public ICollection<UserVerification> UserVerifications { get; set; }
+
+
+        private string _decryptedPassword;
+        public string DecryptedPassword
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_decryptedPassword))
+                    _decryptedPassword = CryptographicUtility.Encrypt(this.EncryptedPassword, this.ID); ;
+                return _decryptedPassword;
+            }
+        }
     }
 }

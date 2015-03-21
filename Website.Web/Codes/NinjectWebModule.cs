@@ -13,6 +13,10 @@ namespace Website.Web.Codes
     {
         public override void Load()
         {
+            // SERVICE
+            Bind<IMembershipService>().To<MembershipService>();
+            
+            // HELPER
             
         }
     }

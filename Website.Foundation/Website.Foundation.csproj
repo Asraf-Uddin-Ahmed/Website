@@ -57,10 +57,13 @@
     <Compile Include="Aggregates\Settings.cs" />
     <Compile Include="Aggregates\UserVerification.cs" />
     <Compile Include="Aggregates\User.cs" />
+    <Compile Include="Container\UserCreationData.cs" />
     <Compile Include="Container\UserSearch.cs" />
     <Compile Include="Enums\SettingsType.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\UserType.cs" />
+    <Compile Include="Factory\IUserFactory.cs" />
+    <Compile Include="Factory\UserFactory.cs" />
     <Compile Include="Helpers\IRepositorySearchHelper.cs" />
     <Compile Include="Helpers\RepositorySearchHelper.cs" />
     <Compile Include="ITableContext.cs" />
@@ -69,11 +72,11 @@
     <Compile Include="Repositories\IBaseEfRepository.cs" />
     <Compile Include="Repositories\BaseEfRepository.cs" />
     <Compile Include="Repositories\ISettingsRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IUserVerificationRepository.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
     <Compile Include="Repositories\UserVerificationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="TableContext.cs" />
   </ItemGroup>
   <ItemGroup>

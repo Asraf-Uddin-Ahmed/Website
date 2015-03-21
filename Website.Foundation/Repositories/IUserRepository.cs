@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Website.Foundation.Aggregates;
-using Website.Foundation.Container;
-
 namespace Website.Foundation.Repositories
 {
     public interface IUserRepository : IBaseEfRepository<User>
     {
-        bool IsUserNameExist(string userName);
+        System.Collections.Generic.IEnumerable<Website.Foundation.Aggregates.IUser> GetPagedAnd(Website.Foundation.Container.UserSearch searchItem, int pageNumber, int pageSize, Func<Website.Foundation.Aggregates.IUser, dynamic> predicateOrderBy);
+        System.Collections.Generic.IEnumerable<Website.Foundation.Aggregates.IUser> GetPagedOr(Website.Foundation.Container.UserSearch searchItem, int pageNumber, int pageSize, Func<Website.Foundation.Aggregates.IUser, dynamic> predicateOrderBy);
+        int GetTotalAnd(Website.Foundation.Container.UserSearch searchItem);
+        int GetTotalOr(Website.Foundation.Container.UserSearch searchItem);
         bool IsEmailExist(string email);
-        string ResetPassword(IUser user);
-        string GetPassword(IUser user); 
-        int GetTotalAnd(UserSearch searchItem);
-        int GetTotalOr(UserSearch searchItem);
-        IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy);
-        IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy);
+        bool IsUserNameExist(string userName);
     }
 }

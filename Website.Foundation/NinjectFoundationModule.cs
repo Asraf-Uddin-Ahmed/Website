@@ -6,6 +6,7 @@ using System.Configuration;
 using Website.Foundation.Aggregates;
 using Website.Foundation.Repositories;
 using Website.Foundation.Helpers;
+using Website.Foundation.Factory;
 
 namespace Website.Foundation
 {
@@ -24,6 +25,9 @@ namespace Website.Foundation
             Bind<IUserRepository>().To<UserRepository>();
             Bind<IUserVerificationRepository>().To<UserVerificationRepository>();
             Bind<ISettingsRepository>().To<SettingsRepository>();
+
+            // FACTORY
+            Bind<IUserFactory>().To<UserFactory>();
 
             // INTERNAL
             Bind<IRepositorySearchHelper>().To<RepositorySearchHelper>();
