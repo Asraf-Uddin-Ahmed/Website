@@ -33,17 +33,9 @@ namespace Website.Web.Controllers
         public ActionResult Index()
         {
             IMembershipService ms = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
-            string name = "test8";
-            ms.CreateUser(new UserCreationData()
-            {
-                Email = name + "@test.com",
-                HasVerificationCode = true,
-                Name = name,
-                Password = name + "123456",
-                TypeOfUser = UserType.Admin,
-                UserName = name,
-                UserStatus = UserStatus.Unverified
-            });
+            List<IUser> users = _ur.GetAll().Cast<IUser>().ToList();
+            IUser user = (IUser)_ur.Get(new Guid("dacd8d97-b4cf-e411-be77-00266c4ad03f"));
+            IUser user1 = (IUser)_ur.Get(new Guid("975ce24c-a6cf-e411-be77-00266c4ad03f"));
 
             return View();
         }

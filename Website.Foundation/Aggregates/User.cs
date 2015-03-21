@@ -45,7 +45,7 @@ namespace Website.Foundation.Aggregates
         public DateTime UpdateTime { get; set; }
 
 
-        public ICollection<UserVerification> UserVerifications { get; set; }
+        public virtual ICollection<UserVerification> UserVerifications { get; set; }
 
 
         private string _decryptedPassword;
@@ -54,7 +54,7 @@ namespace Website.Foundation.Aggregates
             get
             {
                 if (string.IsNullOrEmpty(_decryptedPassword))
-                    _decryptedPassword = CryptographicUtility.Encrypt(this.EncryptedPassword, this.ID); ;
+                    _decryptedPassword = CryptographicUtility.Decrypt(this.EncryptedPassword, this.ID); ;
                 return _decryptedPassword;
             }
         }
