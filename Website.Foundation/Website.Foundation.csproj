@@ -59,6 +59,7 @@
     <Compile Include="Aggregates\User.cs" />
     <Compile Include="Container\UserCreationData.cs" />
     <Compile Include="Container\UserSearch.cs" />
+    <Compile Include="Enums\LoginStatus.cs" />
     <Compile Include="Enums\SettingsType.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\UserType.cs" />

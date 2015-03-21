@@ -34,7 +34,11 @@ namespace Website.Foundation.Repositories
             bool isExist = _context.Users.Any(col => col.EmailAddress == email);
             return isExist;
         }
-        
+        public IUser GetByUserName(string userName)
+        {
+            IUser user = _context.Users.FirstOrDefault(col => col.UserName == userName);
+            return user;
+        }
 
         private Func<IUser, bool> GetAndSearchCondition(UserSearch searchItem)
         {

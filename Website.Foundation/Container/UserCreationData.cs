@@ -14,7 +14,6 @@ namespace Website.Foundation.Container
         public string Password { get; set; }
         public string Name { get; set; }
         public UserType TypeOfUser { get; set; }
-        public UserStatus UserStatus { get; set; }
         public bool HasVerificationCode { get; set; }
     }
 }

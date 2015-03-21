@@ -10,5 +10,6 @@ namespace Website.Foundation.Repositories
         int GetTotalOr(Website.Foundation.Container.UserSearch searchItem);
         bool IsEmailExist(string email);
         bool IsUserNameExist(string userName);
+        IUser GetByUserName(string userName);
     }
 }

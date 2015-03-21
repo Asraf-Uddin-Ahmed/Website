@@ -1,5 +1,6 @@
 ﻿using Ninject;
 using Ninject.Extensions.Logging;
+using Ratul.Mvc;
 using Ratul.Utility;
 using System;
 using System.Collections.Generic;
@@ -20,24 +21,28 @@ namespace Website.Web.Codes
         private ILogger _logger;
         private IUserFactory _userFactory;
         private IUserRepository _userRepository;
+        private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
             IUserFactory userFactory,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ISettingsRepository settingsRepository)
         {
             _logger = logger;
             _userFactory = userFactory;
             _userRepository = userRepository;
+            _settingsRepository = settingsRepository;
         }
 
         public IUser CreateUser(UserCreationData data)
         {
-            IUser user = null;
             try
             {
-                user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, data.UserStatus);
-                if(data.HasVerificationCode)
+                IUser user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, UserStatus.Active);
+                if (data.HasVerificationCode)
                 {
+                    user.Status = UserStatus.Unverified;
+
                     IUserVerification userVerification = NinjectWebCommon.GetConcreteInstance<IUserVerification>();
                     userVerification.CreationTime = DateTime.UtcNow;
                     userVerification.VerificationCode = UserUtility.GetNewVerificationCode();
@@ -46,65 +51,46 @@ namespace Website.Web.Codes
                     user.UserVerifications.Add((UserVerification)userVerification);
                 }
                 _userRepository.Add(user);
+                return user;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Failed to create user with parameters: usernmae={0}, mobile={1}, email={2}", data.UserName, data.Email, data.TypeOfUser);
+                return null;
             }
-            return user;
         }
 
-        //public LoginStatus UserLogin(string username, string password)
-        //{
-        //    LoginStatus status = LoginStatus.Processing;
+        public LoginStatus ProcessLogin(string userName, string password)
+        {
+            try
+            {
+                IUser user = _userRepository.GetByUserName(userName);
+                if (user == null)
+                    return LoginStatus.InvalidLogin;
 
-        //    try
-        //    {
-        //        IUser user = null;
-        //        user = GetUserByUsername(username);
+                if (!user.DecryptedPassword.Equals(password))
+                {
+                    ProcessInvalidLogin(user);
+                    return LoginStatus.InvalidLogin;
+                }
 
-        //        if (user != null)
-        //        {
-        //            if (user.MatchPassword(password))
-        //            {
-        //                if (user.Status == UserStatus.Active)
-        //                {
-        //                    user.LastLogin = DateTime.UtcNow;
-        //                    user.WrongPasswordAttempt = 0;
-        //                    status = LoginStatus.Successful;
-        //                    SetUserInSession(user);
-        //                }
-        //                else if (user.Status == UserStatus.Blocked)
-        //                    return LoginStatus.AccountInactive;
-        //                else if (user.Status == UserStatus.Unverified)
-        //                    return LoginStatus.Unverified;
-        //            }
-        //            else
-        //            {
-        //                user.LastWrongPasswordAttempt = DateTime.UtcNow;
-        //                user.WrongPasswordAttempt++;
-        //                if (user.WrongPasswordAttempt > int.Parse(_settingsService.GetSettingsValue("max_password_mistake")))
-        //                    user.Status = UserStatus.Blocked;
-
-        //                status = LoginStatus.InvalidLogin;
-        //            }
-
-        //            _unitOfwork.MarkDirty(user);
-        //            _unitOfwork.Commit();
-        //        }
-        //        else
-        //            status = LoginStatus.InvalidLogin;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        status = LoginStatus.Failed;
-
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "UserLogin", ex,
-        //            string.Format("Failed to login with the following parameters : username={0}, password={1}", username, password));
-        //    }
-
-        //    return status;
-        //}
+                if (user.Status == UserStatus.Active)
+                {
+                    ProcessValidLogin(user);
+                    return LoginStatus.Successful;
+                }
+                if (user.Status == UserStatus.Blocked)
+                    return LoginStatus.Blocked;
+                if (user.Status == UserStatus.Unverified)
+                    return LoginStatus.Unverified;
+                return LoginStatus.InvalidLogin;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to login with the following parameters : username={0}, password={1}", userName, password);
+                return LoginStatus.Failed;
+            }
+        }
 
         //public void ReloadIdentity(string username)
         //{
@@ -448,5 +434,23 @@ namespace Website.Web.Codes
         //        return false;
         //    }
         //}
+
+
+        private void ProcessInvalidLogin(IUser user)
+        {
+            user.LastWrongPasswordAttempt = DateTime.UtcNow;
+            user.WrongPasswordAttempt++;
+            int maxPasswordMistake = int.Parse(_settingsRepository.GetValueByName("max_password_mistake"));
+            if (user.WrongPasswordAttempt > maxPasswordMistake)
+                user.Status = UserStatus.Blocked;
+            _userRepository.Update(user);
+        }
+        public void ProcessValidLogin(IUser user)
+        {
+            user.LastLogin = DateTime.UtcNow;
+            user.WrongPasswordAttempt = 0;
+            _userRepository.Update(user);
+            UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
+        }
     }
 }

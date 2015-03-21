@@ -20,8 +20,13 @@ namespace Website.Web.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController(ILogger logger) : base(logger)
-        { }
+        IMembershipService _membershipService;
+        public AccountController(ILogger logger,
+            IMembershipService membershipService)
+            : base(logger)
+        {
+            _membershipService = membershipService;
+        }
 
         //
         // GET: /Account/Login
@@ -43,8 +48,10 @@ namespace Website.Web.Controllers
             {
                 return View(model);
             }
-            UserSession.CurrentUser = new Ratul.Mvc.UserIdentity(Guid.NewGuid(), UserType.Admin.ToString(), "AdMe");
-            return RedirectToAction("Index", "Home");
+            LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
+            if(loginStatus == LoginStatus.Successful)
+                return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
         //
