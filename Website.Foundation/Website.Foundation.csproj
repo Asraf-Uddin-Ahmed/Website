@@ -60,6 +60,7 @@
     <Compile Include="Container\UserCreationData.cs" />
     <Compile Include="Container\UserSearch.cs" />
     <Compile Include="Enums\LoginStatus.cs" />
+    <Compile Include="Enums\SettingsName.cs" />
     <Compile Include="Enums\SettingsType.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\UserType.cs" />
@@ -68,6 +69,11 @@
     <Compile Include="Helpers\IRepositorySearchHelper.cs" />
     <Compile Include="Helpers\RepositorySearchHelper.cs" />
     <Compile Include="ITableContext.cs" />
+    <Compile Include="Migrations\201503210843158_InitialCreate.cs" />
+    <Compile Include="Migrations\201503210843158_InitialCreate.Designer.cs">
+      <DependentUpon>201503210843158_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NinjectFoundationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IBaseEfRepository.cs" />
@@ -92,6 +98,11 @@
       <Project>{bd432f12-90b9-428b-af6d-eeb83e8898b0}</Project>
       <Name>Ratul.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503210843158_InitialCreate.resx">
+      <DependentUpon>201503210843158_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
