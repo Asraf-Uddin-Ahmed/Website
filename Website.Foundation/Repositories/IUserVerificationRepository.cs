@@ -9,5 +9,9 @@ namespace Website.Foundation.Repositories
 {
     public interface IUserVerificationRepository : IBaseEfRepository<UserVerification>
     {
+        IUserVerification GetByVerificationCode(string verificationCode);
+        bool IsVerificationCodeExist(string verificationCode);
+        void RemoveByVerificationCode(string verificationCode);
+        void RemoveByUserID(Guid userID);
     }
 }

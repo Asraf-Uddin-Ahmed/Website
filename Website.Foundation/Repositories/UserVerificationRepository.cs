@@ -35,6 +35,10 @@ namespace Website.Foundation.Repositories
             IUserVerification userVerification = GetByVerificationCode(verificationCode);
             Remove(userVerification);
         }
-        
+        public void RemoveByUserID(Guid userID)
+        {
+            _context.UserVerifications.RemoveRange(_context.UserVerifications.Where(c => c.UserID == userID));
+            _context.SaveChanges();
+        }
     }
 }
