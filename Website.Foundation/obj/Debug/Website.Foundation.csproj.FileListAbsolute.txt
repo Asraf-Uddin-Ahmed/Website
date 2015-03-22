@@ -52,3 +52,4 @@ E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.dll
 E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.pdb
 G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.Migrations.InitialCreate.resources
 G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csproj.GenerateResource.Cache
+G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.Migrations.PasswordVerification.resources

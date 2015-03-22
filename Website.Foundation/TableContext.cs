@@ -18,6 +18,7 @@ namespace Website.Foundation
         public DbSet<User> Users { get; set; }
         public DbSet<UserVerification> UserVerifications { get; set; }
         public DbSet<Settings> Settings { get; set; }
+        public DbSet<PasswordVerification> PasswordVerifications { get; set; }
 
     }
 }

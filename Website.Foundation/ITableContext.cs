@@ -8,5 +8,6 @@ namespace Website.Foundation
         DbSet<Settings> Settings { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<UserVerification> UserVerifications { get; set; }
+        DbSet<PasswordVerification> PasswordVerifications { get; set; }
     }
 }

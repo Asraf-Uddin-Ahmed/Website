@@ -20,19 +20,19 @@ namespace Website.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private IUserRepository _ur;
         private ILogger _logger;
         [Inject]
-        public HomeController(IUserRepository ur, ILogger logger)
+        public HomeController(ILogger logger)
             : base(logger)
         {
-            _ur = ur;
             _logger = logger;
         }
 
         public ActionResult Index()
         {
             IMembershipService ms = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
+            IPasswordVerificationRepository pvr = NinjectWebCommon.GetConcreteInstance<IPasswordVerificationRepository>();
+            pvr.RemoveByUserID(new Guid("975ce24c-a6cf-e411-be77-00266c4ad03f"));
             return View();
         }
 
