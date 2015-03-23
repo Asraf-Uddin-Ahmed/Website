@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using Newtonsoft.Json;
+using Ninject;
 using Ninject.Extensions.Logging;
 using Ratul.Mvc;
 using Ratul.Utility;
@@ -21,21 +22,38 @@ namespace Website.Web.Codes
         private ILogger _logger;
         private IUserFactory _userFactory;
         private IUserRepository _userRepository;
+        private IUserVerificationRepository _userVerificationRepository;
+        private IRegexUtility _regexUtility;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
             IUserFactory userFactory,
             IUserRepository userRepository,
+            IUserVerificationRepository userVerificationRepository,
+            IRegexUtility regexUtility,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
             _userFactory = userFactory;
             _userRepository = userRepository;
+            _userVerificationRepository = userVerificationRepository;
+            _regexUtility = regexUtility;
             _settingsRepository = settingsRepository;
         }
 
         public IUser CreateUser(UserCreationData data)
         {
+            if (data == null)
+                throw new ArgumentException("UserCreationData is missing");
+            if (string.IsNullOrEmpty(data.Email))
+                throw new ArgumentException("Email address is missing");
+            if (!_regexUtility.IsEmailValid(data.Email))
+                throw new ArgumentException("Email address is invalid");
+            if (string.IsNullOrEmpty(data.UserName))
+                throw new ArgumentException("UserName is missing");
+            if (string.IsNullOrEmpty(data.Password))
+                throw new ArgumentException("Password is missing");
+            
             try
             {
                 IUser user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, UserStatus.Active);
@@ -92,334 +110,239 @@ namespace Website.Web.Codes
             }
         }
 
-        ///// <summary>
-        ///// Checks whether the email address is already used by any registered user
-        ///// </summary>
-        ///// <param name="email">The email to check</param>
-        ///// <returns>If the email is already in use, it returns true, otherwise it returns false</returns>
-        //public bool IsEmailAddressAlreadyInUse(string email)
-        //{
-        //    if (string.IsNullOrEmpty(email))
-        //        throw new ArgumentException("Email address is missing");
-        //    if (!_regExUtil.IsEmail(email))
-        //        throw new ArgumentException("Email address is invalid");
-        //    try
-        //    {
-        //        IUser user = _userRepository.GetByEmail(email);
-        //        if (user != null)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "CreateUser", ex,
-        //            string.Format("Failed to check email address: email={0}", email));
+        public bool IsEmailAddressAlreadyInUse(string email)
+        {
+            try
+            {
+                bool isExist = _userRepository.IsEmailExist(email);
+                return isExist;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to check email address: email={0}", email);
+                return false;
+            }
+        }
 
-        //        throw;
-        //    }
-        //    return false;
-        //}
+        public bool IsUserNameAlreadyInUse(string userName)
+        {
+            try
+            {
+                bool isExist = _userRepository.IsUserNameExist(userName);
+                return isExist;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to get user by username with parameters: username={0}", userName);
+                return false;
+            }
+        }
 
-        //public bool IsUsernameAlreadyInUse(string username)
-        //{
-        //    try
-        //    {
-        //        IUser user = _userRepository.GetByUsername(username);
-        //        return user != null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "IsUsernameAlreadyInUse", ex,
-        //            string.Format("Failed to get user by username with parameters: username={0}", username));
+        /// <summary>
+        /// If the verification code is found, the user email associated with the verification
+        /// code will be moved from Unverified to Active. But if the user is Blocked, then
+        /// no change will occure.
+        /// </summary>
+        /// <param name="verificationCode">The verification code sent in email</param>
+        /// <returns></returns>
+        public AccountVerificationStatus VerifyUser(string verificationCode)
+        {
+            if (string.IsNullOrEmpty(verificationCode))
+                throw new ArgumentException("Verification code is missing");
 
-        //        return false;
-        //    }
-        //}
+            try
+            {
+                IUserVerification verification = _userVerificationRepository.GetByVerificationCode(verificationCode);
+                if (verification == null)
+                    return AccountVerificationStatus.VerificationCodeDoesNotExist;
 
-        ///// <summary>
-        ///// If the verification code is found, the user email associated with the verification
-        ///// code will be moved from Unverified to Active. But if the user is Blocked, then
-        ///// no change will occure.
-        ///// </summary>
-        ///// <param name="verificationCode">The verification code sent in email</param>
-        ///// <returns>If the verification process is successful returns true, otherwise false.</returns>
-        //public AccountVerificationStatus VerifyUser(string verificationCode)
-        //{
-        //    if (string.IsNullOrEmpty(verificationCode))
-        //        throw new ArgumentException("Verification code is missing");
+                IUser user = GetUser(verification.UserID);
+                if (user != null && user.Status != UserStatus.Blocked)
+                {
+                    user.Status = UserStatus.Active;
+                    _userRepository.Update(user);
+                    _userVerificationRepository.RemoveByUserID(user.ID);
+                    return AccountVerificationStatus.Success;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to verify user with verificationCode: {0}", verificationCode);
+            }
+            return AccountVerificationStatus.Fail;
+        }
 
-        //    try
-        //    {
-        //        IUserVerification verification = GetVerification(verificationCode);
-        //        if (verification != null)
-        //        {
-        //            if (DateTime.UtcNow.Subtract(verification.CreatedOn).TotalDays <= 7)
-        //            {
-        //                IUser user = GetUser(verification.UserID);
-        //                if (user != null)
-        //                {
-        //                    user.Status = UserStatus.Active;
-        //                    _unitOfwork.MarkDirty(user);
-        //                    _unitOfwork.Commit();
-        //                    return AccountVerificationStatus.Success;
-        //                }
-        //                else
-        //                    return AccountVerificationStatus.VerificationCodeDoesNotExist;
-        //            }
-        //            else
-        //                return AccountVerificationStatus.VerificationCodeExpired;
-        //        }
-        //        else
-        //            return AccountVerificationStatus.VerificationCodeDoesNotExist;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "VerifyUser",
-        //            ex, "Failed to verify user with verificationCode : " + verificationCode);
+        public IUserVerification GetUserVerification(string verificationCode)
+        {
+            if (string.IsNullOrEmpty(verificationCode))
+                throw new ArgumentException("Verification code is missing");
 
-        //        return AccountVerificationStatus.Fail;
-        //    }
-        //}
+            try
+            {
+                return _userVerificationRepository.GetByVerificationCode(verificationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to get verification with verificationCode: {0}", verificationCode);
+                return null;
+            }
+        }
 
-        //public IUserVerification GetVerification(string verificationCode)
-        //{
-        //    if (string.IsNullOrEmpty(verificationCode))
-        //        throw new ArgumentException("Verification code is missing");
+        public IUser GetUserByUserName(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                throw new ArgumentException("Username is missing");
 
-        //    try
-        //    {
-        //        return _userVerificationRepository.GetByVerificationCode(verificationCode);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "GetVerification",
-        //            ex, "Failed to get verification with verificationCode: " + verificationCode);
+            try
+            {
+                return _userRepository.GetByUserName(userName);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to get user by username with UserName : {0}", userName);
+                return null;
+            }
+        }
 
-        //        return null;
-        //    }
-        //}
+        public IUser GetUserByEmail(string email)
+        {
+            try
+            {
+                return _userRepository.GetByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to get user by email with Email: {0}", email);
+                return null;
+            }
+        }
 
-        //public IUser GetUserByUsername(string username)
-        //{
-        //    if (string.IsNullOrEmpty(username))
-        //        throw new ArgumentException("Username is missing");
-
-        //    try
-        //    {
-        //        return _userRepository.GetByUsername(username);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "UserLogin", ex,
-        //            string.Format("Failed to get user by Username with parameter: usernmae={0}", username));
-
-        //        return null;
-        //    }
-        //}
-
-        //public IUser GetUserByEmail(string email)
-        //{
-        //    if (string.IsNullOrEmpty(email))
-        //        throw new ArgumentException("Email address is missing");
-        //    if (!_regExUtil.IsEmail(email))
-        //        throw new ArgumentException("Email address is invalid");
-
-        //    try
-        //    {
-        //        return _userRepository.GetByEmail(email);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "GetUserByEmail",
-        //            ex, "Failed to get user by email with email: " + email);
-
-        //        return null;
-        //    }
-        //}
-
-        //public IUser GetUser(Guid userID)
-        //{
-        //    try
-        //    {
-        //        return (IUser)_userRepository.Get(userID);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "GetUser", ex,
-        //            string.Format("Failed to get user with parameters: userID={0}", userID));
-
-        //        return null;
-        //    }
-        //}
-
-        //public IUser GetUser(IUser user, Guid userID)
-        //{
-        //    try
-        //    {
-        //        return (IUser)_userRepository.Get(userID, user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "GetUser", ex,
-        //            string.Format("Failed to get user with parameters: userID={0}", userID));
-
-        //        return null;
-        //    }
-        //}
+        public IUser GetUser(Guid userID)
+        {
+            try
+            {
+                return (IUser)_userRepository.Get(userID);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to get user with parameters: userID={0}", userID);
+                return null;
+            }
+        }
 
 
-        //public ICollection<IUser> GetUsers(UserSearch search, int pageIndex, int pageSize, ICollection<SortElement> sorts)
-        //{
-        //    if (search == null)
-        //        throw new ArgumentNullException("search", "Search parameter is missing");
-        //    if (pageIndex < 0 || pageSize < 0)
-        //        throw new ArgumentException("pageIndex", "PagedIndex in negetive");
-        //    if (sorts == null)
-        //        throw new ArgumentNullException("sorts", "sorts parameter is missing");
+        public ICollection<IUser> GetUsers(UserSearch search, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
+        {
+            if (search == null)
+                throw new ArgumentNullException("search", "Search parameter is missing");
+            if (pageNumber < 0 || pageSize < 0)
+                throw new ArgumentException("Invalid pageNumber and pageSize");
+            
+            try
+            {
+                List<IUser> result = _userRepository.GetPagedAnd(search, pageNumber, pageSize, orderBy).Cast<IUser>().ToList<IUser>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to Get Users with values: search={0}, pageNumber={1}, pageSize={2}, sort={3}",
+                    JsonConvert.SerializeObject(search), pageNumber, pageSize, JsonConvert.SerializeObject(orderBy));
+                return null;
+            }
+        }
 
-        //    try
-        //    {
-        //        var result = _userRepository.GetAllPaged(pageIndex, pageSize, search, sorts).Cast<IUser>().ToList<IUser>();
+        public bool BlockUser(Guid userID)
+        {
+            try
+            {
+                IUser user = GetUser(userID);
+                if (user == null)
+                    return false;
+                user.Status = UserStatus.Blocked;
+                _userRepository.Update(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to Block User with userID: {0}", userID);
+                return false;
+            }
+        }
 
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "GetUsers",
-        //            ex, string.Format("Failed to Get Users with values: search={0}, pageIndex={1}, pageSize={2}, sort={3}",
-        //            JsonConvert.SerializeObject(search), pageIndex, pageSize, JsonConvert.SerializeObject(sorts)));
+        public bool UnblockUser(Guid userID)
+        {
+            try
+            {
+                IUser user = GetUser(userID);
+                if (user == null)
+                    return false;
+                user.Status = UserStatus.Active;
+                _userRepository.Update(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to Un-Block User with userID: {0}", userID);
+                return false;
+            }
+        }
 
-        //        return null;
-        //    }
-        //}
+        public bool DeleteUser(Guid userID)
+        {
+            try
+            {
+                _userRepository.Remove(userID);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to Delete User with userID: {0}", userID);
+                return false;
+            }
+        }
 
-        //public bool BlockUser(Guid userID)
-        //{
-        //    try
-        //    {
-        //        IUser user = GetUser(userID);
+        public bool ChangeUserPassword(Guid userID, string oldPassword, string newPassword)
+        {
+            if (userID == Guid.Empty)
+                throw new ArgumentException("userID is invalid");
+            if (string.IsNullOrEmpty(oldPassword))
+                throw new ArgumentNullException("oldPassword");
+            if (string.IsNullOrEmpty(newPassword))
+                throw new ArgumentNullException("newPassword");
 
-        //        if (user == null)
-        //            return false;
+            try
+            {
+                IUser user = GetUser(userID);
+                if (user == null || user.DecryptedPassword != oldPassword)
+                    return false;
+                
+                user.EncryptedPassword = CryptographicUtility.Encrypt(newPassword, user.ID);
+                _userRepository.Update(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to ChangeUserPassword with values: userID={0}, oldPassword={1}, newPassword={2}", userID, oldPassword, newPassword);
+                return false;
+            }
 
-        //        user.Status = UserStatus.Blocked;
+        }
 
-        //        _unitOfwork.MarkDirty(user);
-        //        _unitOfwork.Commit();
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "BlockUser",
-        //            ex, string.Format("Failed to Block User with values: userID={0}", userID));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool UnblockUser(Guid userID)
-        //{
-        //    try
-        //    {
-        //        IUser user = GetUser(userID);
-
-        //        if (user == null)
-        //            return false;
-
-        //        user.Status = UserStatus.Active;
-
-        //        _unitOfwork.MarkDirty(user);
-        //        _unitOfwork.Commit();
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "UnblockUser",
-        //            ex, string.Format("Failed to Un-Block User with values: userID={0}", userID));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool DeleteUser(Guid userID)
-        //{
-        //    try
-        //    {
-        //        IUser user = GetUser(userID);
-
-        //        if (user == null)
-        //            return false;
-
-        //        _unitOfwork.MarkDeleted(user);
-        //        _unitOfwork.Commit();
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "DeleteUser",
-        //            ex, string.Format("Failed to Delete User with values: userID={0}", userID));
-
-        //        return false;
-        //    }
-        //}
-
-        //public bool ChangeUserPassword(Guid userID, string oldPassword, string newPassword)
-        //{
-        //    if (userID == Guid.Empty)
-        //        throw new ArgumentException("userID is invalid");
-        //    if (string.IsNullOrEmpty(oldPassword))
-        //        throw new ArgumentNullException("oldPassword");
-        //    if (string.IsNullOrEmpty(newPassword))
-        //        throw new ArgumentNullException("newPassword");
-
-        //    try
-        //    {
-        //        IUser user = GetUser(userID);
-
-        //        if (user == null)
-        //            return false;
-
-        //        user.SetPassword(newPassword, oldPassword);
-        //        _unitOfwork.MarkDirty(user);
-        //        _unitOfwork.Commit();
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "ChangeUserPassword",
-        //            ex, string.Format("Failed to ChangeUserPassword with values: userID={0}, oldPassword={1}, newPassword={2}",
-        //            userID, oldPassword, newPassword));
-
-        //        return false;
-        //    }
-
-        //}
-
-        //public bool UpdateUserInformation(IUser user)
-        //{
-        //    if (user == null)
-        //        return false;
-
-        //    try
-        //    {
-        //        _unitOfwork.MarkDirty(user);
-        //        _unitOfwork.Commit();
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logFactory.Create().WriteLog(LogType.HandledLog, this.GetType().Name, "UpdateUserInformation",
-        //            ex, string.Format("Failed to UpdateUserInformation with values: user={0}", JsonConvert.SerializeObject(user)));
-
-        //        return false;
-        //    }
-        //}
+        public bool UpdateUserInformation(IUser user)
+        {
+            if (user == null)
+                return false;
+            try
+            {
+                _userRepository.Update(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to UpdateUserInformation with values: user={0}", JsonConvert.SerializeObject(user));
+                return false;
+            }
+        }
 
 
         private void ProcessInvalidLogin(IUser user)

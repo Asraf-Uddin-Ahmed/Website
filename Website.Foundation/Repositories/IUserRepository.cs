@@ -11,5 +11,6 @@ namespace Website.Foundation.Repositories
         bool IsEmailExist(string email);
         bool IsUserNameExist(string userName);
         IUser GetByUserName(string userName);
+        IUser GetByEmail(string email);
     }
 }

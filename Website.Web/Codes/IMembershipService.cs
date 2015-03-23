@@ -6,5 +6,7 @@ namespace Website.Web.Codes
     {
         Website.Foundation.Aggregates.IUser CreateUser(Website.Foundation.Container.UserCreationData data);
         LoginStatus ProcessLogin(string userName, string password);
+        bool IsEmailAddressAlreadyInUse(string email);
+        bool IsUserNameAlreadyInUse(string userName);
     }
 }

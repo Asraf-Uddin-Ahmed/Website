@@ -39,6 +39,11 @@ namespace Website.Foundation.Repositories
             IUser user = _context.Users.FirstOrDefault(col => col.UserName == userName);
             return user;
         }
+        public IUser GetByEmail(string email)
+        {
+            IUser user = _context.Users.FirstOrDefault(col => col.EmailAddress == email);
+            return user;
+        }
 
         private Func<IUser, bool> GetAndSearchCondition(UserSearch searchItem)
         {

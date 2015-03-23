@@ -64,6 +64,7 @@
     <Compile Include="Enums\LoginStatus.cs" />
     <Compile Include="Enums\SettingsName.cs" />
     <Compile Include="Enums\SettingsType.cs" />
+    <Compile Include="Enums\AccountVerificationStatus.cs" />
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Factory\IUserFactory.cs" />
