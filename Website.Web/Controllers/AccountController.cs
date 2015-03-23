@@ -152,7 +152,14 @@ namespace Website.Web.Controllers
             return View();
         }
 
-
+        //
+        // GET: /Account/Logout
+        [AllowAnonymous]
+        public ActionResult Logout()
+        {
+            UserSession.Clear();
+            return RedirectToAction("Login");
+        }
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
