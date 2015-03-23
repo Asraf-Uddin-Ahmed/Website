@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web;
 using System.Web.Hosting;
 using System.Configuration;
+using Ratul.Utility;
 
 namespace Website.Web.Codes
 {
@@ -13,6 +14,9 @@ namespace Website.Web.Codes
     {
         public override void Load()
         {
+            // OTHER
+            Bind<IRegexUtility>().To<RegexUtility>();
+
             // SERVICE
             Bind<IMembershipService>().To<MembershipService>();
             

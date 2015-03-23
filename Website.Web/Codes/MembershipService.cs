@@ -92,20 +92,6 @@ namespace Website.Web.Codes
             }
         }
 
-        //public void ReloadIdentity(string username)
-        //{
-        //    UserIdentity identity = (UserIdentity)HttpContext.Current.Session["CurrentUser"];
-        //    if (identity == null && HttpContext.Current.Request.IsAuthenticated)
-        //    {
-        //        IUser user = _userRepository.GetByUsername(username);
-
-        //        if (user != null)
-        //        {
-        //            SetUserInSession(user);
-        //        }
-        //    }
-        //}
-
         ///// <summary>
         ///// Checks whether the email address is already used by any registered user
         ///// </summary>
