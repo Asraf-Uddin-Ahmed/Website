@@ -13,6 +13,7 @@ using Website.Foundation.Container;
 using Website.Foundation.Enums;
 using Website.Foundation.Factory;
 using Website.Foundation.Repositories;
+using Website.Foundation.Services;
 using Website.Web.App_Start;
 
 namespace Website.Web.Codes
@@ -20,22 +21,28 @@ namespace Website.Web.Codes
     public class MembershipService : IMembershipService
     {
         private ILogger _logger;
+        private IPasswordVerificationRepository _passwordVerificationRepository;
         private IUserFactory _userFactory;
         private IUserRepository _userRepository;
+        private IUserService _userService;
         private IUserVerificationRepository _userVerificationRepository;
         private IRegexUtility _regexUtility;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
+            IPasswordVerificationRepository passwordVerificationRepository,
             IUserFactory userFactory,
             IUserRepository userRepository,
+            IUserService userService,
             IUserVerificationRepository userVerificationRepository,
             IRegexUtility regexUtility,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
+            _passwordVerificationRepository = passwordVerificationRepository;
             _userFactory = userFactory;
             _userRepository = userRepository;
+            _userService = userService;
             _userVerificationRepository = userVerificationRepository;
             _regexUtility = regexUtility;
             _settingsRepository = settingsRepository;
@@ -82,7 +89,7 @@ namespace Website.Web.Codes
         {
             try
             {
-                IUser user = _userRepository.GetByUserName(userName);
+                IUser user = _userService.GetUserByUserName(userName);
                 if (user == null)
                     return LoginStatus.InvalidLogin;
 
@@ -110,42 +117,14 @@ namespace Website.Web.Codes
             }
         }
 
-        public bool IsEmailAddressAlreadyInUse(string email)
-        {
-            try
-            {
-                bool isExist = _userRepository.IsEmailExist(email);
-                return isExist;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to check email address: email={0}", email);
-                return false;
-            }
-        }
-
-        public bool IsUserNameAlreadyInUse(string userName)
-        {
-            try
-            {
-                bool isExist = _userRepository.IsUserNameExist(userName);
-                return isExist;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to get user by username with parameters: username={0}", userName);
-                return false;
-            }
-        }
-
         /// <summary>
         /// If the verification code is found, the user email associated with the verification
         /// code will be moved from Unverified to Active. But if the user is Blocked, then
-        /// no change will occure.
+        /// no change will occure. All user verification code will removed after successful activation.
         /// </summary>
         /// <param name="verificationCode">The verification code sent in email</param>
         /// <returns></returns>
-        public AccountVerificationStatus VerifyUser(string verificationCode)
+        public VerificationStatus VerifyForUserStatus(string verificationCode)
         {
             if (string.IsNullOrEmpty(verificationCode))
                 throw new ArgumentException("Verification code is missing");
@@ -154,112 +133,62 @@ namespace Website.Web.Codes
             {
                 IUserVerification verification = _userVerificationRepository.GetByVerificationCode(verificationCode);
                 if (verification == null)
-                    return AccountVerificationStatus.VerificationCodeDoesNotExist;
+                    return VerificationStatus.VerificationCodeDoesNotExist;
 
-                IUser user = GetUser(verification.UserID);
+                IUser user = _userService.GetUser(verification.UserID);
                 if (user != null && user.Status != UserStatus.Blocked)
                 {
                     user.Status = UserStatus.Active;
-                    _userRepository.Update(user);
+                    _userService.UpdateUserInformation(user);
                     _userVerificationRepository.RemoveByUserID(user.ID);
-                    return AccountVerificationStatus.Success;
+                    return VerificationStatus.Success;
                 }
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Failed to verify user with verificationCode: {0}", verificationCode);
             }
-            return AccountVerificationStatus.Fail;
+            return VerificationStatus.Fail;
         }
-
-        public IUserVerification GetUserVerification(string verificationCode)
+        /// <summary>
+        /// If the verification code is found and the user is notBlocked, then
+        /// all user verification code will removed before returning success.
+        /// </summary>
+        /// <param name="verificationCode">The verification code sent in email</param>
+        /// <returns></returns>
+        public VerificationStatus VerifyForPasswordChange(string verificationCode)
         {
             if (string.IsNullOrEmpty(verificationCode))
                 throw new ArgumentException("Verification code is missing");
 
             try
             {
-                return _userVerificationRepository.GetByVerificationCode(verificationCode);
+                IPasswordVerification verification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
+                if (verification == null)
+                    return VerificationStatus.VerificationCodeDoesNotExist;
+
+                IUser user = _userService.GetUser(verification.UserID);
+                if (user != null && user.Status != UserStatus.Blocked)
+                {
+                    _passwordVerificationRepository.RemoveByUserID(user.ID);
+                    return VerificationStatus.Success;
+                }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Failed to get verification with verificationCode: {0}", verificationCode);
-                return null;
+                _logger.Error(ex, "Failed to verify user with verificationCode: {0}", verificationCode);
             }
+            return VerificationStatus.Fail;
         }
-
-        public IUser GetUserByUserName(string userName)
-        {
-            if (string.IsNullOrEmpty(userName))
-                throw new ArgumentException("Username is missing");
-
-            try
-            {
-                return _userRepository.GetByUserName(userName);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to get user by username with UserName : {0}", userName);
-                return null;
-            }
-        }
-
-        public IUser GetUserByEmail(string email)
-        {
-            try
-            {
-                return _userRepository.GetByEmail(email);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to get user by email with Email: {0}", email);
-                return null;
-            }
-        }
-
-        public IUser GetUser(Guid userID)
-        {
-            try
-            {
-                return (IUser)_userRepository.Get(userID);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to get user with parameters: userID={0}", userID);
-                return null;
-            }
-        }
-
-
-        public ICollection<IUser> GetUsers(UserSearch search, int pageNumber, int pageSize, Func<IUser, dynamic> orderBy)
-        {
-            if (search == null)
-                throw new ArgumentNullException("search", "Search parameter is missing");
-            if (pageNumber < 0 || pageSize < 0)
-                throw new ArgumentException("Invalid pageNumber and pageSize");
-            
-            try
-            {
-                List<IUser> result = _userRepository.GetPagedAnd(search, pageNumber, pageSize, orderBy).Cast<IUser>().ToList<IUser>();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to Get Users with values: search={0}, pageNumber={1}, pageSize={2}, sort={3}",
-                    JsonConvert.SerializeObject(search), pageNumber, pageSize, JsonConvert.SerializeObject(orderBy));
-                return null;
-            }
-        }
-
         public bool BlockUser(Guid userID)
         {
             try
             {
-                IUser user = GetUser(userID);
+                IUser user = _userService.GetUser(userID);
                 if (user == null)
                     return false;
                 user.Status = UserStatus.Blocked;
-                _userRepository.Update(user);
+                _userService.UpdateUserInformation(user);
                 return true;
             }
             catch (Exception ex)
@@ -273,30 +202,16 @@ namespace Website.Web.Codes
         {
             try
             {
-                IUser user = GetUser(userID);
+                IUser user = _userService.GetUser(userID);
                 if (user == null)
                     return false;
                 user.Status = UserStatus.Active;
-                _userRepository.Update(user);
+                _userService.UpdateUserInformation(user);
                 return true;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Failed to Un-Block User with userID: {0}", userID);
-                return false;
-            }
-        }
-
-        public bool DeleteUser(Guid userID)
-        {
-            try
-            {
-                _userRepository.Remove(userID);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to Delete User with userID: {0}", userID);
                 return false;
             }
         }
@@ -312,12 +227,12 @@ namespace Website.Web.Codes
 
             try
             {
-                IUser user = GetUser(userID);
+                IUser user = _userService.GetUser(userID);
                 if (user == null || user.DecryptedPassword != oldPassword)
                     return false;
                 
                 user.EncryptedPassword = CryptographicUtility.Encrypt(newPassword, user.ID);
-                _userRepository.Update(user);
+                _userService.UpdateUserInformation(user);
                 return true;
             }
             catch (Exception ex)
@@ -327,24 +242,30 @@ namespace Website.Web.Codes
             }
 
         }
-
-        public bool UpdateUserInformation(IUser user)
+        public bool ChangeUserPassword(Guid userID, string newPassword)
         {
-            if (user == null)
-                return false;
+            if (userID == Guid.Empty)
+                throw new ArgumentException("userID is invalid");
+            if (string.IsNullOrEmpty(newPassword))
+                throw new ArgumentNullException("newPassword");
+
             try
             {
-                _userRepository.Update(user);
+                IUser user = _userService.GetUser(userID);
+                if (user == null)
+                    return false;
+
+                user.EncryptedPassword = CryptographicUtility.Encrypt(newPassword, user.ID);
+                _userService.UpdateUserInformation(user);
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Failed to UpdateUserInformation with values: user={0}", JsonConvert.SerializeObject(user));
+                _logger.Error(ex, "Failed to ChangeUserPassword with values: userID={0}, newPassword={1}", userID, newPassword);
                 return false;
             }
+
         }
-
-
         private void ProcessInvalidLogin(IUser user)
         {
             user.LastWrongPasswordAttempt = DateTime.UtcNow;
@@ -352,13 +273,13 @@ namespace Website.Web.Codes
             int maxPasswordMistake = int.Parse(_settingsRepository.GetValueByName("max_password_mistake"));
             if (user.WrongPasswordAttempt > maxPasswordMistake)
                 user.Status = UserStatus.Blocked;
-            _userRepository.Update(user);
+            _userService.UpdateUserInformation(user);
         }
         public void ProcessValidLogin(IUser user)
         {
             user.LastLogin = DateTime.UtcNow;
             user.WrongPasswordAttempt = 0;
-            _userRepository.Update(user);
+            _userService.UpdateUserInformation(user);
             UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
         }
     }

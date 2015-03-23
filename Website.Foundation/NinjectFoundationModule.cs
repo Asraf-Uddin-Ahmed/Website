@@ -7,6 +7,7 @@ using Website.Foundation.Aggregates;
 using Website.Foundation.Repositories;
 using Website.Foundation.Helpers;
 using Website.Foundation.Factory;
+using Website.Foundation.Services;
 
 namespace Website.Foundation
 {
@@ -37,6 +38,7 @@ namespace Website.Foundation
             // HELPER
 
             // SERVICE
+            Bind<IUserService>().To<UserService>();
 
         }
     }

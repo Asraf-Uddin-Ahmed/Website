@@ -45,7 +45,8 @@ namespace Website.Foundation.Aggregates
         public DateTime UpdateTime { get; set; }
 
 
-        public virtual ICollection<UserVerification> UserVerifications { get; set; }
+        public ICollection<UserVerification> UserVerifications { get; set; }
+        public ICollection<PasswordVerification> PasswordVerifications { get; set; }
 
 
         private string _decryptedPassword;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Website.Foundation.Enums
 {
-    public enum AccountVerificationStatus
+    public enum VerificationStatus
     {
         VerificationCodeDoesNotExist,
         Success,
