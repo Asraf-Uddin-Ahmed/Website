@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Website.Web.Models;
@@ -14,17 +13,21 @@ using Website.Web.Codes;
 using Website.Foundation.Enums;
 using Ratul.Mvc;
 using Ninject.Extensions.Logging;
+using Website.Foundation.Container;
+using Website.Foundation.Aggregates;
 
 namespace Website.Web.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
-        IMembershipService _membershipService;
+        private ILogger _logger;
+        private IMembershipService _membershipService;
         public AccountController(ILogger logger,
             IMembershipService membershipService)
             : base(logger)
         {
+            _logger = logger;
             _membershipService = membershipService;
         }
 
@@ -73,8 +76,18 @@ namespace Website.Web.Controllers
             {
                 return View(model);
             }
-
-            // If we got this far, something failed, redisplay form
+            try
+            {
+                IUser user = model.CreateUser();
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("Invalid Email", ex.Message);
+            }
+            catch(Exception ex)
+            {
+                _logger.Error(ex, "User failed to create: UserName={0}, Email={1}", model.Email, model.Email);
+            }
             return View(model);
         }
 
