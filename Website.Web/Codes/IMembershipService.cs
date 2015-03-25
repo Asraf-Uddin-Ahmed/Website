@@ -1,4 +1,5 @@
 ﻿using System;
+using Website.Foundation.Aggregates;
 namespace Website.Web.Codes
 {
     public interface IMembershipService
@@ -12,5 +13,6 @@ namespace Website.Web.Codes
         bool UnblockUser(Guid userID);
         Website.Foundation.Enums.VerificationStatus VerifyForPasswordChange(string verificationCode);
         Website.Foundation.Enums.VerificationStatus VerifyForUserStatus(string verificationCode);
+        IPasswordVerification ProcessForgotPassword();
     }
 }

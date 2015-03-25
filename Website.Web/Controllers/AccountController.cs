@@ -94,13 +94,22 @@ namespace Website.Web.Controllers
         //
         // GET: /Account/ConfirmUser
         [AllowAnonymous]
-        public ActionResult ConfirmUser(string userId, string code)
+        public ActionResult ConfirmUser(string code)
         {
-            if (userId == null || code == null)
+            try
             {
-                return View("Error");
+                VerificationStatus status = _membershipService.VerifyForUserStatus(code);
+                if(status == VerificationStatus.Success)
+                    ModelState.Add("Verification Success", new ModelState());
+                else
+                    ModelState.AddModelError("Verification Failed", "Verification Failed");
             }
-            return View();
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "User failed to verify: VerificationCode={0}", code);
+                ModelState.AddModelError("Verification Failed", "Verification Failed");
+            }
+            return RedirectToAction("Register");
         }
 
         //

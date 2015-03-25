@@ -150,6 +150,15 @@ namespace Website.Web.Codes
             }
             return VerificationStatus.Fail;
         }
+        public IPasswordVerification ProcessForgotPassword()
+        {
+            IPasswordVerification verification = NinjectWebCommon.GetConcreteInstance<IPasswordVerification>();
+            verification.CreationTime = DateTime.UtcNow;
+            verification.UserID = UserSession.CurrentUser.ID;
+            verification.VerificationCode = UserUtility.GetNewVerificationCode();
+            _passwordVerificationRepository.Add(verification);
+            return verification;
+        }
         /// <summary>
         /// If the verification code is found and the user is notBlocked, then
         /// all user verification code will removed before returning success.
