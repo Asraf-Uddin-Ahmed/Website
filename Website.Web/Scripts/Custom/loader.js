@@ -1,5 +1,5 @@
 ﻿
-Website__Name.ValidationMessage.Bootstrap = (function () {
+Website__Name.Loader = (function () {
 
     var objToReturn = {};
 
@@ -16,14 +16,14 @@ Website__Name.ValidationMessage.Bootstrap = (function () {
     var showLoader = function () {
         if ($('#overlay_with_loader').length == 0)
             initializeLoader("body");
-        $('#overlay_with_loader').show();
+        return $('#overlay_with_loader').show();
     }
 
     var hideLoader = function () {
         var objLoader = $('#overlay_with_loader');
         if (objLoader.length == 0)
             return;
-        objLoader.hide();
+        return objLoader.hide();
     }
 
 
