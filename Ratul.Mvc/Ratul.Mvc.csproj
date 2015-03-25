@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="AreaAuthorizeAttribute.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="Bootstrap\ActionResponse.cs" />
+    <Compile Include="Bootstrap\ActionResponseMessageType.cs" />
+    <Compile Include="Bootstrap\ValidationMessage.cs" />
     <Compile Include="UserIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
