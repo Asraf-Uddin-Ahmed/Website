@@ -1,4 +1,5 @@
 ﻿using Ratul.Mvc;
+using Ratul.Mvc.Bootstrap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace Website.Web.Codes
         private enum SessionKeys
         {
             CurrentUser,
-            UserTimeZoneOffsetInMinute,
+            ActionResponseMessage,
+            UserTimeZoneOffsetInMinute
         }
 
         public static void Clear()
@@ -33,6 +35,20 @@ namespace Website.Web.Codes
             set
             {
                 HttpContext.Current.Session[SessionKeys.CurrentUser.ToString()] = value;
+            }
+        }
+
+        public static ActionResponse ActionResponseMessage
+        {
+            get
+            {
+                ActionResponse result = (ActionResponse)HttpContext.Current.Session[SessionKeys.ActionResponseMessage.ToString()];
+                HttpContext.Current.Session[SessionKeys.ActionResponseMessage.ToString()] = null;
+                return result;
+            }
+            set
+            {
+                HttpContext.Current.Session[SessionKeys.ActionResponseMessage.ToString()] = value;
             }
         }
 
