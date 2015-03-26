@@ -33,6 +33,7 @@ namespace Ratul.Utility.Email
                 message.Subject = settings.Subject;
                 message.Body = settings.Body;
                 message.IsBodyHtml = settings.IsBodyHtml;
+                message.Priority = MailPriority.High;
                 _smtpClient.Send(message);
                 return true;
             }

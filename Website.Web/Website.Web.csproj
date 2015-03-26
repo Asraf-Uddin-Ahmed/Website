@@ -179,11 +179,27 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Codes\Helper\IUrlMakerHelper.cs" />
+    <Compile Include="Codes\Helper\UrlMakerHelper.cs" />
+    <Compile Include="Codes\Service\EmailService.cs" />
+    <Compile Include="Codes\Service\IEmailService.cs" />
     <Compile Include="Codes\Service\IMembershipService.cs" />
     <Compile Include="Codes\Service\IValidationMessageService.cs" />
     <Compile Include="Codes\Service\MembershipService.cs" />
     <Compile Include="Codes\Service\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />
+    <Compile Include="Codes\Template\EmailConfirmUser.cs">
+      <DependentUpon>EmailConfirmUser.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Codes\Template\EmailForgotPassword.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailForgotPassword.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Codes\Template\EmailConfirmUserExtended.cs" />
+    <Compile Include="Codes\Template\EmailForgotPasswordExtended.cs" />
     <Compile Include="Codes\UserSession.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -250,6 +266,14 @@
     <Content Include="Scripts\i18n\validationEngine\jquery.validationEngine-zh_CN.js" />
     <Content Include="Scripts\i18n\validationEngine\jquery.validationEngine-zh_TW.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Codes\Template\EmailForgotPassword.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EmailForgotPassword.cs</LastGenOutput>
+    </Content>
+    <Content Include="Codes\Template\EmailConfirmUser.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EmailConfirmUser.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -308,6 +332,9 @@
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

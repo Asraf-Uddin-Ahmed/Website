@@ -8,6 +8,7 @@ using Website.Foundation.Container;
 using Website.Foundation.Enums;
 using Website.Web.App_Start;
 using Website.Web.Codes;
+using Website.Web.Codes.Helper;
 using Website.Web.Codes.Service;
 
 namespace Website.Web.Models.Account
@@ -36,13 +37,22 @@ namespace Website.Web.Models.Account
             IUser user = membershipService.CreateUser(new UserCreationData()
             {
                 Email = this.Email,
-                HasVerificationCode = false,
+                HasVerificationCode = true,
                 Name = this.Email,
                 Password = this.Password,
                 TypeOfUser = UserType.Employee,
                 UserName = this.Email
             });
             return user;
+        }
+        public void SendCofirmEmailIfRequired(IUser user)
+        {
+            if(!user.UserVerifications.Any())
+                return;
+            IUrlMakerHelper urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerHelper>();
+            IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
+            string url = urlMakerHelper.GetUrlConfirmUser(user.UserVerifications.First().VerificationCode);
+            emailService.SendConfirmUser(user, url);
         }
     }
 }

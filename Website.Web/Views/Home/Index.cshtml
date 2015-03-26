@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Ratul.Mvc.Bootstrap
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -6,7 +7,7 @@
     <h1>Welcome Home</h1>
 </div>
 
-<div id="msg"></div>
+@Html.BootstrapValidationMessage(Website.Web.Codes.UserSession.ActionResponseMessage)
 
 <div>
     <a href="/Account/Login">Login</a> <br />

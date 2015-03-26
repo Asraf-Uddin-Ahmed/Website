@@ -1,9 +1,12 @@
-﻿@model Website.Web.Models.Account.RegisterViewModel
+﻿@using Ratul.Mvc.Bootstrap
+@model Website.Web.Models.Account.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
 
 <h2>@ViewBag.Title.</h2>
+
+@Html.BootstrapValidationMessage(Website.Web.Codes.UserSession.ActionResponseMessage)
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

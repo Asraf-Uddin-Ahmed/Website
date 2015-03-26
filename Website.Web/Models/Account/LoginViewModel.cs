@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Website.Foundation.Enums;
+using Website.Web.App_Start;
+using Website.Web.Codes.Service;
 
 namespace Website.Web.Models.Account
 {
@@ -20,5 +23,20 @@ namespace Website.Web.Models.Account
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public void StoreActionResponseMessageByLoginStatus(LoginStatus status)
+        {
+            IValidationMessageService validationMessageService = NinjectWebCommon.GetConcreteInstance<IValidationMessageService>();
+            if (status == LoginStatus.Blocked)
+                validationMessageService.StoreActionResponseMessageInfo("Your account has been blocked. Please contact with support.");
+            else if(status == LoginStatus.Failed)
+                validationMessageService.StoreActionResponseMessageError("Problem has been occurred while proccessing you requst. Please try again.");
+            else if(status == LoginStatus.InvalidLogin)
+                validationMessageService.StoreActionResponseMessageError("Incorrect Username or Password");
+            else if(status == LoginStatus.Successful)
+                validationMessageService.StoreActionResponseMessageSuccess("Login Successful");
+            else if(status == LoginStatus.Unverified)
+                validationMessageService.StoreActionResponseMessageError("Please confirm your email address.");
+        }
     }
 }

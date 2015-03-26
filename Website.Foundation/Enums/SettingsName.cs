@@ -13,6 +13,8 @@ namespace Website.Foundation.Enums
         EmailUserName,
         EmailPassword,
         EmailPort,
-        EmailEnableSSL
+        EmailEnableSSL,
+        SystemEmailAddress,
+        SystemEmailName
     }
 }

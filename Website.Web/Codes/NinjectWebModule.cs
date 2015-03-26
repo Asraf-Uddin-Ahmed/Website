@@ -8,6 +8,7 @@ using System.Web.Hosting;
 using System.Configuration;
 using Ratul.Utility;
 using Website.Web.Codes.Service;
+using Website.Web.Codes.Helper;
 
 namespace Website.Web.Codes
 {
@@ -21,8 +22,10 @@ namespace Website.Web.Codes
             // SERVICE
             Bind<IMembershipService>().To<MembershipService>();
             Bind<IValidationMessageService>().To<ValidationMessageService>();
+            Bind<IEmailService>().To<EmailService>();
             
             // HELPER
+            Bind<IUrlMakerHelper>().To<UrlMakerHelper>();
             
         }
     }

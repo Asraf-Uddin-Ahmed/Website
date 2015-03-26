@@ -56,12 +56,10 @@ namespace Website.Web.Controllers
                 _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
-            
             LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
-            if(loginStatus == LoginStatus.Successful)
+            model.StoreActionResponseMessageByLoginStatus(loginStatus);
+            if (loginStatus == LoginStatus.Successful)
                 return RedirectToAction("Index", "Home");
-
-            _validationMessageService.StoreActionResponseMessageError("Incorrect Username or Password");
             return View(model);
         }
 
@@ -82,18 +80,23 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
             try
             {
                 IUser user = model.CreateUser();
+                model.SendCofirmEmailIfRequired(user);
+                _validationMessageService.StoreActionResponseMessageSuccess("Successfully Registered. Please check your email.");
+                return RedirectToAction("Login");
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
-                ModelState.AddModelError("Invalid Email", ex.Message);
+                _validationMessageService.StoreActionResponseMessageError("Invalid Email");
             }
             catch(Exception ex)
             {
+                _validationMessageService.StoreActionResponseMessageError("Problem has been occurred while proccessing you requst. Please try again.");
                 _logger.Error(ex, "User failed to create: UserName={0}, Email={1}", model.Email, model.Email);
             }
             return View(model);
@@ -107,16 +110,14 @@ namespace Website.Web.Controllers
             try
             {
                 VerificationStatus status = _membershipService.VerifyForUserStatus(code);
-                if(status == VerificationStatus.Success)
-                    ModelState.Add("Verification Success", new ModelState());
-                else
-                    ModelState.AddModelError("Verification Failed", "Verification Failed");
+                if (status == VerificationStatus.Success)
+                    return View();
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "User failed to verify: VerificationCode={0}", code);
-                ModelState.AddModelError("Verification Failed", "Verification Failed");
             }
+            _validationMessageService.StoreActionResponseMessageError("Verification Failed");
             return RedirectToAction("Register");
         }
 
@@ -160,7 +161,7 @@ namespace Website.Web.Controllers
         }
 
         //
-        // POST: /Account/ResetPassword
+        // POST: /Account/ChangePassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
