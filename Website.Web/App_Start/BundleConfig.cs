@@ -11,9 +11,6 @@ namespace Website.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -28,10 +25,16 @@ namespace Website.Web.App_Start
                       "~/Content/site.css"));
 
 
+            // Form Validator
+            bundles.Add(new StyleBundle("~/Content/css/validator").Include(
+                      "~/Content/validationEngine.jquery.css"));
+            bundles.Add(new ScriptBundle("~/bundles/validator").Include(
+                        "~/Scripts/jquery.validationEngine.js",
+                        "~/Scripts/i18n/validationEngine/jquery.validationEngine-en.js"));
+
             // Custom Bundles
             bundles.Add(new StyleBundle("~/Content/css/custom").Include(
                       "~/Content/Custom.css"));
-            
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                         "~/Scripts/Custom/*.js"));
 
