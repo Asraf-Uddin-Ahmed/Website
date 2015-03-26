@@ -279,7 +279,7 @@ namespace Website.Web.Codes.Service
         {
             user.LastWrongPasswordAttempt = DateTime.UtcNow;
             user.WrongPasswordAttempt++;
-            int maxPasswordMistake = int.Parse(_settingsRepository.GetValueByName("max_password_mistake"));
+            int maxPasswordMistake = int.Parse(_settingsRepository.GetValueByName(SettingsName.MaxPasswordMistake));
             if (user.WrongPasswordAttempt > maxPasswordMistake)
                 user.Status = UserStatus.Blocked;
             _userService.UpdateUserInformation(user);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
+using Website.Foundation.Enums;
 
 namespace Website.Foundation.Repositories
 {
@@ -37,14 +38,16 @@ namespace Website.Foundation.Repositories
             }
         }
 
-        public string GetValueByName(string name)
+        public string GetValueByName(SettingsName name)
         {
-            string value = _ListAllSettings.Where(col => col.Name == name).FirstOrDefault().Value;
+            ISettings settings = _ListAllSettings.Where(col => col.Name == name.ToString()).FirstOrDefault();
+            string value = settings == null ? null : settings.Value;
             return value;
         }
-        public string GetDisplayNameByName(string name)
+        public string GetDisplayNameByName(SettingsName name)
         {
-            string displayName = _ListAllSettings.Where(col => col.Name == name).FirstOrDefault().DisplayName;
+            ISettings settings = _ListAllSettings.Where(col => col.Name == name.ToString()).FirstOrDefault();
+            string displayName = settings == null ? null : settings.DisplayName;
             return displayName;
         }
     }
