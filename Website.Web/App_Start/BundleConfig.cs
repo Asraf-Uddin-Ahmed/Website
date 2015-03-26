@@ -26,6 +26,15 @@ namespace Website.Web.App_Start
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+            // Custom Bundles
+            bundles.Add(new StyleBundle("~/Content/css/custom").Include(
+                      "~/Content/Custom.css"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                        "~/Scripts/Custom/*.js"));
+
         }
     }
 }

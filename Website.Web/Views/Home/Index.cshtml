@@ -21,11 +21,9 @@
 
 
 @section headerScripts {
-    <link href="/Content/Custom.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css/custom")
 }
 
 @section scripts {
-    <script src="~/Scripts/Custom/global.js"></script>
-    <script src="~/Scripts/Custom/loader.js"></script>
-    <script src="~/Scripts/Custom/validaion_message.js"></script>
+    @Scripts.Render("~/bundles/custom")
 }
