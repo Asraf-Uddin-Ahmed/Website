@@ -45,3 +45,13 @@ System.InvalidOperationException: The model backing the 'TableContext' context h
    at System.Data.Entity.DbSet`1.Add(TEntity entity)
    at Website.Foundation.Repositories.BaseEfRepository`1.Add(IEntity entity) in g:\HOME\Website\Website.Foundation\Repositories\BaseEfRepository.cs:line 46
    at Website.Web.Codes.MembershipService.CreateUser(UserCreationData data) in g:\HOME\Website\Website.Web\Codes\MembershipService.cs:line 49
+
+Ratul-PC :: ERROR :: Failed to login with the following parameters : username=test0, password=1 
+Logger: Website.Web.Codes.Service.MembershipService
+Thread: 11
+Date: 2015-03-26 21:29:16,562
+NDC: (null)
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Website.Foundation.Repositories.SettingsRepository.GetValueByName(String name) in g:\HOME\Website\Website.Foundation\Repositories\SettingsRepository.cs:line 42
+   at Website.Web.Codes.Service.MembershipService.ProcessInvalidLogin(IUser user) in g:\HOME\Website\Website.Web\Codes\Service\MembershipService.cs:line 282
+   at Website.Web.Codes.Service.MembershipService.ProcessLogin(String userName, String password) in g:\HOME\Website\Website.Web\Codes\Service\MembershipService.cs:line 98

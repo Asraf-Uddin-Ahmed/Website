@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
 namespace Website.Web.Codes.Service
 {
     public interface IValidationMessageService
     {
-        string GetErrorMessageFromModelState(System.Web.Mvc.ViewDataDictionary viewData);
+        string GetErrorMessage(ICollection<ModelState> modelStateCollection);
         void StoreActionResponseMessageError(string message);
-        void StoreActionResponseMessageError(System.Web.Mvc.ViewDataDictionary viewData);
+        void StoreActionResponseMessageError(ICollection<ModelState> modelStateCollection);
         void StoreActionResponseMessageInfo(string message);
         void StoreActionResponseMessageSuccess(string message);
         void StoreActionResponseMessageWarning(string message);

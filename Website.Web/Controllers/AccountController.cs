@@ -24,12 +24,15 @@ namespace Website.Web.Controllers
     {
         private ILogger _logger;
         private IMembershipService _membershipService;
+        private IValidationMessageService _validationMessageService;
         public AccountController(ILogger logger,
-            IMembershipService membershipService)
+            IMembershipService membershipService,
+            IValidationMessageService validationMessageService)
             : base(logger)
         {
             _logger = logger;
             _membershipService = membershipService;
+            _validationMessageService = validationMessageService;
         }
 
         //
@@ -50,11 +53,15 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
+            
             LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
             if(loginStatus == LoginStatus.Successful)
                 return RedirectToAction("Index", "Home");
+
+            _validationMessageService.StoreActionResponseMessageError("Incorrect Username or Password");
             return View(model);
         }
 

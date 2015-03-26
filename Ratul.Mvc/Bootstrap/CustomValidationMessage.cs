@@ -28,7 +28,9 @@ namespace Ratul.Mvc.Bootstrap
 
         public static MvcHtmlString BootstrapValidationMessage(this HtmlHelper htmlHelper, ActionResponse actionResponse)
         {
-            string validationHtml = "<div class='alert "+_BootstrapClassByType[actionResponse.MessageType]+"'>" +
+            if (actionResponse == null)
+                return null;
+            string validationHtml = "<div class='alert " + _BootstrapClassByType[actionResponse.MessageType] + "'>" +
                                         "<a href='#' class='close' data-dismiss='alert'>&times;</a>" + actionResponse.Message +
                                     "</div>";
             MvcHtmlString mvcValidationHtml = new MvcHtmlString(validationHtml);
