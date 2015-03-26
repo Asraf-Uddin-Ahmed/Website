@@ -1,6 +1,6 @@
 ﻿using System;
 using Website.Foundation.Aggregates;
-namespace Website.Web.Codes
+namespace Website.Web.Codes.Service
 {
     public interface IMembershipService
     {

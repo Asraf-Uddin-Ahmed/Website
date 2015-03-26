@@ -16,7 +16,7 @@ using Website.Foundation.Repositories;
 using Website.Foundation.Services;
 using Website.Web.App_Start;
 
-namespace Website.Web.Codes
+namespace Website.Web.Codes.Service
 {
     public class MembershipService : IMembershipService
     {

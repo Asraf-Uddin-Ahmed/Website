@@ -179,8 +179,10 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Codes\IMembershipService.cs" />
-    <Compile Include="Codes\MembershipService.cs" />
+    <Compile Include="Codes\Service\IMembershipService.cs" />
+    <Compile Include="Codes\Service\IValidationMessageService.cs" />
+    <Compile Include="Codes\Service\MembershipService.cs" />
+    <Compile Include="Codes\Service\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />
     <Compile Include="Codes\UserSession.cs" />
     <Compile Include="Controllers\ErrorController.cs" />

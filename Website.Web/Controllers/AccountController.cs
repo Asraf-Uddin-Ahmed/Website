@@ -15,6 +15,7 @@ using Ratul.Mvc;
 using Ninject.Extensions.Logging;
 using Website.Foundation.Container;
 using Website.Foundation.Aggregates;
+using Website.Web.Codes.Service;
 
 namespace Website.Web.Controllers
 {
