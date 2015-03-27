@@ -56,10 +56,18 @@ namespace Website.Web.Controllers
                 _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
-            LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
-            model.StoreActionResponseMessageByLoginStatus(loginStatus);
-            if (loginStatus == LoginStatus.Successful)
-                return RedirectToAction("Index", "Home");
+            try
+            {
+                LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
+                model.StoreActionResponseMessageByLoginStatus(loginStatus);
+                if (loginStatus == LoginStatus.Successful)
+                    return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                _validationMessageService.StoreActionResponseMessageError("Problem has been occurred while proccessing you requst. Please try again.");
+                _logger.Error(ex, "User failed to create: UserName={0}", model.UserName);
+            }
             return View(model);
         }
 

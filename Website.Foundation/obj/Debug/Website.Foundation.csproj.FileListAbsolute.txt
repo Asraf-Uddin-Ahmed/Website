@@ -57,3 +57,10 @@ G:\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.dll
 G:\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.xml
 G:\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.dll
 G:\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.xml
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.Migrations.InitialCreate.resources
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.Migrations.PasswordVerification.resources
+E:\EXPERIMENT\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csproj.GenerateResource.Cache
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.dll
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.xml
+E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.xml

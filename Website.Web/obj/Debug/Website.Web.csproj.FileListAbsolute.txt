@@ -320,3 +320,7 @@ G:\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.dll
 G:\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.Log4Net.dll
 G:\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.xml
 G:\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.Log4Net.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.Log4Net.dll
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.xml
+E:\EXPERIMENT\HOME\Website\Website.Web\bin\Ninject.Extensions.Logging.Log4Net.xml

@@ -8,3 +8,8 @@ G:\HOME\Website\Ratul.Utility\bin\Debug\Ratul.Utility.pdb
 G:\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.dll
 G:\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.pdb
 G:\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.csprojResolveAssemblyReference.cache
+E:\EXPERIMENT\HOME\Website\Ratul.Utility\bin\Debug\Ratul.Utility.dll
+E:\EXPERIMENT\HOME\Website\Ratul.Utility\bin\Debug\Ratul.Utility.pdb
+E:\EXPERIMENT\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.csprojResolveAssemblyReference.cache
+E:\EXPERIMENT\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.dll
+E:\EXPERIMENT\HOME\Website\Ratul.Utility\obj\Debug\Ratul.Utility.pdb
