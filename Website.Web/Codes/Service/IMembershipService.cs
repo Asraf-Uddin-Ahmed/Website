@@ -13,6 +13,6 @@ namespace Website.Web.Codes.Service
         bool UnblockUser(Guid userID);
         Website.Foundation.Enums.VerificationStatus VerifyForPasswordChange(string verificationCode);
         Website.Foundation.Enums.VerificationStatus VerifyForUserStatus(string verificationCode);
-        IPasswordVerification ProcessForgotPassword();
+        IPasswordVerification ProcessForgotPassword(IUser user);
     }
 }

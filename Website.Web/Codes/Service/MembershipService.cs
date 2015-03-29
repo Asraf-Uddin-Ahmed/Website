@@ -150,11 +150,11 @@ namespace Website.Web.Codes.Service
             }
             return VerificationStatus.Fail;
         }
-        public IPasswordVerification ProcessForgotPassword()
+        public IPasswordVerification ProcessForgotPassword(IUser user)
         {
             IPasswordVerification verification = NinjectWebCommon.GetConcreteInstance<IPasswordVerification>();
             verification.CreationTime = DateTime.UtcNow;
-            verification.UserID = UserSession.CurrentUser.ID;
+            verification.UserID = user.ID;
             verification.VerificationCode = UserUtility.GetNewVerificationCode();
             _passwordVerificationRepository.Add(verification);
             return verification;

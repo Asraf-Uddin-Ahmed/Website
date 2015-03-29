@@ -16,6 +16,7 @@ using Ninject.Extensions.Logging;
 using Website.Foundation.Container;
 using Website.Foundation.Aggregates;
 using Website.Web.Codes.Service;
+using Website.Foundation.Services;
 
 namespace Website.Web.Controllers
 {
@@ -24,14 +25,17 @@ namespace Website.Web.Controllers
     {
         private ILogger _logger;
         private IMembershipService _membershipService;
+        private IUserService _userService;
         private IValidationMessageService _validationMessageService;
         public AccountController(ILogger logger,
             IMembershipService membershipService,
+            IUserService userService,
             IValidationMessageService validationMessageService)
             : base(logger)
         {
             _logger = logger;
             _membershipService = membershipService;
+            _userService = userService;
             _validationMessageService = validationMessageService;
         }
 
@@ -102,7 +106,7 @@ namespace Website.Web.Controllers
             {
                 _validationMessageService.StoreActionResponseMessageError("Invalid Email");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _validationMessageService.StoreActionResponseMessageError("Problem has been occurred while proccessing you requst. Please try again.");
                 _logger.Error(ex, "User failed to create: UserName={0}, Email={1}", model.Email, model.Email);
@@ -144,12 +148,27 @@ namespace Website.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
-
-            return RedirectToAction("ForgotPasswordConfirmation");
+            try
+            {
+                if (_userService.IsEmailAddressAlreadyInUse(model.Email))
+                {
+                    model.ProcessForgotPassword();
+                    return RedirectToAction("ForgotPasswordConfirmation");    
+                }
+                _validationMessageService.StoreActionResponseMessageError("Email does not exist.");
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "User failed to forgot password: VerificationCode={0}", model.Email);
+                _validationMessageService.StoreActionResponseMessageError("Your request has been failed while processing. Please try again.");
+            }
+            return View(model);
         }
 
         //
