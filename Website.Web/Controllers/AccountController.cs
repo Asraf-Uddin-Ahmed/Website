@@ -65,7 +65,7 @@ namespace Website.Web.Controllers
                 LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
                 model.StoreActionResponseMessageByLoginStatus(loginStatus);
                 if (loginStatus == LoginStatus.Successful)
-                    return RedirectToAction("Index", "Home");
+                    return this.RedirectToLocal(returnUrl);
             }
             catch (Exception ex)
             {
@@ -238,6 +238,7 @@ namespace Website.Web.Controllers
             UserSession.Clear();
             return RedirectToAction("Login");
         }
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
