@@ -33,6 +33,7 @@ namespace Ratul.Mvc
                     return true;
                 }
             }
+            _url += ("?returnUrl=" + httpContext.Request.RawUrl);
             HttpContext.Current.Response.BufferOutput = true;
             HttpContext.Current.Response.Redirect(_url, true);
             HttpContext.Current.Response.Close();

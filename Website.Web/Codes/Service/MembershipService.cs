@@ -177,7 +177,7 @@ namespace Website.Web.Codes.Service
                     return VerificationStatus.VerificationCodeDoesNotExist;
 
                 IUser user = _userService.GetUser(verification.UserID);
-                if (user != null && user.Status != UserStatus.Blocked)
+                if (user != null)
                 {
                     _passwordVerificationRepository.RemoveByUserID(user.ID);
                     this.StoreUserInSession(user);

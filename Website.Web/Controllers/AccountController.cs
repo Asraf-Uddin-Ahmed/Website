@@ -20,7 +20,6 @@ using Website.Foundation.Services;
 
 namespace Website.Web.Controllers
 {
-    [Authorize]
     public class AccountController : BaseController
     {
         private ILogger _logger;
@@ -55,6 +54,7 @@ namespace Website.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid)
             {
                 _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
