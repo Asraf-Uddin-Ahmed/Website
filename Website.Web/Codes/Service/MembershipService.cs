@@ -95,13 +95,13 @@ namespace Website.Web.Codes.Service
 
                 if (!user.DecryptedPassword.Equals(password))
                 {
-                    ProcessInvalidLogin(user);
+                    this.ProcessInvalidLogin(user);
                     return LoginStatus.InvalidLogin;
                 }
 
                 if (user.Status == UserStatus.Active)
                 {
-                    ProcessValidLogin(user);
+                    this.ProcessValidLogin(user);
                     return LoginStatus.Successful;
                 }
                 if (user.Status == UserStatus.Blocked)
@@ -180,6 +180,7 @@ namespace Website.Web.Codes.Service
                 if (user != null && user.Status != UserStatus.Blocked)
                 {
                     _passwordVerificationRepository.RemoveByUserID(user.ID);
+                    this.StoreUserInSession(user);
                     return VerificationStatus.Success;
                 }
             }
@@ -284,11 +285,15 @@ namespace Website.Web.Codes.Service
                 user.Status = UserStatus.Blocked;
             _userService.UpdateUserInformation(user);
         }
-        public void ProcessValidLogin(IUser user)
+        private void ProcessValidLogin(IUser user)
         {
             user.LastLogin = DateTime.UtcNow;
             user.WrongPasswordAttempt = 0;
             _userService.UpdateUserInformation(user);
+            this.StoreUserInSession(user);
+        }
+        private void StoreUserInSession(IUser user)
+        {
             UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
         }
     }

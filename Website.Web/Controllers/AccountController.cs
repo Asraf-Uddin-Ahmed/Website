@@ -184,7 +184,18 @@ namespace Website.Web.Controllers
         [AllowAnonymous]
         public ActionResult ChangePassword(string code)
         {
-            return code == null ? View("Error") : View();
+            try
+            {
+                VerificationStatus status = _membershipService.VerifyForPasswordChange(code);
+                if (status == VerificationStatus.Success)
+                    return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Change password failed to verify: VerificationCode={0}", code);
+            }
+            _validationMessageService.StoreActionResponseMessageError("Verification Failed");
+            return RedirectToAction("Login");
         }
 
         //
@@ -196,9 +207,18 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
                 return View(model);
             }
-
+            try
+            {
+                _membershipService.ChangeUserPassword(UserSession.CurrentUser.ID, model.Password);
+            }
+            catch(Exception ex)
+            {
+                _validationMessageService.StoreActionResponseMessageError("Password changing failed. Please try again.");
+                _logger.Error(ex, "Password changing failed.");
+            }
             return RedirectToAction("ChangePasswordConfirmation");
         }
 
