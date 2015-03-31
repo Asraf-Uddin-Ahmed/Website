@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaAuthorizeAttribute.cs" />
+    <Compile Include="Authorization\AreaAuthorizeAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Bootstrap\ActionResponse.cs" />
     <Compile Include="Bootstrap\ActionResponseMessageType.cs" />
