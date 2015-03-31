@@ -17,6 +17,7 @@ using Website.Foundation.Container;
 using Website.Foundation.Aggregates;
 using Website.Web.Codes.Service;
 using Website.Foundation.Services;
+using Ratul.Mvc.Authorization;
 
 namespace Website.Web.Controllers
 {
@@ -227,6 +228,14 @@ namespace Website.Web.Controllers
         [AllowAnonymous]
         public ActionResult ChangePasswordConfirmation()
         {
+            return View();
+        }
+
+        // GET: /Account/ShowUser
+        [OwnerAuthorize]
+        public ActionResult ShowUser()
+        {
+
             return View();
         }
 
