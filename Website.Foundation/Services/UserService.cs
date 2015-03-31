@@ -141,5 +141,18 @@ namespace Website.Foundation.Services
             }
         }
 
+        public ICollection<IUser> GetAll()
+        {
+            try
+            {
+                List<IUser> result = _userRepository.GetAll().Cast<IUser>().ToList<IUser>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to Get All Users");
+                return new List<IUser>();
+            }
+        }
     }
 }

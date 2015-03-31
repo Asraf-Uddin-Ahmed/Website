@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Website.Foundation.Aggregates;
 namespace Website.Foundation.Services
 {
     public interface IUserService
@@ -11,5 +13,6 @@ namespace Website.Foundation.Services
         bool IsEmailAddressAlreadyInUse(string email);
         bool IsUserNameAlreadyInUse(string userName);
         bool UpdateUserInformation(Website.Foundation.Aggregates.IUser user);
+        ICollection<IUser> GetAll();
     }
 }

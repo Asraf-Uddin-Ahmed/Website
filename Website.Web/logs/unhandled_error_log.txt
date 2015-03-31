@@ -42,3 +42,14 @@ System.Web.HttpException (0x80004005): User is not authorized to access.
    at System.Web.Mvc.AuthorizeAttribute.OnAuthorization(AuthorizationContext filterContext)
    at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)
+
+ratul-pc :: FATAL :: Fatal Error Occurred 
+Logger: Website.Web.Controllers.AccountController
+Thread: 5
+Date: 2015-03-31 17:55:04,662
+NDC: (null)
+System.Web.HttpException (0x80004005): User is not authorized to access.
+   at Ratul.Mvc.Authorization.OwnerAuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext) in e:\EXPERIMENT\HOME\Website\Ratul.Mvc\Authorization\OwnerAuthorizeAttribute.cs:line 16
+   at System.Web.Mvc.AuthorizeAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)

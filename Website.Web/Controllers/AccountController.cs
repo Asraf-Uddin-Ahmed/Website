@@ -235,8 +235,8 @@ namespace Website.Web.Controllers
         [OwnerAuthorize]
         public ActionResult ShowUser()
         {
-
-            return View();
+            ShowUserModel model = new ShowUserModel();
+            return View(model);
         }
 
         //
