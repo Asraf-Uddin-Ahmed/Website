@@ -46,8 +46,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Logging">
-      <HintPath>..\packages\Ninject.Extensions.Logging.3.2.0.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.2.2.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Extensions.Logging.Log4Net">
       <HintPath>..\packages\Ninject.Extensions.Logging.Log4net.3.2.2.0\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
@@ -57,6 +58,14 @@
     </Reference>
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Ratul.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ratul.Mvc.1.0.3\lib\net45\Ratul.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Ratul.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ratul.Utility.1.0.0\lib\Ratul.Utility.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -322,14 +331,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ratul.Mvc\Ratul.Mvc.csproj">
-      <Project>{5dc64b9e-7e84-4f5d-a61d-b39671008e9a}</Project>
-      <Name>Ratul.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ratul.Utility\Ratul.Utility.csproj">
-      <Project>{bd432f12-90b9-428b-af6d-eeb83e8898b0}</Project>
-      <Name>Ratul.Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Website.Foundation\Website.Foundation.csproj">
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>

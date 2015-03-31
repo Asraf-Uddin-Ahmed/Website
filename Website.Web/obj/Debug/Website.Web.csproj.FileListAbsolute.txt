@@ -271,8 +271,6 @@ G:\HOME\Website\Website.Web\bin\System.Web.WebPages.Razor.dll
 G:\HOME\Website\Website.Web\bin\WebActivatorEx.dll
 G:\HOME\Website\Website.Web\bin\WebGrease.dll
 G:\HOME\Website\Website.Web\bin\Website.Foundation.dll
-G:\HOME\Website\Website.Web\bin\Ratul.Mvc.pdb
-G:\HOME\Website\Website.Web\bin\Ratul.Utility.pdb
 G:\HOME\Website\Website.Web\bin\Website.Foundation.pdb
 G:\HOME\Website\Website.Web\bin\Ninject.xml
 G:\HOME\Website\Website.Web\bin\Ninject.Web.Common.xml

@@ -480,16 +480,6 @@
             Custom logger factories should generally extend this type.
             </summary>
         </member>
-        <member name="F:Ninject.Extensions.Logging.LoggerFactoryBase.loggersByType">
-            <summary>
-            Maps types to loggers.
-            </summary>
-        </member>
-        <member name="F:Ninject.Extensions.Logging.LoggerFactoryBase.loggersByName">
-            <summary>
-            Maps names to loggers.
-            </summary>
-        </member>
         <member name="M:Ninject.Extensions.Logging.LoggerFactoryBase.GetLogger(System.Type)">
             <summary>
             Gets the logger for the specified type, creating it if necessary.
