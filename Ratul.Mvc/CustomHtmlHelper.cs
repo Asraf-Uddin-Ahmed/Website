@@ -29,5 +29,17 @@ namespace Ratul.Mvc
             }
             return htmlHelper.ActionLink(linkText, actionName, controllerName);
         }
+
+        public static string AddCssClassIfNeeded(this HtmlHelper htmlHelper,
+            string actionName, string controllerName, string cssClassName)
+        {
+            string currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
+            string currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+            if (actionName == currentAction && controllerName == currentController)
+            {
+                return cssClassName;
+            }
+            return "";
+        }
     }
 }
