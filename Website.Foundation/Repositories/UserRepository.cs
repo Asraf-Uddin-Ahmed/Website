@@ -86,16 +86,16 @@ namespace Website.Foundation.Repositories
             return total;
         }
 
-        public IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> predicateOrderBy)
+        public IEnumerable<IUser> GetPagedAnd(UserSearch searchItem, int pageNumber, int pageSize, SortBy<User> sortBy)
         {
             Func<IUser, bool> predicateWhere = GetAndSearchCondition(searchItem);
-            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, predicateOrderBy, true, predicateWhere);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, sortBy, predicateWhere);
             return listUser.Cast<IUser>();
         }
-        public IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, Func<IUser, dynamic> predicateOrderBy)
+        public IEnumerable<IUser> GetPagedOr(UserSearch searchItem, int pageNumber, int pageSize, SortBy<User> sortBy)
         {
             Func<IUser, bool> predicateWhere = GetOrSearchCondition(searchItem);
-            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, predicateOrderBy, true, predicateWhere);
+            IEnumerable<IEntity> listUser = base.GetPagedBy(pageNumber, pageSize, sortBy, predicateWhere);
             return listUser.Cast<IUser>();
         }
     }

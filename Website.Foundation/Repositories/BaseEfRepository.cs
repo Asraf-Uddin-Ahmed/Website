@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Reflection;
 using Ninject;
 using Ratul.Utility;
+using Website.Foundation.Container;
 
 namespace Website.Foundation.Repositories
 {
@@ -89,12 +90,12 @@ namespace Website.Foundation.Repositories
         {
             return _entitySet.Count(predicateCount);
         }
-        protected IEnumerable<IEntity> GetPagedBy(int pageNumber, int pageSize, Func<TEntity, dynamic> predicateOrderBy, bool isAscending, Func<TEntity, bool> predicateWhere)
+        protected IEnumerable<IEntity> GetPagedBy(int pageNumber, int pageSize, SortBy<TEntity> sortBy, Func<TEntity, bool> predicateWhere)
         {
             int skip = (pageNumber - 1) * pageSize;
             IEnumerable<IEntity> listEntity = _entitySet
                 .Where(predicateWhere)
-                .OrderByDirection(predicateOrderBy, isAscending)
+                .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
                 .Skip(skip).Take(pageSize);
             return listEntity;
         }

@@ -70,6 +70,7 @@
     <Compile Include="Aggregates\PasswordVerification.cs" />
     <Compile Include="Aggregates\UserVerification.cs" />
     <Compile Include="Aggregates\User.cs" />
+    <Compile Include="Container\SortBy.cs" />
     <Compile Include="Container\UserCreationData.cs" />
     <Compile Include="Container\UserSearch.cs" />
     <Compile Include="Enums\LoginStatus.cs" />
