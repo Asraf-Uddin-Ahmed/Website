@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Reflection;
 using Ninject;
+using Ratul.Utility;
 
 namespace Website.Foundation.Repositories
 {
@@ -93,7 +94,7 @@ namespace Website.Foundation.Repositories
             int skip = (pageNumber - 1) * pageSize;
             IEnumerable<IEntity> listEntity = _entitySet
                 .Where(predicateWhere)
-                .OrderBy(predicateOrderBy)
+                .OrderByDirection(predicateOrderBy, true)
                 .Skip(skip).Take(pageSize);
             return listEntity;
         }

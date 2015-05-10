@@ -46,10 +46,6 @@
     <Reference Include="Ninject.Extensions.Logging">
       <HintPath>..\packages\Ninject.Extensions.Logging.3.2.2.0\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Ratul.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ratul.Utility.1.0.0\lib\Ratul.Utility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -122,6 +118,12 @@
     <EmbeddedResource Include="Migrations\201503221659567_PasswordVerification.resx">
       <DependentUpon>201503221659567_PasswordVerification.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ratul.Utility\Ratul.Utility.csproj">
+      <Project>{bd432f12-90b9-428b-af6d-eeb83e8898b0}</Project>
+      <Name>Ratul.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

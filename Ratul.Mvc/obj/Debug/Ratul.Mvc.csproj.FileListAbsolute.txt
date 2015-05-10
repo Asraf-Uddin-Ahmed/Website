@@ -20,4 +20,3 @@ E:\EXPERIMENT\HOME\Website\Ratul.Mvc\bin\Debug\Ninject.dll
 E:\EXPERIMENT\HOME\Website\Ratul.Mvc\bin\Debug\Ninject.Extensions.Logging.dll
 E:\EXPERIMENT\HOME\Website\Ratul.Mvc\bin\Debug\Ninject.xml
 E:\EXPERIMENT\HOME\Website\Ratul.Mvc\bin\Debug\Ninject.Extensions.Logging.xml
-G:\HOME\Website\Ratul.Mvc\obj\Debug\Ratul.Mvc.csprojResolveAssemblyReference.cache
