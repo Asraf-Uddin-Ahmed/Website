@@ -45,9 +45,11 @@
     <Compile Include="Email\MessageSettings.cs" />
     <Compile Include="Email\NameWithEmail.cs" />
     <Compile Include="GuidUtility.cs" />
+    <Compile Include="IReflectionUtility.cs" />
     <Compile Include="IRegexUtility.cs" />
     <Compile Include="LinqExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionUtility.cs" />
     <Compile Include="RegexUtility.cs" />
     <Compile Include="UserUtility.cs" />
   </ItemGroup>
