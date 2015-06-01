@@ -58,7 +58,7 @@ namespace Website.Web.Controllers
             ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid)
             {
-                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
+                _validationMessageService.StoreActionResponseMessageError(ModelState);
                 return View(model);
             }
             try
@@ -93,7 +93,7 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
+                _validationMessageService.StoreActionResponseMessageError(ModelState);
                 return View(model);
             }
             try
@@ -151,7 +151,7 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
+                _validationMessageService.StoreActionResponseMessageError(ModelState);
                 return View(model);
             }
             try
@@ -208,7 +208,7 @@ namespace Website.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _validationMessageService.StoreActionResponseMessageError(ModelState.Values);
+                _validationMessageService.StoreActionResponseMessageError(ModelState);
                 return View(model);
             }
             try

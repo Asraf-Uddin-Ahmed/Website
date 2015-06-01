@@ -62,4 +62,3 @@ E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.dll
 E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.dll
 E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Newtonsoft.Json.xml
 E:\EXPERIMENT\HOME\Website\Website.Foundation\bin\Debug\Ninject.Extensions.Logging.xml
-G:\HOME\Website\Website.Foundation\obj\Debug\Website.Foundation.csprojResolveAssemblyReference.cache

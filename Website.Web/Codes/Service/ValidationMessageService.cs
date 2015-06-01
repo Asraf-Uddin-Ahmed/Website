@@ -10,10 +10,10 @@ namespace Website.Web.Codes.Service
 {
     public class ValidationMessageService : IValidationMessageService
     {
-        public string GetErrorMessage(ICollection<ModelState> modelStateCollection)
+        public string GetErrorMessage(ICollection<ModelState> modelStateValues)
         {
             string errorMessage = "";
-            foreach (ModelState modelState in modelStateCollection)
+            foreach (ModelState modelState in modelStateValues)
             {
                 foreach (ModelError error in modelState.Errors)
                 {
@@ -23,9 +23,9 @@ namespace Website.Web.Codes.Service
             return errorMessage;
         }
 
-        public void StoreActionResponseMessageError(ICollection<ModelState> modelStateCollection)
+        public void StoreActionResponseMessageError(ModelStateDictionary modelState)
         {
-            string message = this.GetErrorMessage(modelStateCollection);
+            string message = this.GetErrorMessage(modelState.Values);
             UserSession.ActionResponseMessage = new ActionResponse(ActionResponseMessageType.Error, message);
         }
 

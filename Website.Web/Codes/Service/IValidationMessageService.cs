@@ -6,9 +6,9 @@ namespace Website.Web.Codes.Service
 {
     public interface IValidationMessageService
     {
-        string GetErrorMessage(ICollection<ModelState> modelStateCollection);
+        string GetErrorMessage(ICollection<ModelState> modelStateValues);
         void StoreActionResponseMessageError(string message);
-        void StoreActionResponseMessageError(ICollection<ModelState> modelStateCollection);
+        void StoreActionResponseMessageError(ModelStateDictionary modelState);
         void StoreActionResponseMessageInfo(string message);
         void StoreActionResponseMessageSuccess(string message);
         void StoreActionResponseMessageWarning(string message);
