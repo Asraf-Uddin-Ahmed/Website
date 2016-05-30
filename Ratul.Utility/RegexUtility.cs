@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ratul.Utility
 {
-    public class RegexUtility : Ratul.Utility.IRegexUtility
+    public class RegexUtility
     {
         private bool _isEmailInvalid = false;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ratul.Utility
 {
-    public class ReflectionUtility : Ratul.Utility.IReflectionUtility
+    public class ReflectionUtility
     {
         public void AssignSameNamedPropertyValue(object source, object result)
         {
