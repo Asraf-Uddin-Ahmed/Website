@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Ninject;
 using Ninject.Extensions.Logging;
-using Ratul.Mvc;
 using Ratul.Utility;
 using System;
 using System.Collections.Generic;
@@ -15,9 +14,8 @@ using Website.Foundation.Core.Factories;
 using Website.Foundation.Core.Factories.Data;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services;
-using Website.Web.App_Start;
 
-namespace Website.Web.Codes.Service
+namespace Website.Foundation.Persistence.Services
 {
     public class MembershipService : IMembershipService
     {
@@ -69,7 +67,7 @@ namespace Website.Web.Codes.Service
                 {
                     user.Status = UserStatus.Unverified;
 
-                    UserVerification userVerification = NinjectWebCommon.GetConcreteInstance<UserVerification>();
+                    UserVerification userVerification = new UserVerification();//NinjectWebCommon.GetConcreteInstance<UserVerification>();
                     userVerification.CreationTime = DateTime.UtcNow;
                     userVerification.VerificationCode = UserUtility.GetNewVerificationCode();
 
@@ -153,7 +151,7 @@ namespace Website.Web.Codes.Service
         }
         public PasswordVerification ProcessForgotPassword(User user)
         {
-            PasswordVerification verification = NinjectWebCommon.GetConcreteInstance<PasswordVerification>();
+            PasswordVerification verification = new PasswordVerification(); // NinjectWebCommon.GetConcreteInstance<PasswordVerification>();
             verification.CreationTime = DateTime.UtcNow;
             verification.UserID = user.ID;
             verification.VerificationCode = UserUtility.GetNewVerificationCode();

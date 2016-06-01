@@ -1,7 +1,7 @@
 ﻿using System;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Factories.Data;
-namespace Website.Web.Codes.Service
+namespace Website.Foundation.Core.Services
 {
     public interface IMembershipService
     {

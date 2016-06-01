@@ -31,7 +31,6 @@ namespace Website.Web.Controllers
 
         public ActionResult Index()
         {
-            IMembershipService ms = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
             return View();
         }
 

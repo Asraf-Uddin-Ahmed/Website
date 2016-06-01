@@ -205,9 +205,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codes\Helper\IUrlMakerHelper.cs" />
     <Compile Include="Codes\Helper\UrlMakerHelper.cs" />
-    <Compile Include="Codes\Service\IMembershipService.cs" />
     <Compile Include="Codes\Service\IValidationMessageService.cs" />
-    <Compile Include="Codes\Service\MembershipService.cs" />
     <Compile Include="Codes\Service\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />
     <Compile Include="Codes\UserSession.cs" />

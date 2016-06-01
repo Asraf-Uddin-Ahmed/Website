@@ -24,7 +24,6 @@ namespace Website.Web.Codes
             /*
              * SERVICE
              * */
-            Bind<IMembershipService>().To<MembershipService>();
             Bind<IValidationMessageService>().To<ValidationMessageService>();
             
             // HELPER
