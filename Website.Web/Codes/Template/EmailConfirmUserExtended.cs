@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Aggregates;
+using Website.Foundation.Core.Aggregates;
 
 namespace Website.Web.Codes.Template
 {
     public partial class EmailConfirmUser
     {
-        public IUser NewUser
+        public User NewUser
         {
             get;
             set;
@@ -20,7 +20,7 @@ namespace Website.Web.Codes.Template
             set;
         }
 
-        public EmailConfirmUser(IUser newUser, string url)
+        public EmailConfirmUser(User newUser, string url)
         {
             NewUser = newUser;
             Url = url;

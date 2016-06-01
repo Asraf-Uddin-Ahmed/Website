@@ -250,3 +250,14 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+
+/Ratul.Mvc/bin
+/Ratul.Mvc/obj
+/Ratul.Utility/obj
+/Ratul.Utility/bin
+/Website.Foundation/bin
+/Website.Foundation/obj
+/Website.Web/bin
+/Website.Web/obj
+/*.suo

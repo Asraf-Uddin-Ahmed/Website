@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Aggregates;
-using Website.Foundation.Container;
-using Website.Foundation.Enums;
+using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Core.Container;
+using Website.Foundation.Core.Enums;
 using Website.Web.App_Start;
 using Website.Web.Codes;
 using Website.Web.Codes.Helper;
@@ -31,10 +31,10 @@ namespace Website.Web.Models.Account
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        public IUser CreateUser()
+        public User CreateUser()
         {
             IMembershipService membershipService = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
-            IUser user = membershipService.CreateUser(new UserCreationData()
+            User user = membershipService.CreateUser(new UserCreationData()
             {
                 Email = this.Email,
                 HasVerificationCode = true,
@@ -45,7 +45,7 @@ namespace Website.Web.Models.Account
             });
             return user;
         }
-        public void SendCofirmEmailIfRequired(IUser user)
+        public void SendCofirmEmailIfRequired(User user)
         {
             if(!user.UserVerifications.Any())
                 return;

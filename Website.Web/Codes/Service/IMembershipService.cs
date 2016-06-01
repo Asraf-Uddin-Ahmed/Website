@@ -1,5 +1,5 @@
 ﻿using System;
-using Website.Foundation.Aggregates;
+using Website.Foundation.Core.Aggregates;
 namespace Website.Web.Codes.Service
 {
     public interface IMembershipService
@@ -7,11 +7,11 @@ namespace Website.Web.Codes.Service
         bool BlockUser(Guid userID);
         bool ChangeUserPassword(Guid userID, string newPassword);
         bool ChangeUserPassword(Guid userID, string oldPassword, string newPassword);
-        Website.Foundation.Aggregates.IUser CreateUser(Website.Foundation.Container.UserCreationData data);
-        Website.Foundation.Enums.LoginStatus ProcessLogin(string userName, string password);
+        User CreateUser(Website.Foundation.Core.Container.UserCreationData data);
+        Website.Foundation.Core.Enums.LoginStatus ProcessLogin(string userName, string password);
         bool UnblockUser(Guid userID);
-        Website.Foundation.Enums.VerificationStatus VerifyForPasswordChange(string verificationCode);
-        Website.Foundation.Enums.VerificationStatus VerifyForUserStatus(string verificationCode);
-        IPasswordVerification ProcessForgotPassword(IUser user);
+        Website.Foundation.Core.Enums.VerificationStatus VerifyForPasswordChange(string verificationCode);
+        Website.Foundation.Core.Enums.VerificationStatus VerifyForUserStatus(string verificationCode);
+        PasswordVerification ProcessForgotPassword(User user);
     }
 }

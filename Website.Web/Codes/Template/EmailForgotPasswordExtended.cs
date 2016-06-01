@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Aggregates;
+using Website.Foundation.Core.Aggregates;
 
 namespace Website.Web.Codes.Template
 {
     public partial class EmailForgotPassword
     {
-        public IUser RegisteredUser
+        public User RegisteredUser
         {
             get;
             set;
@@ -20,7 +20,7 @@ namespace Website.Web.Codes.Template
             set;
         }
 
-        public EmailForgotPassword(IUser registeredUser, string url)
+        public EmailForgotPassword(User registeredUser, string url)
         {
             RegisteredUser = registeredUser;
             Url = url;

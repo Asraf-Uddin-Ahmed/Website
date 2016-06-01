@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Enums;
+using Website.Foundation.Core.Enums;
 using Website.Web.App_Start;
 using Website.Web.Codes.Service;
 

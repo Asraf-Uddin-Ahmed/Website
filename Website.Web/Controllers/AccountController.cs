@@ -10,13 +10,13 @@ using Microsoft.Owin.Security;
 using Website.Web.Models;
 using Website.Web.Models.Account;
 using Website.Web.Codes;
-using Website.Foundation.Enums;
+using Website.Foundation.Core.Enums;
 using Ratul.Mvc;
 using Ninject.Extensions.Logging;
-using Website.Foundation.Container;
-using Website.Foundation.Aggregates;
+using Website.Foundation.Core.Container;
+using Website.Foundation.Core.Aggregates;
 using Website.Web.Codes.Service;
-using Website.Foundation.Services;
+using Website.Foundation.Core.Services;
 using Ratul.Mvc.Authorization;
 
 namespace Website.Web.Controllers
@@ -98,7 +98,7 @@ namespace Website.Web.Controllers
             }
             try
             {
-                IUser user = model.CreateUser();
+                User user = model.CreateUser();
                 model.SendCofirmEmailIfRequired(user);
                 _validationMessageService.StoreActionResponseMessageSuccess("Successfully Registered. Please check your email.");
                 return RedirectToAction("Login");

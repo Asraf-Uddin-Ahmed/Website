@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Aggregates;
-using Website.Foundation.Enums;
-using Website.Foundation.Repositories;
+using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Core.Enums;
+using Website.Foundation.Core.Repositories;
 using Website.Web.Codes.Template;
 
 namespace Website.Web.Codes.Service
@@ -62,7 +62,7 @@ namespace Website.Web.Codes.Service
         }
 
 
-        public void SendForgotPassword(IUser registeredUser, string url)
+        public void SendForgotPassword(User registeredUser, string url)
         {
             EmailForgotPassword template = new EmailForgotPassword(registeredUser, url);
             string body = template.TransformText();
@@ -73,7 +73,7 @@ namespace Website.Web.Codes.Service
             };
             SendFromSystem(receiver, subject, body);
         }
-        public void SendConfirmUser(IUser newUser, string url)
+        public void SendConfirmUser(User newUser, string url)
         {
             EmailConfirmUser template = new EmailConfirmUser(newUser, url);
             string body = template.TransformText();

@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Website.Foundation;
-using Website.Foundation.Aggregates;
-using Website.Foundation.Container;
-using Website.Foundation.Enums;
-using Website.Foundation.Factory;
-using Website.Foundation.Repositories;
-using Website.Foundation.Services;
+using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Core.Container;
+using Website.Foundation.Core.Enums;
+using Website.Foundation.Core.Factories;
+using Website.Foundation.Core.Repositories;
+using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
 
 namespace Website.Web.Codes.Service
@@ -48,7 +48,7 @@ namespace Website.Web.Codes.Service
             _settingsRepository = settingsRepository;
         }
 
-        public IUser CreateUser(UserCreationData data)
+        public User CreateUser(UserCreationData data)
         {
             if (data == null)
                 throw new ArgumentException("UserCreationData is missing");
@@ -63,12 +63,12 @@ namespace Website.Web.Codes.Service
             
             try
             {
-                IUser user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, UserStatus.Active);
+                User user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, UserStatus.Active);
                 if (data.HasVerificationCode)
                 {
                     user.Status = UserStatus.Unverified;
 
-                    IUserVerification userVerification = NinjectWebCommon.GetConcreteInstance<IUserVerification>();
+                    UserVerification userVerification = NinjectWebCommon.GetConcreteInstance<UserVerification>();
                     userVerification.CreationTime = DateTime.UtcNow;
                     userVerification.VerificationCode = UserUtility.GetNewVerificationCode();
 
@@ -89,7 +89,7 @@ namespace Website.Web.Codes.Service
         {
             try
             {
-                IUser user = _userService.GetUserByUserName(userName);
+                User user = _userService.GetUserByUserName(userName);
                 if (user == null)
                     return LoginStatus.InvalidLogin;
 
@@ -131,11 +131,11 @@ namespace Website.Web.Codes.Service
 
             try
             {
-                IUserVerification verification = _userVerificationRepository.GetByVerificationCode(verificationCode);
+                UserVerification verification = _userVerificationRepository.GetByVerificationCode(verificationCode);
                 if (verification == null)
                     return VerificationStatus.VerificationCodeDoesNotExist;
 
-                IUser user = _userService.GetUser(verification.UserID);
+                User user = _userService.GetUser(verification.UserID);
                 if (user != null && user.Status != UserStatus.Blocked)
                 {
                     user.Status = UserStatus.Active;
@@ -150,9 +150,9 @@ namespace Website.Web.Codes.Service
             }
             return VerificationStatus.Fail;
         }
-        public IPasswordVerification ProcessForgotPassword(IUser user)
+        public PasswordVerification ProcessForgotPassword(User user)
         {
-            IPasswordVerification verification = NinjectWebCommon.GetConcreteInstance<IPasswordVerification>();
+            PasswordVerification verification = NinjectWebCommon.GetConcreteInstance<PasswordVerification>();
             verification.CreationTime = DateTime.UtcNow;
             verification.UserID = user.ID;
             verification.VerificationCode = UserUtility.GetNewVerificationCode();
@@ -172,11 +172,11 @@ namespace Website.Web.Codes.Service
 
             try
             {
-                IPasswordVerification verification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
+                PasswordVerification verification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
                 if (verification == null)
                     return VerificationStatus.VerificationCodeDoesNotExist;
 
-                IUser user = _userService.GetUser(verification.UserID);
+                User user = _userService.GetUser(verification.UserID);
                 if (user != null)
                 {
                     _passwordVerificationRepository.RemoveByUserID(user.ID);
@@ -194,7 +194,7 @@ namespace Website.Web.Codes.Service
         {
             try
             {
-                IUser user = _userService.GetUser(userID);
+                User user = _userService.GetUser(userID);
                 if (user == null)
                     return false;
                 user.Status = UserStatus.Blocked;
@@ -212,7 +212,7 @@ namespace Website.Web.Codes.Service
         {
             try
             {
-                IUser user = _userService.GetUser(userID);
+                User user = _userService.GetUser(userID);
                 if (user == null)
                     return false;
                 user.Status = UserStatus.Active;
@@ -237,7 +237,7 @@ namespace Website.Web.Codes.Service
 
             try
             {
-                IUser user = _userService.GetUser(userID);
+                User user = _userService.GetUser(userID);
                 if (user == null || user.DecryptedPassword != oldPassword)
                     return false;
                 
@@ -261,7 +261,7 @@ namespace Website.Web.Codes.Service
 
             try
             {
-                IUser user = _userService.GetUser(userID);
+                User user = _userService.GetUser(userID);
                 if (user == null)
                     return false;
 
@@ -276,7 +276,7 @@ namespace Website.Web.Codes.Service
             }
 
         }
-        private void ProcessInvalidLogin(IUser user)
+        private void ProcessInvalidLogin(User user)
         {
             user.LastWrongPasswordAttempt = DateTime.UtcNow;
             user.WrongPasswordAttempt++;
@@ -285,14 +285,14 @@ namespace Website.Web.Codes.Service
                 user.Status = UserStatus.Blocked;
             _userService.UpdateUserInformation(user);
         }
-        private void ProcessValidLogin(IUser user)
+        private void ProcessValidLogin(User user)
         {
             user.LastLogin = DateTime.UtcNow;
             user.WrongPasswordAttempt = 0;
             _userService.UpdateUserInformation(user);
             this.StoreUserInSession(user);
         }
-        private void StoreUserInSession(IUser user)
+        private void StoreUserInSession(User user)
         {
             UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
         }
