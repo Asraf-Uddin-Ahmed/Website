@@ -11,7 +11,6 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
 using Website.Foundation.Core.Factories;
-using Website.Foundation.Core.Factories.Data;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services;
 
@@ -47,26 +46,23 @@ namespace Website.Foundation.Persistence.Services
             _settingsRepository = settingsRepository;
         }
 
-        public User CreateUser(UserData data)
+        public User CreateUser(User user)
         {
-            if (data == null)
-                throw new ArgumentException("UserCreationData is missing");
-            if (string.IsNullOrEmpty(data.Email))
-                throw new ArgumentException("Email address is missing");
-            if (!_regexUtility.IsEmailValid(data.Email))
-                throw new ArgumentException("Email address is invalid");
-            if (string.IsNullOrEmpty(data.UserName))
+            if (user == null)
+                throw new ArgumentException("User is missing");
+            if (string.IsNullOrEmpty(user.EmailAddress))
+                throw new ArgumentException("EmailAddress address is missing");
+            if (!_regexUtility.IsEmailValid(user.EmailAddress))
+                throw new ArgumentException("EmailAddress address is invalid");
+            if (string.IsNullOrEmpty(user.UserName))
                 throw new ArgumentException("UserName is missing");
-            if (string.IsNullOrEmpty(data.Password))
+            if (string.IsNullOrEmpty(user.EncryptedPassword))
                 throw new ArgumentException("Password is missing");
             
             try
             {
-                User user = _userFactory.CreateUser(data.UserName, data.Email, data.Password, data.Name, data.TypeOfUser, UserStatus.Active);
-                if (data.HasVerificationCode)
+                if (user.Status == UserStatus.Unverified)
                 {
-                    user.Status = UserStatus.Unverified;
-
                     UserVerification userVerification = new UserVerification();//NinjectWebCommon.GetConcreteInstance<UserVerification>();
                     userVerification.CreationTime = DateTime.UtcNow;
                     userVerification.VerificationCode = UserUtility.GetNewVerificationCode();
@@ -79,7 +75,7 @@ namespace Website.Foundation.Persistence.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Failed to create user with parameters: usernmae={0}, mobile={1}, email={2}", data.UserName, data.Email, data.TypeOfUser);
+                _logger.Error(ex, "Failed to create user with parameters: UserName={0}, EmailAddress={1}, TypeOfUser={2}", user.UserName, user.EmailAddress, user.TypeOfUser);
                 return null;
             }
         }

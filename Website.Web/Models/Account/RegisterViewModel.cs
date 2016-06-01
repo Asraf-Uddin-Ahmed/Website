@@ -6,7 +6,7 @@ using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
-using Website.Foundation.Core.Factories.Data;
+using Website.Foundation.Core.Factories;
 using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
 using Website.Web.Codes;
@@ -36,15 +36,14 @@ namespace Website.Web.Models.Account
         public User CreateUser()
         {
             IMembershipService membershipService = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
-            User user = membershipService.CreateUser(new UserData()
-            {
-                Email = this.Email,
-                HasVerificationCode = true,
-                Name = this.Email,
-                Password = this.Password,
-                TypeOfUser = UserType.Employee,
-                UserName = this.Email
-            });
+            IUserFactory userFactory = NinjectWebCommon.GetConcreteInstance<IUserFactory>();
+            User user = userFactory.Create(this.Password);
+            user.EmailAddress = this.Email;
+            user.UserName = this.Email;
+            user.Name = this.Email;
+            user.Status = UserStatus.Unverified;
+            user.TypeOfUser = UserType.Employee;
+            user = membershipService.CreateUser(user);
             return user;
         }
         public void SendCofirmEmailIfRequired(User user)

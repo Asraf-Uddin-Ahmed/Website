@@ -22,10 +22,10 @@ namespace Website.Foundation.Core.Aggregates
         //[Required]
         //public DateTime UpdateTime { get; set; }
 
-        public Entity()
-        {
-            ID = GuidUtility.GetNewSequentialGuid();
-            //UpdateTime = DateTime.UtcNow;
-        }
+        //public Entity()
+        //{
+        //    ID = GuidUtility.GetNewSequentialGuid();
+        //    UpdateTime = DateTime.UtcNow;
+        //}
     }
 }
