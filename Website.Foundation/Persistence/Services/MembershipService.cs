@@ -20,11 +20,11 @@ namespace Website.Foundation.Persistence.Services
     {
         private ILogger _logger;
         private IPasswordVerificationRepository _passwordVerificationRepository;
-        private IUserFactory _userFactory;
         private IUserRepository _userRepository;
         private IUserService _userService;
         private IUserVerificationRepository _userVerificationRepository;
         private RegexUtility _regexUtility;
+        private IUserVerificationFactory _userVerificationFactory;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
@@ -34,15 +34,16 @@ namespace Website.Foundation.Persistence.Services
             IUserService userService,
             IUserVerificationRepository userVerificationRepository,
             RegexUtility regexUtility,
+            IUserVerificationFactory userVerificationFactory,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
             _passwordVerificationRepository = passwordVerificationRepository;
-            _userFactory = userFactory;
             _userRepository = userRepository;
             _userService = userService;
             _userVerificationRepository = userVerificationRepository;
             _regexUtility = regexUtility;
+            _userVerificationFactory = userVerificationFactory;
             _settingsRepository = settingsRepository;
         }
 
@@ -63,10 +64,7 @@ namespace Website.Foundation.Persistence.Services
             {
                 if (user.Status == UserStatus.Unverified)
                 {
-                    UserVerification userVerification = new UserVerification();//NinjectWebCommon.GetConcreteInstance<UserVerification>();
-                    userVerification.CreationTime = DateTime.UtcNow;
-                    userVerification.VerificationCode = UserUtility.GetNewVerificationCode();
-
+                    UserVerification userVerification = _userVerificationFactory.Create();
                     user.UserVerifications = new List<UserVerification>();
                     user.UserVerifications.Add((UserVerification)userVerification);
                 }

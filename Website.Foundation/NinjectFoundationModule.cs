@@ -32,6 +32,7 @@ namespace Website.Foundation
              * FACTORY
              * */
             Bind<IUserFactory>().To<UserFactory>();
+            Bind<IUserVerificationFactory>().To<UserVerificationFactory>();
 
             /*
              * SERVICE
