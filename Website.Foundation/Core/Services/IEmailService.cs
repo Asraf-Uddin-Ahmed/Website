@@ -1,6 +1,6 @@
 ﻿using System;
 using Website.Foundation.Core.Aggregates;
-namespace Website.Web.Codes.Service
+namespace Website.Foundation.Core.Services
 {
     public interface IEmailService
     {

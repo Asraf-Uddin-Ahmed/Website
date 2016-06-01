@@ -66,7 +66,7 @@
     <Compile Include="Core\Aggregates\UserVerification.cs" />
     <Compile Include="Core\Aggregates\User.cs" />
     <Compile Include="Core\Container\SortBy.cs" />
-    <Compile Include="Core\Container\UserCreationData.cs" />
+    <Compile Include="Core\Factories\Data\UserData.cs" />
     <Compile Include="Core\SearchData\UserSearch.cs" />
     <Compile Include="Core\Enums\LoginStatus.cs" />
     <Compile Include="Core\Enums\SettingsName.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="Core\Repositories\IUserRepository.cs" />
     <Compile Include="Core\Repositories\IUserVerificationRepository.cs" />
     <Compile Include="Core\SearchData\EntitySearch.cs" />
+    <Compile Include="Core\Services\IEmailService.cs" />
     <Compile Include="Persistence\Factories\UserFactory.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.Designer.cs">
@@ -94,7 +95,20 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NinjectFoundationModule.cs" />
     <Compile Include="Persistence\Repositories\RepositorySearch.cs" />
+    <Compile Include="Persistence\Services\EmailService.cs" />
     <Compile Include="Persistence\Services\UserService.cs" />
+    <Compile Include="Persistence\Template\EmailConfirmUser.cs">
+      <DependentUpon>EmailConfirmUser.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Persistence\Template\EmailConfirmUserExtended.cs" />
+    <Compile Include="Persistence\Template\EmailForgotPassword.cs">
+      <DependentUpon>EmailForgotPassword.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Persistence\Template\EmailForgotPasswordExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\Repositories\SettingsRepository.cs" />
@@ -107,6 +121,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Content Include="Persistence\Template\EmailConfirmUser.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EmailConfirmUser.cs</LastGenOutput>
+    </Content>
+    <Content Include="Persistence\Template\EmailForgotPassword.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EmailForgotPassword.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -119,7 +141,9 @@
       <DependentUpon>201503221659567_PasswordVerification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

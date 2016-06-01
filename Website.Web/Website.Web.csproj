@@ -128,8 +128,8 @@
       <HintPath>..\packages\Ratul.Mvc.1.1.1\lib\net45\Ratul.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Ratul.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ratul.Utility.1.0.2\lib\Ratul.Utility.dll</HintPath>
+      <HintPath>..\packages\Ratul.Utility.1.0.3\lib\Ratul.Utility.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -205,25 +205,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codes\Helper\IUrlMakerHelper.cs" />
     <Compile Include="Codes\Helper\UrlMakerHelper.cs" />
-    <Compile Include="Codes\Service\EmailService.cs" />
-    <Compile Include="Codes\Service\IEmailService.cs" />
     <Compile Include="Codes\Service\IMembershipService.cs" />
     <Compile Include="Codes\Service\IValidationMessageService.cs" />
     <Compile Include="Codes\Service\MembershipService.cs" />
     <Compile Include="Codes\Service\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />
-    <Compile Include="Codes\Template\EmailConfirmUser.cs">
-      <DependentUpon>EmailConfirmUser.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Codes\Template\EmailForgotPassword.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmailForgotPassword.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Codes\Template\EmailConfirmUserExtended.cs" />
-    <Compile Include="Codes\Template\EmailForgotPasswordExtended.cs" />
     <Compile Include="Codes\UserSession.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -295,14 +281,6 @@
     <Content Include="Scripts\i18n\validationEngine\jquery.validationEngine-zh_CN.js" />
     <Content Include="Scripts\i18n\validationEngine\jquery.validationEngine-zh_TW.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Codes\Template\EmailForgotPassword.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EmailForgotPassword.cs</LastGenOutput>
-    </Content>
-    <Content Include="Codes\Template\EmailConfirmUser.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EmailConfirmUser.cs</LastGenOutput>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

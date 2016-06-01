@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Enums;
 
-namespace Website.Foundation.Core.Container
+namespace Website.Foundation.Core.Factories.Data
 {
-    public class UserCreationData
+    public class UserData
     {
         public string UserName {get; set; }
         public string Email { get; set; }

@@ -12,6 +12,7 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
 using Website.Foundation.Core.Factories;
+using Website.Foundation.Core.Factories.Data;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
@@ -26,7 +27,7 @@ namespace Website.Web.Codes.Service
         private IUserRepository _userRepository;
         private IUserService _userService;
         private IUserVerificationRepository _userVerificationRepository;
-        private IRegexUtility _regexUtility;
+        private RegexUtility _regexUtility;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
@@ -35,7 +36,7 @@ namespace Website.Web.Codes.Service
             IUserRepository userRepository,
             IUserService userService,
             IUserVerificationRepository userVerificationRepository,
-            IRegexUtility regexUtility,
+            RegexUtility regexUtility,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
@@ -48,7 +49,7 @@ namespace Website.Web.Codes.Service
             _settingsRepository = settingsRepository;
         }
 
-        public User CreateUser(UserCreationData data)
+        public User CreateUser(UserData data)
         {
             if (data == null)
                 throw new ArgumentException("UserCreationData is missing");

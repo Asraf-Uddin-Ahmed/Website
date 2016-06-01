@@ -16,13 +16,16 @@ namespace Website.Web.Codes
     {
         public override void Load()
         {
-            // OTHER
-            Bind<IRegexUtility>().To<RegexUtility>();
+            /*
+             * MISCELLANEOUS
+             * */
+            Bind<RegexUtility>().ToSelf();
 
-            // SERVICE
+            /*
+             * SERVICE
+             * */
             Bind<IMembershipService>().To<MembershipService>();
             Bind<IValidationMessageService>().To<ValidationMessageService>();
-            Bind<IEmailService>().To<EmailService>();
             
             // HELPER
             Bind<IUrlMakerHelper>().To<UrlMakerHelper>();

@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Website.Web.Codes.Template
+namespace Website.Foundation.Persistence.Template
 {
     using System.Linq;
     using System.Text;
@@ -18,7 +18,7 @@ namespace Website.Web.Codes.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "G:\HOME\Website\Website.Web\Codes\Template\EmailForgotPassword.tt"
+    #line 1 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailForgotPassword.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class EmailForgotPassword : EmailForgotPasswordBase
     {
@@ -30,7 +30,7 @@ namespace Website.Web.Codes.Template
         {
             this.Write("\r\nHello ");
             
-            #line 7 "G:\HOME\Website\Website.Web\Codes\Template\EmailForgotPassword.tt"
+            #line 7 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailForgotPassword.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.RegisteredUser.Name));
             
             #line default
@@ -38,7 +38,7 @@ namespace Website.Web.Codes.Template
             this.Write(",\r\n\r\nA request was made to change the password on your Website account. \r\nTo comp" +
                     "lete this request please follow the link below:\r\n");
             
-            #line 11 "G:\HOME\Website\Website.Web\Codes\Template\EmailForgotPassword.tt"
+            #line 11 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailForgotPassword.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Url));
             
             #line default

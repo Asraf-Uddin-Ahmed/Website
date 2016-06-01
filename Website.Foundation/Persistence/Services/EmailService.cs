@@ -6,9 +6,10 @@ using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Enums;
 using Website.Foundation.Core.Repositories;
-using Website.Web.Codes.Template;
+using Website.Foundation.Core.Services;
+using Website.Foundation.Persistence.Template;
 
-namespace Website.Web.Codes.Service
+namespace Website.Foundation.Persistence.Services
 {
     public class EmailService : IEmailService
     {

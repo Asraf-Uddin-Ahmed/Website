@@ -37,6 +37,7 @@ namespace Website.Foundation
              * SERVICE
              * */
             Bind<IUserService>().To<UserService>();
+            Bind<IEmailService>().To<EmailService>();
 
         }
     }

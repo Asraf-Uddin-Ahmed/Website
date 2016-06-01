@@ -6,6 +6,8 @@ using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
+using Website.Foundation.Core.Factories.Data;
+using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
 using Website.Web.Codes;
 using Website.Web.Codes.Helper;
@@ -34,7 +36,7 @@ namespace Website.Web.Models.Account
         public User CreateUser()
         {
             IMembershipService membershipService = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
-            User user = membershipService.CreateUser(new UserCreationData()
+            User user = membershipService.CreateUser(new UserData()
             {
                 Email = this.Email,
                 HasVerificationCode = true,

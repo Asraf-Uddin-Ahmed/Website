@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Website.Web.Codes.Template
+namespace Website.Foundation.Persistence.Template
 {
     using System.Linq;
     using System.Text;
@@ -18,7 +18,7 @@ namespace Website.Web.Codes.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "G:\HOME\Website\Website.Web\Codes\Template\EmailConfirmUser.tt"
+    #line 1 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailConfirmUser.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class EmailConfirmUser : EmailConfirmUserBase
     {
@@ -30,7 +30,7 @@ namespace Website.Web.Codes.Template
         {
             this.Write("\r\nHello ");
             
-            #line 7 "G:\HOME\Website\Website.Web\Codes\Template\EmailConfirmUser.tt"
+            #line 7 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailConfirmUser.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.NewUser.Name));
             
             #line default
@@ -38,7 +38,7 @@ namespace Website.Web.Codes.Template
             this.Write(",\r\n\r\nYour new account has been created. \r\nTo complete the registration process, p" +
                     "lease confirm your email address by clicking the link below:\r\n");
             
-            #line 11 "G:\HOME\Website\Website.Web\Codes\Template\EmailConfirmUser.tt"
+            #line 11 "G:\HOME\Website\Website.Foundation\Persistence\Template\EmailConfirmUser.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Url));
             
             #line default
