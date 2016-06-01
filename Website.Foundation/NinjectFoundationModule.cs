@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Ninject.Modules;
 using System.Web;
 using System.Configuration;
-using Website.Foundation.Aggregates;
-using Website.Foundation.Repositories;
-using Website.Foundation.Helpers;
-using Website.Foundation.Factory;
-using Website.Foundation.Services;
+using Website.Foundation.Persistence;
+using Website.Foundation.Core.Factories;
+using Website.Foundation.Factories;
+using Website.Foundation.Core.Services;
+using Website.Foundation.Persistence.Services;
+using Website.Foundation.Core;
 
 namespace Website.Foundation
 {
@@ -15,27 +16,11 @@ namespace Website.Foundation
     {
         public override void Load()
         {
-            Bind<ITableContext>().To<TableContext>();
-
-            // ENTITY
-            Bind<IPasswordVerification>().To<PasswordVerification>();
-            Bind<IUser>().To<User>();
-            Bind<IUserVerification>().To<UserVerification>();
-            Bind<ISettings>().To<Settings>();
-
-            // REPOSITORY
-            Bind<IPasswordVerificationRepository>().To<PasswordVerificationRepository>();
-            Bind<IUserRepository>().To<UserRepository>();
-            Bind<IUserVerificationRepository>().To<UserVerificationRepository>();
-            Bind<ISettingsRepository>().To<SettingsRepository>();
-
+            Bind<TableContext>().ToSelf();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
+            
             // FACTORY
             Bind<IUserFactory>().To<UserFactory>();
-
-            // INTERNAL
-            Bind<IRepositorySearchHelper>().To<RepositorySearchHelper>();
-
-            // HELPER
 
             // SERVICE
             Bind<IUserService>().To<UserService>();

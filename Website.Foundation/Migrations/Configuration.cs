@@ -5,10 +5,11 @@ namespace Website.Foundation.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Website.Foundation.Aggregates;
-    using Website.Foundation.Enums;
+    using Website.Foundation.Core.Aggregates;
+    using Website.Foundation.Core.Enums;
+    using Website.Foundation.Persistence;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Website.Foundation.TableContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TableContext>
     {
         public Configuration()
         {
@@ -16,7 +17,7 @@ namespace Website.Foundation.Migrations
             ContextKey = "Website.Foundation.TableContext";
         }
 
-        protected override void Seed(Website.Foundation.TableContext context)
+        protected override void Seed(TableContext context)
         {
             //List<Settings> listSettings = new List<Settings>
             //{

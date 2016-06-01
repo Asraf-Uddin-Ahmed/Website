@@ -1,0 +1,53 @@
+﻿using Ratul.Utility;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Core.Container;
+using Website.Foundation.Core.Repositories;
+using Website.Foundation.Core.SearchData;
+
+namespace Website.Foundation.Persistence.Repositories
+{
+    public abstract class RepositorySearch<TEntity, TSearch> : Repository<TEntity>, IRepositorySearch<TEntity, TSearch>
+        where TEntity : Entity
+        where TSearch : EntitySearch
+    {
+
+        private DbContext _context;
+        public RepositorySearch(DbContext context)
+            : base(context)
+        {
+            _context = context;
+        }
+
+        protected int GetTotalBy(Expression<Func<TEntity, bool>> predicateCount)
+        {
+            return _context.Set<TEntity>().Count(predicateCount);
+        }
+        protected IEnumerable<TEntity> GetBy(int index, int size, SortBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
+        {
+            IEnumerable<TEntity> listEntity = _context.Set<TEntity>()
+                .Where(predicateWhere)
+                .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
+                .Skip(index).Take(size);
+            return listEntity;
+        }
+        protected bool IsAllPropertyNull(TSearch obj)
+        {
+            bool isAnyNotNull = obj.GetType().GetProperties().Any(c => c.GetValue(obj) != null);
+            return !isAnyNotNull;
+        }
+
+
+        public abstract IEnumerable<TEntity> GetByAnd(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy);
+        public abstract IEnumerable<TEntity> GetByOr(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy);
+        public abstract int GetTotalAnd(TSearch searchItem);
+        public abstract int GetTotalOr(TSearch searchItem);
+
+    }
+}
