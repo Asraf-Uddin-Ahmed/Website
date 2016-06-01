@@ -46,7 +46,9 @@ namespace Website.Foundation.Persistence.Repositories
             return user;
         }
 
-        private Expression<Func<User, bool>> GetAndSearchCondition(UserSearch searchItem)
+
+
+        protected override Expression<Func<User, bool>> GetAndSearchCondition(UserSearch searchItem)
         {
             Expression<Func<User, bool>> predicate = (col) =>
                 (searchItem.EmailAddress == null || searchItem.EmailAddress == col.EmailAddress)
@@ -59,7 +61,7 @@ namespace Website.Foundation.Persistence.Repositories
                 && (searchItem.UpdateTime == null || searchItem.UpdateTime == col.UpdateTime);
             return predicate;
         }
-        private Expression<Func<User, bool>> GetOrSearchCondition(UserSearch searchItem)
+        protected override Expression<Func<User, bool>> GetOrSearchCondition(UserSearch searchItem)
         {
             bool isAllNull = base.IsAllPropertyNull(searchItem);
             Expression<Func<User, bool>> predicate = (col) =>
@@ -74,30 +76,6 @@ namespace Website.Foundation.Persistence.Repositories
                 || isAllNull;
             return predicate;
         }
-        public override int GetTotalAnd(UserSearch searchItem)
-        {
-            Expression<Func<User, bool>> predicateCount = GetAndSearchCondition(searchItem);
-            int total = base.GetTotalBy(predicateCount);
-            return total;
-        }
-        public override int GetTotalOr(UserSearch searchItem)
-        {
-            Expression<Func<User, bool>> predicateCount = GetOrSearchCondition(searchItem);
-            int total = base.GetTotalBy(predicateCount);
-            return total;
-        }
-
-        public override IEnumerable<User> GetByAnd(UserSearch searchItem, int index, int size, SortBy<User> sortBy)
-        {
-            Expression<Func<User, bool>> predicateWhere = GetAndSearchCondition(searchItem);
-            IEnumerable<User> listUser = base.GetBy(index, size, sortBy, predicateWhere);
-            return listUser;
-        }
-        public override IEnumerable<User> GetByOr(UserSearch searchItem, int index, int size, SortBy<User> sortBy)
-        {
-            Expression<Func<User, bool>> predicateWhere = GetOrSearchCondition(searchItem);
-            IEnumerable<User> listUser = base.GetBy(index, size, sortBy, predicateWhere);
-            return listUser;
-        }
+        
     }
 }

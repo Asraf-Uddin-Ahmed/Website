@@ -25,6 +25,39 @@ namespace Website.Foundation.Persistence.Repositories
             _context = context;
         }
 
+
+        protected abstract Expression<Func<TEntity, bool>> GetAndSearchCondition(TSearch searchItem);
+        protected abstract Expression<Func<TEntity, bool>> GetOrSearchCondition(TSearch searchItem);
+
+
+
+        public int GetTotalAnd(TSearch searchItem)
+        {
+            Expression<Func<TEntity, bool>> predicateCount = this.GetAndSearchCondition(searchItem);
+            int total = this.GetTotalBy(predicateCount);
+            return total;
+        }
+        public int GetTotalOr(TSearch searchItem)
+        {
+            Expression<Func<TEntity, bool>> predicateCount = this.GetOrSearchCondition(searchItem);
+            int total = this.GetTotalBy(predicateCount);
+            return total;
+        }
+
+        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy)
+        {
+            Expression<Func<TEntity, bool>> predicateWhere = this.GetAndSearchCondition(searchItem);
+            IEnumerable<TEntity> listUser = this.GetBy(index, size, sortBy, predicateWhere);
+            return listUser;
+        }
+        public IEnumerable<TEntity> GetByOr(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy)
+        {
+            Expression<Func<TEntity, bool>> predicateWhere = this.GetOrSearchCondition(searchItem);
+            IEnumerable<TEntity> listUser = this.GetBy(index, size, sortBy, predicateWhere);
+            return listUser;
+        }
+
+
         protected int GetTotalBy(Expression<Func<TEntity, bool>> predicateCount)
         {
             return _context.Set<TEntity>().Count(predicateCount);
@@ -42,12 +75,6 @@ namespace Website.Foundation.Persistence.Repositories
             bool isAnyNotNull = obj.GetType().GetProperties().Any(c => c.GetValue(obj) != null);
             return !isAnyNotNull;
         }
-
-
-        public abstract IEnumerable<TEntity> GetByAnd(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy);
-        public abstract IEnumerable<TEntity> GetByOr(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy);
-        public abstract int GetTotalAnd(TSearch searchItem);
-        public abstract int GetTotalOr(TSearch searchItem);
 
     }
 }
