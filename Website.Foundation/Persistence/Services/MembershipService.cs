@@ -25,6 +25,7 @@ namespace Website.Foundation.Persistence.Services
         private IUserVerificationRepository _userVerificationRepository;
         private RegexUtility _regexUtility;
         private IUserVerificationFactory _userVerificationFactory;
+        private IPasswordVerificationFactory _passwordVerificationFactory;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
@@ -35,6 +36,7 @@ namespace Website.Foundation.Persistence.Services
             IUserVerificationRepository userVerificationRepository,
             RegexUtility regexUtility,
             IUserVerificationFactory userVerificationFactory,
+            IPasswordVerificationFactory passwordVerificationFactory,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
@@ -44,6 +46,7 @@ namespace Website.Foundation.Persistence.Services
             _userVerificationRepository = userVerificationRepository;
             _regexUtility = regexUtility;
             _userVerificationFactory = userVerificationFactory;
+            _passwordVerificationFactory = passwordVerificationFactory;
             _settingsRepository = settingsRepository;
         }
 
@@ -145,10 +148,8 @@ namespace Website.Foundation.Persistence.Services
         }
         public PasswordVerification ProcessForgotPassword(User user)
         {
-            PasswordVerification verification = new PasswordVerification(); // NinjectWebCommon.GetConcreteInstance<PasswordVerification>();
-            verification.CreationTime = DateTime.UtcNow;
+            PasswordVerification verification = _passwordVerificationFactory.Create();
             verification.UserID = user.ID;
-            verification.VerificationCode = UserUtility.GetNewVerificationCode();
             _passwordVerificationRepository.Add(verification);
             return verification;
         }

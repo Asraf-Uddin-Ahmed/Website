@@ -66,6 +66,7 @@
     <Compile Include="Core\Aggregates\UserVerification.cs" />
     <Compile Include="Core\Aggregates\User.cs" />
     <Compile Include="Core\Container\SortBy.cs" />
+    <Compile Include="Core\Factories\IPasswordVerificationFactory.cs" />
     <Compile Include="Core\Factories\IUserVerificationFactory.cs" />
     <Compile Include="Core\SearchData\UserSearch.cs" />
     <Compile Include="Core\Enums\LoginStatus.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Core\Services\IEmailService.cs" />
     <Compile Include="Core\Services\IMembershipService.cs" />
     <Compile Include="Core\Services\IPasswordVerificationService.cs" />
+    <Compile Include="Persistence\Factories\PasswordVerificationFactory.cs" />
     <Compile Include="Persistence\Factories\UserFactory.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.Designer.cs">
