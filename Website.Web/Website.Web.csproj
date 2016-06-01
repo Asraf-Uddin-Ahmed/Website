@@ -336,6 +336,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Codes\Core\" />
+    <Folder Include="Codes\Persistence\" />
     <Folder Include="Models\Home\" />
   </ItemGroup>
   <ItemGroup>

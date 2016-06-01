@@ -19,11 +19,15 @@ namespace Website.Foundation.Persistence.Services
     {
         private ILogger _logger;
         private IUserRepository _userRepository;
+        private IPasswordVerificationRepository _passwordVerificationRepository;
         [Inject]
-        public UserService(ILogger logger, IUserRepository userRepository)
+        public UserService(ILogger logger,
+            IUserRepository userRepository, 
+            IPasswordVerificationRepository passwordVerificationRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _passwordVerificationRepository = passwordVerificationRepository;
         }
 
         public bool IsEmailAddressAlreadyInUse(string email)
@@ -97,7 +101,7 @@ namespace Website.Foundation.Persistence.Services
         }
 
 
-        public ICollection<User> GetAllUserPaged(int index, int size, SortBy<User> sortBy)
+        public ICollection<User> GetUserBy(int index, int size, SortBy<User> sortBy)
         {
             if (index < 0 || size < 0)
                 throw new ArgumentException("Invalid index and size");
@@ -160,6 +164,12 @@ namespace Website.Foundation.Persistence.Services
                 _logger.Error(ex, "Failed to Get All Users");
                 return new List<User>();
             }
+        }
+
+        public User GetUserByPasswordVerificationCode(string verificationCode)
+        {
+            PasswordVerification passwordVerification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
+            return passwordVerification == null ? null : this.GetUser(passwordVerification.UserID);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Website.Foundation.Core.Services
     public interface IUserService
     {
         bool DeleteUser(Guid userID);
-        ICollection<User> GetAllUserPaged(int pageNumber, int pageSize, SortBy<User> sortBy);
+        ICollection<User> GetUserBy(int pageNumber, int pageSize, SortBy<User> sortBy);
         User GetUser(Guid userID);
         User GetUserByEmail(string email);
         User GetUserByUserName(string userName);
@@ -16,5 +16,6 @@ namespace Website.Foundation.Core.Services
         bool IsUserNameAlreadyInUse(string userName);
         bool UpdateUserInformation(User user);
         ICollection<User> GetAll();
+        User GetUserByPasswordVerificationCode(string verificationCode);
     }
 }

@@ -27,15 +27,18 @@ namespace Website.Web.Controllers
         private IMembershipService _membershipService;
         private IUserService _userService;
         private IValidationMessageService _validationMessageService;
+        private IPasswordVerificationService _passwordVerificationService;
         public AccountController(ILogger logger,
             IMembershipService membershipService,
             IUserService userService,
+            IPasswordVerificationService passwordVerificationService,
             IValidationMessageService validationMessageService)
             : base(logger)
         {
             _logger = logger;
             _membershipService = membershipService;
             _userService = userService;
+            _passwordVerificationService = passwordVerificationService;
             _validationMessageService = validationMessageService;
         }
 
@@ -66,7 +69,10 @@ namespace Website.Web.Controllers
                 LoginStatus loginStatus = _membershipService.ProcessLogin(model.UserName, model.Password);
                 model.StoreActionResponseMessageByLoginStatus(loginStatus);
                 if (loginStatus == LoginStatus.Successful)
+                {
+                    this.StoreUserInSession(_userService.GetUserByUserName(model.UserName));
                     return this.RedirectToLocal(returnUrl);
+                }
             }
             catch (Exception ex)
             {
@@ -189,7 +195,12 @@ namespace Website.Web.Controllers
             {
                 VerificationStatus status = _membershipService.VerifyForPasswordChange(code);
                 if (status == VerificationStatus.Success)
+                {
+                    User user = _userService.GetUserByPasswordVerificationCode(code);
+                    this.StoreUserInSession(user);
+                    _passwordVerificationService.RemoveByUserID(user.ID);
                     return View();
+                }
             }
             catch (Exception ex)
             {
@@ -256,6 +267,10 @@ namespace Website.Web.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+        private void StoreUserInSession(User user)
+        {
+            UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
         }
         #endregion
     }

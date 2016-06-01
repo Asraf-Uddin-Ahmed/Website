@@ -38,6 +38,7 @@ namespace Website.Foundation
              * */
             Bind<IUserService>().To<UserService>();
             Bind<IEmailService>().To<EmailService>();
+            Bind<IPasswordVerificationService>().To<PasswordVerificationService>();
 
         }
     }

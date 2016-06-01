@@ -83,6 +83,7 @@
     <Compile Include="Core\Repositories\IUserVerificationRepository.cs" />
     <Compile Include="Core\SearchData\EntitySearch.cs" />
     <Compile Include="Core\Services\IEmailService.cs" />
+    <Compile Include="Core\Services\IPasswordVerificationService.cs" />
     <Compile Include="Persistence\Factories\UserFactory.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.Designer.cs">
@@ -96,6 +97,7 @@
     <Compile Include="NinjectFoundationModule.cs" />
     <Compile Include="Persistence\Repositories\RepositorySearch.cs" />
     <Compile Include="Persistence\Services\EmailService.cs" />
+    <Compile Include="Persistence\Services\PasswordVerificationService.cs" />
     <Compile Include="Persistence\Services\UserService.cs" />
     <Compile Include="Persistence\Template\EmailConfirmUser.cs">
       <DependentUpon>EmailConfirmUser.tt</DependentUpon>

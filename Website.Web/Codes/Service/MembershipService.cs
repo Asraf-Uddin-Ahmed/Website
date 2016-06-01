@@ -175,13 +175,13 @@ namespace Website.Web.Codes.Service
             {
                 PasswordVerification verification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
                 if (verification == null)
+                {
                     return VerificationStatus.VerificationCodeDoesNotExist;
+                }
 
                 User user = _userService.GetUser(verification.UserID);
                 if (user != null)
                 {
-                    _passwordVerificationRepository.RemoveByUserID(user.ID);
-                    this.StoreUserInSession(user);
                     return VerificationStatus.Success;
                 }
             }
@@ -291,11 +291,7 @@ namespace Website.Web.Codes.Service
             user.LastLogin = DateTime.UtcNow;
             user.WrongPasswordAttempt = 0;
             _userService.UpdateUserInformation(user);
-            this.StoreUserInSession(user);
         }
-        private void StoreUserInSession(User user)
-        {
-            UserSession.CurrentUser = new UserIdentity(user.ID, user.TypeOfUser.ToString(), user.Name);
-        }
+        
     }
 }
