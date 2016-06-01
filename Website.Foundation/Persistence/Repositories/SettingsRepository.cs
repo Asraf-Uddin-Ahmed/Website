@@ -13,7 +13,9 @@ namespace Website.Foundation.Persistence.Repositories
     public class SettingsRepository : Repository<Settings>, ISettingsRepository
     {
         private TableContext _context;
-        public SettingsRepository(TableContext context) : base(context)
+        [Inject]
+        public SettingsRepository(TableContext context)
+            : base(context)
         {
             _context = context;
         }

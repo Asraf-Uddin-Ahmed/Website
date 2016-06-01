@@ -16,55 +16,62 @@ namespace Website.Foundation.Persistence.Repositories
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly DbContext Context;
+        protected readonly DbSet<TEntity> dbSet;
+        private readonly DbContext _context;
         public Repository(DbContext context)
         {
-            this.Context = context;
+            _context = context;
+            dbSet = _context.Set<TEntity>();
         }
 
 
-        public void Add(TEntity entity)
+        public void Add(TEntity entity, bool isPersist = false)
         {
-            this.Context.Set<TEntity>().Add(entity);
+            dbSet.Add(entity);
+            this.Commit(isPersist);
         }
-        public void AddRange(IEnumerable<TEntity> entities)
+        public void AddRange(IEnumerable<TEntity> entities, bool isPersist = false)
         {
-            this.Context.Set<TEntity>().AddRange(entities);
+            dbSet.AddRange(entities);
+            this.Commit(isPersist);
         }
 
 
-        public void Update(TEntity entity)
+        public void Update(TEntity entity, bool isPersist = false)
         {
-            this.Context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
+            this.Commit(isPersist);
         }
 
 
-        public void Remove(Guid ID)
+        public void Remove(TEntity entity, bool isPersist = false)
+        {
+            dbSet.Remove(entity);
+            this.Commit(isPersist);
+        }
+        public void Remove(Guid ID, bool isPersist = false)
         {
             TEntity currentItem = this.Get(ID);
-            this.Remove(currentItem);
+            this.Remove(currentItem, isPersist);
         }
-        public void Remove(TEntity entity)
+        public void RemoveRange(IEnumerable<TEntity> entities, bool isPersist = false)
         {
-            this.Context.Set<TEntity>().Remove(entity);
-        }
-        public void RemoveRange(IEnumerable<TEntity> entities)
-        {
-            this.Context.Set<TEntity>().RemoveRange(entities);
+            dbSet.RemoveRange(entities);
+            this.Commit(isPersist);
         }
 
 
         public TEntity Get(Guid ID)
         {
-            return this.Context.Set<TEntity>().Find(ID);
+            return dbSet.Find(ID);
         }
         public IEnumerable<TEntity> GetAll()
         {
-            return this.Context.Set<TEntity>().ToList();
+            return dbSet.ToList();
         }
         public IEnumerable<TEntity> GetBy(int index, int size, SortBy<TEntity> sortBy)
         {
-            ICollection<TEntity> listEntity = this.Context.Set<TEntity>()
+            ICollection<TEntity> listEntity = _context.Set<TEntity>()
                 .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
                 .Skip(index).Take(size).ToList<TEntity>();
             return listEntity;
@@ -73,8 +80,23 @@ namespace Website.Foundation.Persistence.Repositories
 
         public int GetTotal()
         {
-            return this.Context.Set<TEntity>().Count();
+            return dbSet.Count();
         }
-        
+
+
+        public void Commit()
+        {
+            this.Commit(true);
+        }
+
+
+
+        private void Commit(bool isPersist)
+        {
+            if(isPersist)
+            {
+                _context.SaveChanges();
+            }
+        }
     }
 }

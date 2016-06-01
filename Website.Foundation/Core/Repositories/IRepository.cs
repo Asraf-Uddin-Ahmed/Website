@@ -10,14 +10,14 @@ namespace Website.Foundation.Core.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
-        
-        void Update(TEntity entity);
-        
-        void Remove(Guid ID);
-        void Remove(TEntity currentItem);
-        void RemoveRange(IEnumerable<TEntity> entities);
+        void Add(TEntity entity, bool isPersist = false);
+        void AddRange(IEnumerable<TEntity> entities, bool isPersist = false);
+
+        void Update(TEntity entity, bool isPersist = false);
+
+        void Remove(TEntity currentItem, bool isPersist = false);
+        void Remove(Guid ID, bool isPersist = false);
+        void RemoveRange(IEnumerable<TEntity> entities, bool isPersist = false);
 
         TEntity Get(Guid ID);
         IEnumerable<TEntity> GetAll();
@@ -25,5 +25,6 @@ namespace Website.Foundation.Core.Repositories
 
         int GetTotal();
 
+        void Commit();
     }
 }

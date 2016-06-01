@@ -18,19 +18,19 @@ namespace Website.Foundation.Persistence.Services
     public class UserService : IUserService
     {
         private ILogger _logger;
-        private IUnitOfWork _unitOfWork;
+        private IUserRepository _userRepository;
         [Inject]
-        public UserService(ILogger logger, IUnitOfWork unitOfWork)
+        public UserService(ILogger logger, IUserRepository userRepository)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
         }
 
         public bool IsEmailAddressAlreadyInUse(string email)
         {
             try
             {
-                bool isExist = _unitOfWork.Users.IsEmailExist(email);
+                bool isExist = _userRepository.IsEmailExist(email);
                 return isExist;
             }
             catch (Exception ex)
@@ -44,7 +44,7 @@ namespace Website.Foundation.Persistence.Services
         {
             try
             {
-                bool isExist = _unitOfWork.Users.IsUserNameExist(userName);
+                bool isExist = _userRepository.IsUserNameExist(userName);
                 return isExist;
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace Website.Foundation.Persistence.Services
 
             try
             {
-                return _unitOfWork.Users.GetByUserName(userName);
+                return _userRepository.GetByUserName(userName);
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace Website.Foundation.Persistence.Services
         {
             try
             {
-                return _unitOfWork.Users.GetByEmail(email);
+                return _userRepository.GetByEmail(email);
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace Website.Foundation.Persistence.Services
         {
             try
             {
-                return _unitOfWork.Users.Get(userID);
+                return _userRepository.Get(userID);
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace Website.Foundation.Persistence.Services
 
             try
             {
-                List<User> result = _unitOfWork.Users.GetBy(index, size, sortBy).Cast<User>().ToList<User>();
+                List<User> result = _userRepository.GetBy(index, size, sortBy).Cast<User>().ToList<User>();
                 return result;
             }
             catch (Exception ex)
@@ -118,8 +118,9 @@ namespace Website.Foundation.Persistence.Services
         {
             try
             {
-                _unitOfWork.Users.Remove(userID);
-                _unitOfWork.Commit();
+                // use '_userRepository.Commit()' function after 'remove' if you do not use 'isPersist' value 'true'.
+                // See 'UpdateUserInformation' for detail.
+                _userRepository.Remove(userID, true);
                 return true;
             }
             catch (Exception ex)
@@ -134,8 +135,10 @@ namespace Website.Foundation.Persistence.Services
                 return false;
             try
             {
-                _unitOfWork.Users.Update(user);
-                _unitOfWork.Commit();
+                // You can also give the 'isPersist' value 'true' for instant save.
+                // See 'DeleteUser' for detail.
+                _userRepository.Update(user);
+                _userRepository.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -149,7 +152,7 @@ namespace Website.Foundation.Persistence.Services
         {
             try
             {
-                List<User> result = _unitOfWork.Users.GetAll().ToList<User>();
+                List<User> result = _userRepository.GetAll().ToList<User>();
                 return result;
             }
             catch (Exception ex)
