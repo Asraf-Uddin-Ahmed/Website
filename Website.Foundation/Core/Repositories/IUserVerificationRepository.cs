@@ -11,7 +11,7 @@ namespace Website.Foundation.Core.Repositories
     {
         UserVerification GetByVerificationCode(string verificationCode);
         bool IsVerificationCodeExist(string verificationCode);
-        void RemoveByVerificationCode(string verificationCode);
-        void RemoveByUserID(Guid userID);
+        void RemoveByVerificationCode(string verificationCode, bool isPersist = false);
+        void RemoveByUserID(Guid userID, bool isPersist = false);
     }
 }

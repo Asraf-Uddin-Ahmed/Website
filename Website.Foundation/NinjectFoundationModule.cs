@@ -33,6 +33,7 @@ namespace Website.Foundation
              * */
             Bind<IUserFactory>().To<UserFactory>();
             Bind<IUserVerificationFactory>().To<UserVerificationFactory>();
+            Bind<IPasswordVerificationFactory>().To<PasswordVerificationFactory>();
 
             /*
              * SERVICE

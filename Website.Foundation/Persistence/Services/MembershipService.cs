@@ -69,9 +69,9 @@ namespace Website.Foundation.Persistence.Services
                 {
                     UserVerification userVerification = _userVerificationFactory.Create();
                     user.UserVerifications = new List<UserVerification>();
-                    user.UserVerifications.Add((UserVerification)userVerification);
+                    user.UserVerifications.Add(userVerification);
                 }
-                _userRepository.Add(user);
+                _userRepository.Add(user, true);
                 return user;
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace Website.Foundation.Persistence.Services
                 {
                     user.Status = UserStatus.Active;
                     _userService.UpdateUserInformation(user);
-                    _userVerificationRepository.RemoveByUserID(user.ID);
+                    _userVerificationRepository.RemoveByUserID(user.ID, true);
                     return VerificationStatus.Success;
                 }
             }
@@ -150,7 +150,7 @@ namespace Website.Foundation.Persistence.Services
         {
             PasswordVerification verification = _passwordVerificationFactory.Create();
             verification.UserID = user.ID;
-            _passwordVerificationRepository.Add(verification);
+            _passwordVerificationRepository.Add(verification, true);
             return verification;
         }
         /// <summary>

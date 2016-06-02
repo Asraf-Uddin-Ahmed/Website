@@ -119,3 +119,21 @@ System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-s
    at Website.Foundation.Repositories.UserRepository.GetByUserName(String userName) in e:\EXPERIMENT\HOME\Website\Website.Foundation\Repositories\UserRepository.cs:line 39
    at Website.Foundation.Services.UserService.GetUserByUserName(String userName) in e:\EXPERIMENT\HOME\Website\Website.Foundation\Services\UserService.cs:line 62
 ClientConnectionId:00000000-0000-0000-0000-000000000000
+
+Ratul-PC :: ERROR :: User failed to verify: VerificationCode= 
+Logger: Website.Web.Controllers.AccountController
+Thread: 9
+Date: 2016-06-02 13:55:19,353
+NDC: (null)
+System.ArgumentException: Verification code is missing
+   at Website.Foundation.Persistence.Services.MembershipService.VerifyForUserStatus(String verificationCode) in g:\HOME\Website\Website.Foundation\Persistence\Services\MembershipService.cs:line 126
+   at Website.Web.Controllers.AccountController.ConfirmUser(String code) in g:\HOME\Website\Website.Web\Controllers\AccountController.cs:line 131
+
+Ratul-PC :: ERROR :: User failed to verify: VerificationCode= 
+Logger: Website.Web.Controllers.AccountController
+Thread: 9
+Date: 2016-06-02 13:56:20,128
+NDC: (null)
+System.ArgumentException: Verification code is missing
+   at Website.Foundation.Persistence.Services.MembershipService.VerifyForUserStatus(String verificationCode) in g:\HOME\Website\Website.Foundation\Persistence\Services\MembershipService.cs:line 126
+   at Website.Web.Controllers.AccountController.ConfirmUser(String code) in g:\HOME\Website\Website.Web\Controllers\AccountController.cs:line 131
