@@ -10,8 +10,7 @@ using Website.Foundation.Core.Factories;
 using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
 using Website.Web.Codes;
-using Website.Web.Codes.Helper;
-using Website.Web.Codes.Service;
+using Website.Web.Codes.Core.Services;
 
 namespace Website.Web.Models.Account
 {
@@ -50,7 +49,7 @@ namespace Website.Web.Models.Account
         {
             if(!user.UserVerifications.Any())
                 return;
-            IUrlMakerHelper urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerHelper>();
+            IUrlMakerService urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerService>();
             IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
             string url = urlMakerHelper.GetUrlConfirmUser(user.UserVerifications.First().VerificationCode);
             emailService.SendConfirmUser(user, url);

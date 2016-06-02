@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Website.Foundation.Core.Enums;
 using Website.Web.App_Start;
-using Website.Web.Codes.Service;
+using Website.Web.Codes.Core.Services;
 
 namespace Website.Web.Models.Account
 {

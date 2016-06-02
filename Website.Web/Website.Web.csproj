@@ -203,10 +203,10 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Codes\Helper\IUrlMakerHelper.cs" />
-    <Compile Include="Codes\Helper\UrlMakerHelper.cs" />
-    <Compile Include="Codes\Service\IValidationMessageService.cs" />
-    <Compile Include="Codes\Service\ValidationMessageService.cs" />
+    <Compile Include="Codes\Core\Services\IUrlMakerService.cs" />
+    <Compile Include="Codes\Persistence\Services\UrlMakerService.cs" />
+    <Compile Include="Codes\Core\Services\IValidationMessageService.cs" />
+    <Compile Include="Codes\Persistence\Services\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />
     <Compile Include="Codes\UserSession.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -334,8 +334,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Codes\Core\" />
-    <Folder Include="Codes\Persistence\" />
     <Folder Include="Models\Home\" />
   </ItemGroup>
   <ItemGroup>

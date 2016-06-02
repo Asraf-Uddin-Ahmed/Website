@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Website.Web.Codes.Service
+namespace Website.Web.Codes.Core.Services
 {
     public interface IValidationMessageService
     {

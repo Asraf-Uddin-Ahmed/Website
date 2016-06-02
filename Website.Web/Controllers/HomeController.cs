@@ -15,7 +15,6 @@ using Website.Foundation.Core.Enums;
 using Website.Foundation.Core.Repositories;
 using Website.Web.App_Start;
 using Website.Web.Codes;
-using Website.Web.Codes.Service;
 
 namespace Website.Web.Controllers
 {

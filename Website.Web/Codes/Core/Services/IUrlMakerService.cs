@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Website.Web.Codes.Helper
+namespace Website.Web.Codes.Core.Services
 {
-    public interface IUrlMakerHelper
+    public interface IUrlMakerService
     {
         string GetSiteUrl();
         string GetUrlConfirmUser(string varificationCode);

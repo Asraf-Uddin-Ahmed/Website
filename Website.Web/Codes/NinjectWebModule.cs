@@ -7,8 +7,8 @@ using System.Web;
 using System.Web.Hosting;
 using System.Configuration;
 using Ratul.Utility;
-using Website.Web.Codes.Service;
-using Website.Web.Codes.Helper;
+using Website.Web.Codes.Persistence.Services;
+using Website.Web.Codes.Core.Services;
 
 namespace Website.Web.Codes
 {
@@ -25,9 +25,7 @@ namespace Website.Web.Codes
              * SERVICE
              * */
             Bind<IValidationMessageService>().To<ValidationMessageService>();
-            
-            // HELPER
-            Bind<IUrlMakerHelper>().To<UrlMakerHelper>();
+            Bind<IUrlMakerService>().To<UrlMakerService>();
             
         }
     }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Website.Web.Codes.Core.Services;
 
-namespace Website.Web.Codes.Helper
+namespace Website.Web.Codes.Persistence.Services
 {
-    public class UrlMakerHelper : IUrlMakerHelper
+    public class UrlMakerService : IUrlMakerService
     {
         /// <summary>
         /// Get root url of site.

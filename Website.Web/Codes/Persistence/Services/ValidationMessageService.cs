@@ -5,8 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Website.Web.Codes;
+using Website.Web.Codes.Core.Services;
 
-namespace Website.Web.Codes.Service
+namespace Website.Web.Codes.Persistence.Services
 {
     public class ValidationMessageService : IValidationMessageService
     {

@@ -6,8 +6,7 @@ using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Services;
 using Website.Web.App_Start;
-using Website.Web.Codes.Helper;
-using Website.Web.Codes.Service;
+using Website.Web.Codes.Core.Services;
 
 namespace Website.Web.Models.Account
 {
@@ -22,7 +21,7 @@ namespace Website.Web.Models.Account
         {
             IMembershipService membershipService = NinjectWebCommon.GetConcreteInstance<IMembershipService>();
             IUserService userService = NinjectWebCommon.GetConcreteInstance<IUserService>();
-            IUrlMakerHelper urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerHelper>();
+            IUrlMakerService urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerService>();
             IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
 
             User user = userService.GetUserByEmail(this.Email);
