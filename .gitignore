@@ -261,3 +261,4 @@ paket-files/
 /Website.Web/bin
 /Website.Web/obj
 /*.suo
+/Website.Web/logs
