@@ -18,7 +18,10 @@ namespace Website.Foundation
     {
         public override void Load()
         {
-            Bind<TableContext>().ToSelf();
+            /*
+             * MISCELLANEOUS
+             * */
+            Bind<IUnitOfWork>().To<UnitOfWork>();
 
             /*
              * REPOSITORY

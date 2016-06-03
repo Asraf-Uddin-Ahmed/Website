@@ -71,6 +71,7 @@
     <Compile Include="Core\Container\SortBy.cs" />
     <Compile Include="Core\Factories\IPasswordVerificationFactory.cs" />
     <Compile Include="Core\Factories\IUserVerificationFactory.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\SearchData\UserSearch.cs" />
     <Compile Include="Core\Enums\LoginStatus.cs" />
     <Compile Include="Core\Enums\SettingsName.cs" />
@@ -119,6 +120,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Persistence\Template\EmailForgotPasswordExtended.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\Repositories\SettingsRepository.cs" />

@@ -9,6 +9,8 @@ using System.Configuration;
 using Ratul.Utility;
 using Website.Web.Codes.Persistence.Services;
 using Website.Web.Codes.Core.Services;
+using Website.Foundation.Persistence;
+using Ninject.Web.Common;
 
 namespace Website.Web.Codes
 {
@@ -20,6 +22,7 @@ namespace Website.Web.Codes
              * MISCELLANEOUS
              * */
             Bind<RegexUtility>().ToSelf();
+            Bind<TableContext>().ToSelf().InRequestScope();
 
             /*
              * SERVICE

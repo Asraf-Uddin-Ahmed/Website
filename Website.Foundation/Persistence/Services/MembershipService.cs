@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Website.Foundation;
+using Website.Foundation.Core;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
@@ -26,6 +27,7 @@ namespace Website.Foundation.Persistence.Services
         private RegexUtility _regexUtility;
         private IUserVerificationFactory _userVerificationFactory;
         private IPasswordVerificationFactory _passwordVerificationFactory;
+        private IUnitOfWork _unitOfWork;
         private ISettingsRepository _settingsRepository;
         [Inject]
         public MembershipService(ILogger logger,
@@ -37,6 +39,7 @@ namespace Website.Foundation.Persistence.Services
             RegexUtility regexUtility,
             IUserVerificationFactory userVerificationFactory,
             IPasswordVerificationFactory passwordVerificationFactory,
+            IUnitOfWork unitOfWork,
             ISettingsRepository settingsRepository)
         {
             _logger = logger;
@@ -47,6 +50,7 @@ namespace Website.Foundation.Persistence.Services
             _regexUtility = regexUtility;
             _userVerificationFactory = userVerificationFactory;
             _passwordVerificationFactory = passwordVerificationFactory;
+            _unitOfWork = unitOfWork;
             _settingsRepository = settingsRepository;
         }
 
@@ -71,7 +75,8 @@ namespace Website.Foundation.Persistence.Services
                     user.UserVerifications = new List<UserVerification>();
                     user.UserVerifications.Add(userVerification);
                 }
-                _userRepository.Add(user, true);
+                _userRepository.Add(user);
+                _unitOfWork.Commit();
                 return user;
             }
             catch (Exception ex)
@@ -136,7 +141,8 @@ namespace Website.Foundation.Persistence.Services
                 {
                     user.Status = UserStatus.Active;
                     _userService.UpdateUserInformation(user);
-                    _userVerificationRepository.RemoveByUserID(user.ID, true);
+                    _userVerificationRepository.RemoveByUserID(user.ID);
+                    _unitOfWork.Commit();
                     return VerificationStatus.Success;
                 }
             }
@@ -150,7 +156,8 @@ namespace Website.Foundation.Persistence.Services
         {
             PasswordVerification verification = _passwordVerificationFactory.Create();
             verification.UserID = user.ID;
-            _passwordVerificationRepository.Add(verification, true);
+            _passwordVerificationRepository.Add(verification);
+            _unitOfWork.Commit();
             return verification;
         }
         /// <summary>
