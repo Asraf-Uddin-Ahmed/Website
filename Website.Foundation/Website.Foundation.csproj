@@ -101,7 +101,6 @@
       <DependentUpon>201503221659567_PasswordVerification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="NinjectFoundationModule.cs" />
     <Compile Include="Persistence\Factories\UserVerificationFactory.cs" />
     <Compile Include="Persistence\Repositories\RepositorySearch.cs" />
     <Compile Include="Persistence\Services\EmailService.cs" />
