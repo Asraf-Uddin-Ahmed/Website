@@ -8,6 +8,8 @@ using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Enums;
 using Website.Foundation.Core.Factories;
 using Website.Foundation.Core.Services;
+using Website.Foundation.Core.Services.Email;
+using Website.Foundation.Persistence.Services.Email;
 using Website.Web.App_Start;
 using Website.Web.Codes;
 using Website.Web.Codes.Core.Services;
@@ -51,8 +53,11 @@ namespace Website.Web.Models.Account
                 return;
             IUrlMakerService urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerService>();
             IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
+            IConfirmUserMessageBuilder forgotPasswordMessageBuilder = NinjectWebCommon.GetConcreteInstance<IConfirmUserMessageBuilder>();
+
             string url = urlMakerHelper.GetUrlConfirmUser(user.UserVerifications.First().VerificationCode);
-            emailService.SendConfirmUser(user, url);
+            forgotPasswordMessageBuilder.Build(user, url);
+            emailService.SendText(forgotPasswordMessageBuilder);
         }
     }
 }

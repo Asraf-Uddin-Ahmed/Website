@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Services;
+using Website.Foundation.Core.Services.Email;
 using Website.Web.App_Start;
 using Website.Web.Codes.Core.Services;
 
@@ -23,11 +24,13 @@ namespace Website.Web.Models.Account
             IUserService userService = NinjectWebCommon.GetConcreteInstance<IUserService>();
             IUrlMakerService urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerService>();
             IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
+            IForgotPasswordMessageBuilder forgotPasswordMessageBuilder = NinjectWebCommon.GetConcreteInstance<IForgotPasswordMessageBuilder>();
 
             User user = userService.GetUserByEmail(this.Email);
             PasswordVerification passwordVerification = membershipService.ProcessForgotPassword(user);
             string url = urlMakerHelper.GetUrlForgotPassword(passwordVerification.VerificationCode);
-            emailService.SendForgotPassword(user, url);
+            forgotPasswordMessageBuilder.Build(user, url);
+            emailService.SendText(forgotPasswordMessageBuilder);
         }
     }
 }

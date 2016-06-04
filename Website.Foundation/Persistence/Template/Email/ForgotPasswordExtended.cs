@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
 
-namespace Website.Foundation.Persistence.Template
+namespace Website.Foundation.Persistence.Template.Email
 {
-    public partial class EmailConfirmUser
+    public partial class ForgotPassword
     {
-        public User NewUser
+        public User RegisteredUser
         {
             get;
             set;
@@ -20,9 +20,9 @@ namespace Website.Foundation.Persistence.Template
             set;
         }
 
-        public EmailConfirmUser(User newUser, string url)
+        public ForgotPassword(User registeredUser, string url)
         {
-            NewUser = newUser;
+            RegisteredUser = registeredUser;
             Url = url;
         }
     }
