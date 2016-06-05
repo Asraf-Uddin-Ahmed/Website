@@ -210,8 +210,13 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Codes\Core\Services\IUrlMakerService.cs" />
-    <Compile Include="Codes\Persistence\Services\UrlMakerService.cs" />
+    <Compile Include="Codes\Core\Services\UriMaker\IForgotPasswordUriBuilder.cs" />
+    <Compile Include="Codes\Core\Services\UriMaker\IConfirmUserUriBuilder.cs" />
+    <Compile Include="Codes\Core\Services\UriMaker\IUriBuilder.cs" />
+    <Compile Include="Codes\Core\Services\UriMaker\IUriMakerService.cs" />
+    <Compile Include="Codes\Persistence\Services\UriMaker\ConfirmUserUriBuilder.cs" />
+    <Compile Include="Codes\Persistence\Services\UriMaker\ForgotPasswordUriBuilder.cs" />
+    <Compile Include="Codes\Persistence\Services\UriMaker\UriMakerService.cs" />
     <Compile Include="Codes\Core\Services\IValidationMessageService.cs" />
     <Compile Include="Codes\Persistence\Services\ValidationMessageService.cs" />
     <Compile Include="Codes\NinjectWebModule.cs" />

@@ -13,6 +13,7 @@ using Website.Foundation.Persistence.Services.Email;
 using Website.Web.App_Start;
 using Website.Web.Codes;
 using Website.Web.Codes.Core.Services;
+using Website.Web.Codes.Core.Services.UriMaker;
 
 namespace Website.Web.Models.Account
 {
@@ -51,11 +52,13 @@ namespace Website.Web.Models.Account
         {
             if(!user.UserVerifications.Any())
                 return;
-            IUrlMakerService urlMakerHelper = NinjectWebCommon.GetConcreteInstance<IUrlMakerService>();
+            IUriMakerService uriMakerService = NinjectWebCommon.GetConcreteInstance<IUriMakerService>();
+            IConfirmUserUriBuilder confirmUserUriBuilder = NinjectWebCommon.GetConcreteInstance<IConfirmUserUriBuilder>();
             IEmailService emailService = NinjectWebCommon.GetConcreteInstance<IEmailService>();
             IConfirmUserMessageBuilder forgotPasswordMessageBuilder = NinjectWebCommon.GetConcreteInstance<IConfirmUserMessageBuilder>();
 
-            string url = urlMakerHelper.GetUrlConfirmUser(user.UserVerifications.First().VerificationCode);
+            confirmUserUriBuilder.Build(user.UserVerifications.First().VerificationCode);
+            string url = uriMakerService.GetFullUri(confirmUserUriBuilder);
             forgotPasswordMessageBuilder.Build(user, url);
             emailService.SendText(forgotPasswordMessageBuilder);
         }
