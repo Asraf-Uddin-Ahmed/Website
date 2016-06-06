@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Aggregates\ApplicationUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Core\Aggregates\Entity.cs" />
     <Compile Include="Core\Aggregates\Settings.cs" />
     <Compile Include="Core\Aggregates\PasswordVerification.cs" />
