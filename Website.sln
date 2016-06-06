@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.Web", "Website.Web\Website.Web.csproj", "{8065F1B2-0386-4EB9-85D8-C7D566A171EF}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratul.Mvc", "Ratul.Mvc\Ratul.Mvc.csproj", "{5DC64B9E-7E84-4F5D-A61D-B39671008E9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ratul.Utility", "Ratul.Utility\Ratul.Utility.csproj", "{BD432F12-90B9-428B-AF6D-EEB83E8898B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.WebApi", "Website.WebApi\Website.WebApi.csproj", "{2A1DBE33-0BDD-4D99-8ACF-BA95C22BE013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BD432F12-90B9-428B-AF6D-EEB83E8898B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD432F12-90B9-428B-AF6D-EEB83E8898B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD432F12-90B9-428B-AF6D-EEB83E8898B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A1DBE33-0BDD-4D99-8ACF-BA95C22BE013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A1DBE33-0BDD-4D99-8ACF-BA95C22BE013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A1DBE33-0BDD-4D99-8ACF-BA95C22BE013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A1DBE33-0BDD-4D99-8ACF-BA95C22BE013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
