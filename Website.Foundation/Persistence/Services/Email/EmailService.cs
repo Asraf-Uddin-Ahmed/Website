@@ -14,12 +14,12 @@ namespace Website.Foundation.Persistence.Services.Email
     public class EmailService : IEmailService
     {
         private EmailSender _emailSender;
-        private ISettingsRepository _settingsService;
+        private ISettingsRepository _settingsRepository;
         
         
-        public EmailService(ISettingsRepository settingsService)
+        public EmailService(ISettingsRepository settingsRepository)
         {
-            _settingsService = settingsService;
+            _settingsRepository = settingsRepository;
             this.InitializeEmailSender();
         }
 
@@ -39,11 +39,11 @@ namespace Website.Foundation.Persistence.Services.Email
         private void InitializeEmailSender()
         {
             EmailSettings emailSettings = new EmailSettings();
-            emailSettings.Host = _settingsService.GetValueByName(SettingsName.EmailHost);
-            emailSettings.UserName = _settingsService.GetValueByName(SettingsName.EmailUserName);
-            emailSettings.Password = _settingsService.GetValueByName(SettingsName.EmailPassword);
-            emailSettings.Port = int.Parse(_settingsService.GetValueByName(SettingsName.EmailPort));
-            emailSettings.EnableSsl = bool.Parse(_settingsService.GetValueByName(SettingsName.EmailEnableSSL));
+            emailSettings.Host = _settingsRepository.GetValueByName(SettingsName.EmailHost);
+            emailSettings.UserName = _settingsRepository.GetValueByName(SettingsName.EmailUserName);
+            emailSettings.Password = _settingsRepository.GetValueByName(SettingsName.EmailPassword);
+            emailSettings.Port = int.Parse(_settingsRepository.GetValueByName(SettingsName.EmailPort));
+            emailSettings.EnableSsl = bool.Parse(_settingsRepository.GetValueByName(SettingsName.EmailEnableSSL));
             _emailSender = new EmailSender(emailSettings);
         }
 
