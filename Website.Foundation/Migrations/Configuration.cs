@@ -14,7 +14,7 @@ namespace Website.Foundation.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Website.Foundation.TableContext";
+            ContextKey = "Website.Foundation.Persistence.ApplicationDbContext";
         }
 
         protected override void Seed(ApplicationDbContext context)

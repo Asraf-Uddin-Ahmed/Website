@@ -12,7 +12,7 @@ namespace Website.Foundation.Persistence
     public class ApplicationDbContext : DbContext//IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("name=DbConnectionString")
+            : base("DefaultConnection")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
