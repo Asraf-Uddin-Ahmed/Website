@@ -8,9 +8,9 @@ using Website.Foundation.Core.Aggregates;
 
 namespace Website.Foundation.Persistence
 {
-    public class TableContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public TableContext()
+        public ApplicationDbContext()
             : base("name=DbConnectionString")
         {
         }

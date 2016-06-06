@@ -17,9 +17,9 @@ namespace Website.Foundation.Persistence.Repositories
 {
     public class UserRepository : RepositorySearch<User, UserSearch>, IUserRepository
     {
-        private TableContext _context;
+        private ApplicationDbContext _context;
         [Inject]
-        public UserRepository(TableContext context)
+        public UserRepository(ApplicationDbContext context)
             : base(context)
         {
             _context = context;

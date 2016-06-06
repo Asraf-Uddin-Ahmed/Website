@@ -9,7 +9,7 @@ namespace Website.Foundation.Migrations
     using Website.Foundation.Core.Enums;
     using Website.Foundation.Persistence;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TableContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -17,7 +17,7 @@ namespace Website.Foundation.Migrations
             ContextKey = "Website.Foundation.TableContext";
         }
 
-        protected override void Seed(TableContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //List<Settings> listSettings = new List<Settings>
             //{
