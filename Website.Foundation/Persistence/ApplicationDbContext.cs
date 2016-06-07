@@ -24,6 +24,10 @@ namespace Website.Foundation.Persistence
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
-        
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
     }
 }
