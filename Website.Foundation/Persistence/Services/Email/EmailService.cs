@@ -25,15 +25,34 @@ namespace Website.Foundation.Persistence.Services.Email
 
 
 
-        public void SendText(IMessageBuilder messageFactory)
+        public void SendText(IMessageBuilder messageBuilder)
         {
-            _emailSender.Send(messageFactory.GetText());
+            _emailSender.Send(messageBuilder.GetText());
         }
-        public void SendHtml(IMessageBuilder messageFactory)
+        public void SendHtml(IMessageBuilder messageBuilder)
         {
-            _emailSender.Send(messageFactory.GetHtml());
+            _emailSender.Send(messageBuilder.GetHtml());
         }
-
+        public void SendTextAsync(IMessageBuilder messageBuilder)
+        {
+            _emailSender.SendAsync(messageBuilder.GetText());
+        }
+        public void SendHtmlAsync(IMessageBuilder messageBuilder)
+        {
+            _emailSender.SendAsync(messageBuilder.GetHtml());
+        }
+        public void SendTextAsync(IMessageBuilder messageBuilder, EmailSender.SendCompletedCallback sendCompletedCallback)
+        {
+            _emailSender.SendAsync(messageBuilder.GetText(), sendCompletedCallback);
+        }
+        public void SendHtmlAsync(IMessageBuilder messageBuilder, EmailSender.SendCompletedCallback sendCompletedCallback)
+        {
+            _emailSender.SendAsync(messageBuilder.GetHtml(), sendCompletedCallback);
+        }
+        public void SendAsyncCancel()
+        {
+            _emailSender.SendAsyncCancel();
+        }
 
 
         private void InitializeEmailSender()
