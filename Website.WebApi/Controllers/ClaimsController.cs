@@ -5,12 +5,18 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using Website.Foundation.Core.Identity;
 
 namespace Website.WebApi.Controllers
 {
     [RoutePrefix("api/claims")]
     public class ClaimsController : BaseApiController
     {
+        public ClaimsController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
+            :base(applicationUserManager, applicationRoleManager)
+        {
+        }
+
         [Authorize]
         [Route("")]
         public IHttpActionResult GetClaims()

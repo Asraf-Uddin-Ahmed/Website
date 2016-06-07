@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Website.Foundation.Core.Identity;
 using Website.WebApi.Models;
 
 namespace Website.WebApi.Controllers
@@ -15,6 +16,10 @@ namespace Website.WebApi.Controllers
     [RoutePrefix("api/roles")]
     public class RolesController : BaseApiController
     {
+        public RolesController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
+            :base(applicationUserManager, applicationRoleManager)
+        {
+        }
 
         [Route("{id:guid}", Name = "GetRoleById")]
         public async Task<IHttpActionResult> GetRole(string Id)

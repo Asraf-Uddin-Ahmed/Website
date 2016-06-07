@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Website.WebApi.Codes
 {
@@ -43,6 +45,8 @@ namespace Website.WebApi.Codes
         private static void RegisterServices(KernelBase kernel)
         {
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<ApplicationUserManager>().ToMethod(ctx => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).InRequestScope();
+            kernel.Bind<ApplicationRoleManager>().ToMethod(ctx => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>()).InRequestScope();
         }
         
     }

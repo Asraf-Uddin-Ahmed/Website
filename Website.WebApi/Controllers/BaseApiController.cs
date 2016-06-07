@@ -14,27 +14,14 @@ namespace Website.WebApi.Controllers
     {
 
         private ModelFactory _modelFactory;
-        
-        private ApplicationUserManager _AppUserManager = null;
-        protected ApplicationUserManager AppUserManager
-        {
-            get
-            {
-                return _AppUserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
 
-        private ApplicationRoleManager _AppRoleManager = null;
-        protected ApplicationRoleManager AppRoleManager
-        {
-            get
-            {
-                return _AppRoleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-        }
+        protected ApplicationUserManager AppUserManager { get; private set; }
+        protected ApplicationRoleManager AppRoleManager { get; private set; }
 
-        public BaseApiController()
+        public BaseApiController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
         {
+            AppUserManager = applicationUserManager;
+            AppRoleManager = applicationRoleManager;
         }
 
         protected ModelFactory TheModelFactory

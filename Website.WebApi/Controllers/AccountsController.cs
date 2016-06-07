@@ -17,6 +17,11 @@ namespace Website.WebApi.Controllers
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
+        public AccountsController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
+            :base(applicationUserManager, applicationRoleManager)
+        {
+        }
+
         [Authorize(Roles = "Admin")]
         [Route("users")]
         public IHttpActionResult GetUsers()
