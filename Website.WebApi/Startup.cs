@@ -27,8 +27,7 @@ namespace Website.WebApi
 {
     public class Startup
     {
-        // TODO: Concrete implementation
-        private const string _issuer = "http://localhost:4873";
+        private readonly string _issuer = ConfigurationManager.AppSettings["as:Issuer"];
 
         public void Configuration(IAppBuilder app)
         {
