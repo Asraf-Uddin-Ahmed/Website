@@ -9,6 +9,7 @@ using System.Web.Http;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Services;
+using Website.Foundation.Core.Services.Email;
 using Website.WebApi.Models;
 
 namespace Website.WebApi.Controllers

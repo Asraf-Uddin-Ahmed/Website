@@ -16,7 +16,13 @@ using Website.Foundation.Persistence;
 using Website.WebApi.Codes.Core.Identity;
 using Website.Foundation.Core.Identity;
 using Website.WebApi.Codes;
-    
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
+using System.Reflection;
+using Website.Foundation.Core.Services.Email;
+using Website.Foundation.Persistence.Services.Email;
+
 namespace Website.WebApi
 {
     public class Startup
@@ -36,10 +42,13 @@ namespace Website.WebApi
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
-            app.UseWebApi(httpConfig);
+            //app.UseWebApi(httpConfig);
+            app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
+            app.UseNinjectWebApi(httpConfig);
         }
 
-        
+
+
         private void ConfigureOAuthTokenGeneration(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
