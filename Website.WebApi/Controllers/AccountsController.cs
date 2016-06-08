@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,13 @@ namespace Website.WebApi.Controllers
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
-        public AccountsController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
+        private ILogger _logger;
+        public AccountsController(ILogger logger, 
+            ApplicationUserManager applicationUserManager, 
+            ApplicationRoleManager applicationRoleManager)
             :base(applicationUserManager, applicationRoleManager)
         {
+            _logger = logger;
         }
 
         [Authorize(Roles = "Admin")]

@@ -12,6 +12,7 @@ using Website.Foundation.Core.Repositories;
 using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
 using Microsoft.AspNet.Identity.Owin;
+using log4net;
 
 namespace Website.WebApi.Codes
 {
@@ -20,7 +21,10 @@ namespace Website.WebApi.Codes
         public static Lazy<IKernel> CreateKernel = new Lazy<IKernel>(() =>
         {
             var kernel = new StandardKernel();
+            
             kernel.Load(Assembly.GetExecutingAssembly());
+            
+            log4net.Config.XmlConfigurator.Configure();
 
             RegisterAssemblies(kernel);
             RegisterServices(kernel);
