@@ -129,6 +129,7 @@
     <Compile Include="Core\Repositories\IUserRepository.cs" />
     <Compile Include="Core\Repositories\IUserVerificationRepository.cs" />
     <Compile Include="Core\SearchData\EntitySearch.cs" />
+    <Compile Include="Core\Services\Email\IIdentityMessageBuilder.cs" />
     <Compile Include="Core\Services\Email\IConfirmUserMessageBuilder.cs" />
     <Compile Include="Core\Services\Email\IEmailService.cs" />
     <Compile Include="Core\Services\Email\IForgotPasswordMessageBuilder.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\Factories\UserVerificationFactory.cs" />
     <Compile Include="Persistence\Repositories\RepositorySearch.cs" />
+    <Compile Include="Persistence\Services\Email\IdentityMessageBuilder.cs" />
     <Compile Include="Persistence\Services\Email\EmailService.cs" />
     <Compile Include="Persistence\Services\Email\ConfirmUserMessageBuilder.cs" />
     <Compile Include="Persistence\Services\Email\ForgotPasswordMessageBuilder.cs" />

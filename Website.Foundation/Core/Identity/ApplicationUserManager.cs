@@ -24,7 +24,6 @@ namespace Website.Foundation.Core.Identity
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            // TODO: Ninject
             var appDbContext = context.Get<ApplicationDbContext>();
             var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
@@ -48,13 +47,10 @@ namespace Website.Foundation.Core.Identity
             //appUserManager.PasswordValidator = new MyCustomPasswordValidator();
 
             /*Configure email confirmation settings*/
-            // TODO: Ninject
-            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
-            IUserRepository userRepository = new UserRepository(applicationDbContext);
-            ISettingsRepository settingsRepository = new SettingsRepository(applicationDbContext);
-            IConfirmUserMessageBuilder confirmUserMessageBuilder = new ConfirmUserMessageBuilder(settingsRepository);
+            ISettingsRepository settingsRepository = new SettingsRepository(appDbContext);
+            IIdentityMessageBuilder identityMessageBuilder = new IdentityMessageBuilder(settingsRepository);
             IEmailService emailService = new EmailService(settingsRepository);
-            appUserManager.EmailService = new EmailServiceProvider(emailService, userRepository, confirmUserMessageBuilder);
+            appUserManager.EmailService = new EmailServiceProvider(emailService, appUserManager, identityMessageBuilder);
 
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)

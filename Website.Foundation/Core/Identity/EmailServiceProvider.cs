@@ -18,25 +18,25 @@ namespace Website.Foundation.Core.Identity
     public class EmailServiceProvider : IIdentityMessageService
     {
         private IEmailService _emailService;
-        private IUserRepository _userRepository;
-        private IConfirmUserMessageBuilder _confirmUserMessageBuilder;
+        private ApplicationUserManager _applicationUserManager;
+        private IIdentityMessageBuilder _identityMessageBuilder;
         [Inject]
         public EmailServiceProvider(IEmailService emailService,
-            IUserRepository userRepository,
-            IConfirmUserMessageBuilder confirmUserMessageBuilder)
+            ApplicationUserManager applicationUserManager,
+            IIdentityMessageBuilder identityMessageBuilder)
         {
             _emailService = emailService;
-            _userRepository = userRepository;
-            _confirmUserMessageBuilder = confirmUserMessageBuilder;
+            _applicationUserManager = applicationUserManager;
+            _identityMessageBuilder = identityMessageBuilder;
         }
 
         public Task SendAsync(IdentityMessage message)
         {
-            User user = _userRepository.GetByEmail(message.Destination);
-            _confirmUserMessageBuilder.Build(user, message.Body);
             return Task.Run(() =>
                 {
-                    _emailService.SendTextAsync(_confirmUserMessageBuilder);
+                    ApplicationUser user = _applicationUserManager.FindByEmail(message.Destination);
+                    _identityMessageBuilder.Build(user, message.Subject, message.Body);
+                    _emailService.SendHtmlAsync(_identityMessageBuilder);
                 });
         }
 
