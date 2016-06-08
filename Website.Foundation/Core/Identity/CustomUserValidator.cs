@@ -8,14 +8,16 @@ using Website.Foundation.Core.Aggregates;
 
 namespace Website.Foundation.Core.Identity
 {
-    public class MyCustomUserValidator : UserValidator<ApplicationUser>
+    public class CustomUserValidator : UserValidator<ApplicationUser>
     {
 
         List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" };
 
-        public MyCustomUserValidator(ApplicationUserManager appUserManager)
+        public CustomUserValidator(ApplicationUserManager appUserManager)
             : base(appUserManager)
         {
+            base.AllowOnlyAlphanumericUserNames = true;
+            base.RequireUniqueEmail = false;
         }
 
         public override async Task<IdentityResult> ValidateAsync(ApplicationUser user)

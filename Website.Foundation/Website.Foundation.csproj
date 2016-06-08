@@ -110,8 +110,8 @@
     <Compile Include="Core\Identity\ApplicationUserManager.cs" />
     <Compile Include="Core\Identity\EmailServiceProvider.cs" />
     <Compile Include="Core\Identity\ExtendedClaimsProvider.cs" />
-    <Compile Include="Core\Identity\MyCustomPasswordValidator.cs" />
-    <Compile Include="Core\Identity\MyCustomUserValidator.cs" />
+    <Compile Include="Core\Identity\CustomPasswordValidator.cs" />
+    <Compile Include="Core\Identity\CustomUserValidator.cs" />
     <Compile Include="Core\Identity\RolesFromClaims.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\SearchData\UserSearch.cs" />

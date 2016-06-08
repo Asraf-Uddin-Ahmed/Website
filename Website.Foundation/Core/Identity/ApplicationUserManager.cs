@@ -24,29 +24,20 @@ namespace Website.Foundation.Core.Identity
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var appDbContext = context.Get<ApplicationDbContext>();
-            var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
+            ApplicationDbContext appDbContext = context.Get<ApplicationDbContext>();
+            ApplicationUserManager appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
 
-            /*Configure validation logic for usernames*/
-            //appUserManager.UserValidator = new UserValidator<ApplicationUser>(appUserManager)
-            //{
-            //    AllowOnlyAlphanumericUserNames = true,
-            //    RequireUniqueEmail = true
-            //};
-            //appUserManager.UserValidator = new MyCustomUserValidator(appUserManager);
+            appUserManager.UserValidator = new CustomUserValidator(appUserManager);
+            appUserManager.PasswordValidator = new CustomPasswordValidator();
 
-            /*Configure validation logic for passwords*/
-            //appUserManager.PasswordValidator = new PasswordValidator
-            //{
-            //    RequiredLength = 6,
-            //    RequireNonLetterOrDigit = true,
-            //    RequireDigit = false,
-            //    RequireLowercase = true,
-            //    RequireUppercase = true,
-            //};
-            //appUserManager.PasswordValidator = new MyCustomPasswordValidator();
+            ConfigureEmailServiceProvider(appDbContext, appUserManager, options);
 
-            /*Configure email confirmation settings*/
+            return appUserManager;
+        }
+
+
+        private static void ConfigureEmailServiceProvider(ApplicationDbContext appDbContext, ApplicationUserManager appUserManager, IdentityFactoryOptions<ApplicationUserManager> options)
+        {
             ISettingsRepository settingsRepository = new SettingsRepository(appDbContext);
             IIdentityMessageBuilder identityMessageBuilder = new IdentityMessageBuilder(settingsRepository);
             IEmailService emailService = new EmailService(settingsRepository);
@@ -61,8 +52,6 @@ namespace Website.Foundation.Core.Identity
                     TokenLifespan = TimeSpan.FromHours(6)
                 };
             }
-
-            return appUserManager;
         }
     }
 }

@@ -7,8 +7,16 @@ using System.Web;
 
 namespace Website.Foundation.Core.Identity
 {
-    public class MyCustomPasswordValidator : PasswordValidator
+    public class CustomPasswordValidator : PasswordValidator
     {
+        public CustomPasswordValidator()
+        {
+            base.RequiredLength = 6;
+            base.RequireNonLetterOrDigit = true;
+            base.RequireDigit = true;
+            base.RequireLowercase = true;
+            base.RequireUppercase = true;
+        }
         public override async Task<IdentityResult> ValidateAsync(string password)
         {
             IdentityResult result = await base.ValidateAsync(password);
