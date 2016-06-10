@@ -210,13 +210,13 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Dto\Response\ApplicationUserResponseDto.cs" />
+    <Compile Include="Dto\Response\IdentityRoleResponseDto.cs" />
     <Compile Include="Dto\Response\ResponseDto.cs" />
     <Compile Include="Models\Account\ChangePasswordBindingModel.cs" />
     <Compile Include="Models\Account\CreateUserBindingModel.cs" />
     <Compile Include="Models\Claim\ClaimBindingModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Role\CreateRoleBindingModel.cs" />
-    <Compile Include="Models\Role\RoleReturnModel.cs" />
     <Compile Include="Models\Role\UsersInRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

@@ -28,8 +28,8 @@ namespace Website.WebApi.Models
         {
             return new ApplicationUserResponseDto()
             {
-                Href = _UrlHelper.Link("GetUserById", new { id = appUser.Id }),
-                Id = appUser.Id,
+                Url = _UrlHelper.Link("GetUserById", new { id = appUser.Id }),
+                ID = appUser.Id,
                 UserName = appUser.UserName,
                 Email = appUser.Email,
                 EmailConfirmed = appUser.EmailConfirmed,
@@ -38,12 +38,12 @@ namespace Website.WebApi.Models
             };
         }
 
-        public RoleReturnModel Create(IdentityRole appRole)
+        public IdentityRoleResponseDto Create(IdentityRole appRole)
         {
-            return new RoleReturnModel
+            return new IdentityRoleResponseDto
             {
                 Url = _UrlHelper.Link("GetRoleById", new { id = appRole.Id }),
-                Id = appRole.Id,
+                ID = appRole.Id,
                 Name = appRole.Name
             };
         }
