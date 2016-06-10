@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Website.WebApi.Dto.Response
+namespace Website.WebApi.Models.Response
 {
-    public class IdentityRoleResponseDto : ResponseDto
+    public class IdentityRoleResponseModel : ResponseModel
     {
         public string Name { get; set; }
     }

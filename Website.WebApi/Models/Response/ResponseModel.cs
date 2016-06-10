@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Routing;
 
-namespace Website.WebApi.Dto.Response
+namespace Website.WebApi.Models.Response
 {
-    public abstract class ResponseDto
+    public abstract class ResponseModel
     {
         [JsonProperty(Order = -2)]
         public string Url { get; set; }

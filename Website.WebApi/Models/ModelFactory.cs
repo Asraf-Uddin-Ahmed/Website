@@ -7,9 +7,7 @@ using System.Web;
 using System.Web.Http.Routing;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Identity;
-using Website.WebApi.Dto.Response;
-using Website.WebApi.Models.Account;
-using Website.WebApi.Models.Role;
+using Website.WebApi.Models.Response;
 
 namespace Website.WebApi.Models
 {
@@ -24,9 +22,9 @@ namespace Website.WebApi.Models
             _AppUserManager = appUserManager;
         }
 
-        public ApplicationUserResponseDto Create(ApplicationUser appUser)
+        public ApplicationUserResponseModel Create(ApplicationUser appUser)
         {
-            return new ApplicationUserResponseDto()
+            return new ApplicationUserResponseModel()
             {
                 Url = _UrlHelper.Link("GetUserById", new { id = appUser.Id }),
                 ID = appUser.Id,
@@ -38,9 +36,9 @@ namespace Website.WebApi.Models
             };
         }
 
-        public IdentityRoleResponseDto Create(IdentityRole appRole)
+        public IdentityRoleResponseModel Create(IdentityRole appRole)
         {
-            return new IdentityRoleResponseDto
+            return new IdentityRoleResponseModel
             {
                 Url = _UrlHelper.Link("GetRoleById", new { id = appRole.Id }),
                 ID = appRole.Id,

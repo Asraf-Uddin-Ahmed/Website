@@ -7,9 +7,9 @@ using System.Web.Http.Routing;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Identity;
 
-namespace Website.WebApi.Dto.Response
+namespace Website.WebApi.Models.Response
 {
-    public class ApplicationUserResponseDto : ResponseDto
+    public class ApplicationUserResponseModel : ResponseModel
     {
         public string UserName { get; set; }
         public string Email { get; set; }

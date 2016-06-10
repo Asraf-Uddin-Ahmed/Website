@@ -209,22 +209,22 @@
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Dto\Response\ApplicationUserResponseDto.cs" />
-    <Compile Include="Dto\Response\IdentityRoleResponseDto.cs" />
-    <Compile Include="Dto\Response\ResponseDto.cs" />
-    <Compile Include="Models\Account\ChangePasswordBindingModel.cs" />
-    <Compile Include="Models\Account\CreateUserBindingModel.cs" />
-    <Compile Include="Models\Claim\ClaimBindingModel.cs" />
+    <Compile Include="Models\Request\RequestModel.cs" />
+    <Compile Include="Models\Response\ApplicationUserResponseModel.cs" />
+    <Compile Include="Models\Response\IdentityRoleResponseModel.cs" />
+    <Compile Include="Models\Response\ResponseModel.cs" />
+    <Compile Include="Models\Request\Account\ChangePasswordRequestModel.cs" />
+    <Compile Include="Models\Request\Account\CreateUserRequestModel.cs" />
+    <Compile Include="Models\Request\Claim\ClaimRequestModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
-    <Compile Include="Models\Role\CreateRoleBindingModel.cs" />
-    <Compile Include="Models\Role\UsersInRoleModel.cs" />
+    <Compile Include="Models\Request\Role\CreateRoleRequestModel.cs" />
+    <Compile Include="Models\Request\Role\UsersInRoleRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Codes\Persistence\" />
-    <Folder Include="Dto\Common\" />
-    <Folder Include="Dto\Request\" />
+    <Folder Include="Models\Common\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Website.Foundation\Website.Foundation.csproj">

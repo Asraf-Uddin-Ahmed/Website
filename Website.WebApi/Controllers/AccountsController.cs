@@ -12,8 +12,8 @@ using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Services;
 using Website.Foundation.Core.Services.Email;
 using Website.WebApi.Models;
-using Website.WebApi.Models.Account;
-using Website.WebApi.Models.Claim;
+using Website.WebApi.Models.Request.Account;
+using Website.WebApi.Models.Request.Claim;
 
 namespace Website.WebApi.Controllers
 {
@@ -68,7 +68,7 @@ namespace Website.WebApi.Controllers
 
         [AllowAnonymous]
         [Route("create")]
-        public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)
+        public async Task<IHttpActionResult> CreateUser(CreateUserRequestModel createUserModel)
         {
             if (!ModelState.IsValid)
             {
@@ -121,7 +121,7 @@ namespace Website.WebApi.Controllers
 
         [Authorize]
         [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequestModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -210,7 +210,7 @@ namespace Website.WebApi.Controllers
         [Authorize(Roles = "Admin")]
         [Route("user/{id:guid}/assignclaims")]
         [HttpPut]
-        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToAssign)
+        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<ClaimRequestModel> claimsToAssign)
         {
 
             if (!ModelState.IsValid)
@@ -225,7 +225,7 @@ namespace Website.WebApi.Controllers
                 return NotFound();
             }
 
-            foreach (ClaimBindingModel claimModel in claimsToAssign)
+            foreach (ClaimRequestModel claimModel in claimsToAssign)
             {
                 if (appUser.Claims.Any(c => c.ClaimType == claimModel.Type))
                 {
@@ -242,7 +242,7 @@ namespace Website.WebApi.Controllers
         [Authorize(Roles = "Admin")]
         [Route("user/{id:guid}/removeclaims")]
         [HttpPut]
-        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToRemove)
+        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<ClaimRequestModel> claimsToRemove)
         {
 
             if (!ModelState.IsValid)
@@ -257,7 +257,7 @@ namespace Website.WebApi.Controllers
                 return NotFound();
             }
 
-            foreach (ClaimBindingModel claimModel in claimsToRemove)
+            foreach (ClaimRequestModel claimModel in claimsToRemove)
             {
                 if (appUser.Claims.Any(c => c.ClaimType == claimModel.Type))
                 {

@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Website.WebApi.Models.Account
+namespace Website.WebApi.Models.Request.Account
 {
-    public class ChangePasswordBindingModel
+    public class ChangePasswordRequestModel : RequestModel
     {
         [Required]
         [DataType(DataType.Password)]

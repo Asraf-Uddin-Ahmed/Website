@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Website.Foundation.Core.Identity;
 using Website.WebApi.Models;
-using Website.WebApi.Models.Role;
+using Website.WebApi.Models.Request.Role;
 
 namespace Website.WebApi.Controllers
 {
@@ -45,7 +45,7 @@ namespace Website.WebApi.Controllers
         }
 
         [Route("create")]
-        public async Task<IHttpActionResult> Create(CreateRoleBindingModel model)
+        public async Task<IHttpActionResult> Create(CreateRoleRequestModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Website.WebApi.Controllers
         }
 
         [Route("ManageUsersInRole")]
-        public async Task<IHttpActionResult> ManageUsersInRole(UsersInRoleModel model)
+        public async Task<IHttpActionResult> ManageUsersInRole(UsersInRoleRequestModel model)
         {
             var role = await this.AppRoleManager.FindByIdAsync(model.Id);
 

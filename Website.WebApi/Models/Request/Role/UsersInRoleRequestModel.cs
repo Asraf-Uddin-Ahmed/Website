@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Website.WebApi.Models.Role
+namespace Website.WebApi.Models.Request.Role
 {
-    public class UsersInRoleModel
+    public class UsersInRoleRequestModel : RequestModel
     {
 
         public string Id { get; set; }
