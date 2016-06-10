@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Website.WebApi.Models
+namespace Website.WebApi.Models.Role
 {
     public class CreateRoleBindingModel
     {
@@ -15,11 +15,5 @@ namespace Website.WebApi.Models
 
     }
 
-    public class UsersInRoleModel
-    {
-
-        public string Id { get; set; }
-        public List<string> EnrolledUsers { get; set; }
-        public List<string> RemovedUsers { get; set; }
-    }
+    
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Website.Foundation.Core.Identity;
 using Website.WebApi.Models;
+using Website.WebApi.Models.Role;
 
 namespace Website.WebApi.Controllers
 {

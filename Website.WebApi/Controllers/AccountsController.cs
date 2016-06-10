@@ -12,6 +12,8 @@ using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Services;
 using Website.Foundation.Core.Services.Email;
 using Website.WebApi.Models;
+using Website.WebApi.Models.Account;
+using Website.WebApi.Models.Claim;
 
 namespace Website.WebApi.Controllers
 {
@@ -19,7 +21,7 @@ namespace Website.WebApi.Controllers
     public class AccountsController : BaseApiController
     {
         private ILogger _logger;
-        public AccountsController(ILogger logger, 
+        public AccountsController(ILogger logger,
             ApplicationUserManager applicationUserManager, 
             ApplicationRoleManager applicationRoleManager)
             :base(applicationUserManager, applicationRoleManager)

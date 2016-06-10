@@ -21,7 +21,7 @@ namespace Website.WebApi.Codes
         public static Lazy<IKernel> CreateKernel = new Lazy<IKernel>(() =>
         {
             var kernel = new StandardKernel();
-            
+
             kernel.Load(Assembly.GetExecutingAssembly());
             
             log4net.Config.XmlConfigurator.Configure();
@@ -36,8 +36,7 @@ namespace Website.WebApi.Codes
         {
             List<string> listAssembly = new List<string>()
             {
-                "Website.Foundation.*",
-                "Website.WebApi.Codes.*"
+                "Website.Foundation.*"
             };
             kernel.Bind(x =>
             {
