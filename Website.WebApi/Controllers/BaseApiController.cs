@@ -13,16 +13,6 @@ namespace Website.WebApi.Controllers
     public class BaseApiController : ApiController
     {
 
-        protected ApplicationUserManager AppUserManager { get; private set; }
-        protected ApplicationRoleManager AppRoleManager { get; private set; }
-
-        public BaseApiController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
-        {
-            AppUserManager = applicationUserManager;
-            AppRoleManager = applicationRoleManager;
-        }
-
-
         protected IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)

@@ -12,8 +12,7 @@ namespace Website.WebApi.Controllers
     [RoutePrefix("api/claims")]
     public class ClaimsController : BaseApiController
     {
-        public ClaimsController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
-            :base(applicationUserManager, applicationRoleManager)
+        public ClaimsController()
         {
         }
 

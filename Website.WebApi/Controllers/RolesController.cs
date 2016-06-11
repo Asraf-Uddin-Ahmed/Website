@@ -19,16 +19,21 @@ namespace Website.WebApi.Controllers
     public class RolesController : BaseApiController
     {
         private IIdentityRoleResponseFactory _identityRoleResponseFactory;
-        public RolesController(IIdentityRoleResponseFactory identityRoleResponseFactory, ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
-            :base(applicationUserManager, applicationRoleManager)
+        private ApplicationUserManager _applicationUserManager;
+        private ApplicationRoleManager _applicationRoleManager;
+        public RolesController(IIdentityRoleResponseFactory identityRoleResponseFactory, 
+            ApplicationUserManager applicationUserManager, 
+            ApplicationRoleManager applicationRoleManager)
         {
             _identityRoleResponseFactory = identityRoleResponseFactory;
+            _applicationUserManager = applicationUserManager;
+            _applicationRoleManager = applicationRoleManager;
         }
 
         [Route("{id:guid}", Name = "GetRoleById")]
         public async Task<IHttpActionResult> GetRole(string Id)
         {
-            var role = await this.AppRoleManager.FindByIdAsync(Id);
+            var role = await _applicationRoleManager.FindByIdAsync(Id);
 
             if (role != null)
             {
@@ -42,7 +47,7 @@ namespace Website.WebApi.Controllers
         [Route("", Name = "GetAllRoles")]
         public IHttpActionResult GetAllRoles()
         {
-            var roles = this.AppRoleManager.Roles;
+            var roles = _applicationRoleManager.Roles;
 
             return Ok(roles);
         }
@@ -57,7 +62,7 @@ namespace Website.WebApi.Controllers
 
             var role = new IdentityRole { Name = model.Name };
 
-            var result = await this.AppRoleManager.CreateAsync(role);
+            var result = await _applicationRoleManager.CreateAsync(role);
 
             if (!result.Succeeded)
             {
@@ -74,11 +79,11 @@ namespace Website.WebApi.Controllers
         public async Task<IHttpActionResult> DeleteRole(string Id)
         {
 
-            var role = await this.AppRoleManager.FindByIdAsync(Id);
+            var role = await _applicationRoleManager.FindByIdAsync(Id);
 
             if (role != null)
             {
-                IdentityResult result = await this.AppRoleManager.DeleteAsync(role);
+                IdentityResult result = await _applicationRoleManager.DeleteAsync(role);
 
                 if (!result.Succeeded)
                 {
@@ -95,7 +100,7 @@ namespace Website.WebApi.Controllers
         [Route("ManageUsersInRole")]
         public async Task<IHttpActionResult> ManageUsersInRole(UsersInRoleRequestModel model)
         {
-            var role = await this.AppRoleManager.FindByIdAsync(model.Id);
+            var role = await _applicationRoleManager.FindByIdAsync(model.Id);
 
             if (role == null)
             {
@@ -105,7 +110,7 @@ namespace Website.WebApi.Controllers
 
             foreach (string user in model.EnrolledUsers)
             {
-                var appUser = await this.AppUserManager.FindByIdAsync(user);
+                var appUser = await _applicationUserManager.FindByIdAsync(user);
 
                 if (appUser == null)
                 {
@@ -113,9 +118,9 @@ namespace Website.WebApi.Controllers
                     continue;
                 }
 
-                if (!this.AppUserManager.IsInRole(user, role.Name))
+                if (!_applicationUserManager.IsInRole(user, role.Name))
                 {
-                    IdentityResult result = await this.AppUserManager.AddToRoleAsync(user, role.Name);
+                    IdentityResult result = await _applicationUserManager.AddToRoleAsync(user, role.Name);
 
                     if (!result.Succeeded)
                     {
@@ -127,7 +132,7 @@ namespace Website.WebApi.Controllers
 
             foreach (string user in model.RemovedUsers)
             {
-                var appUser = await this.AppUserManager.FindByIdAsync(user);
+                var appUser = await _applicationUserManager.FindByIdAsync(user);
 
                 if (appUser == null)
                 {
@@ -135,7 +140,7 @@ namespace Website.WebApi.Controllers
                     continue;
                 }
 
-                IdentityResult result = await this.AppUserManager.RemoveFromRoleAsync(user, role.Name);
+                IdentityResult result = await _applicationUserManager.RemoveFromRoleAsync(user, role.Name);
 
                 if (!result.Succeeded)
                 {
