@@ -22,6 +22,7 @@ using Ninject.Web.WebApi.OwinHost;
 using System.Reflection;
 using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence.Services.Email;
+using Website.WebApi.Configuration;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Website.WebApi

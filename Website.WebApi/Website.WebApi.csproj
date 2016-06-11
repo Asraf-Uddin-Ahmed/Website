@@ -200,10 +200,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ContextCapturingControllerActivator.cs" />
     <Compile Include="Codes\Core\Identity\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Codes\Core\Identity\CustomJwtFormat.cs" />
     <Compile Include="Codes\Core\Identity\CustomOAuthProvider.cs" />
-    <Compile Include="Codes\NinjectConfig.cs" />
+    <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
