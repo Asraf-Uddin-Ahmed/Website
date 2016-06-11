@@ -11,6 +11,7 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Services;
 using Website.Foundation.Core.Services.Email;
+using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Account;
 using Website.WebApi.Models.Request.Claim;
@@ -21,19 +22,22 @@ namespace Website.WebApi.Controllers
     public class AccountsController : BaseApiController
     {
         private ILogger _logger;
+        private IApplicationUserResponseFactory _applicationUserResponseFactory;
         public AccountsController(ILogger logger,
+            IApplicationUserResponseFactory applicationUserResponseFactory,
             ApplicationUserManager applicationUserManager, 
             ApplicationRoleManager applicationRoleManager)
             :base(applicationUserManager, applicationRoleManager)
         {
             _logger = logger;
+            _applicationUserResponseFactory = applicationUserResponseFactory;
         }
 
         [Authorize(Roles = "Admin")]
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
+            return Ok(_applicationUserResponseFactory.Create(this.AppUserManager.Users));
         }
 
         [Authorize(Roles = "Admin")]
@@ -44,7 +48,7 @@ namespace Website.WebApi.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.Create(user));
+                return Ok(_applicationUserResponseFactory.Create(user));
             }
 
             return NotFound();
@@ -59,7 +63,7 @@ namespace Website.WebApi.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.Create(user));
+                return Ok(_applicationUserResponseFactory.Create(user));
             }
 
             return NotFound();
@@ -93,7 +97,7 @@ namespace Website.WebApi.Controllers
             await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
-            return Created(locationHeader, TheModelFactory.Create(user));
+            return Created(locationHeader, _applicationUserResponseFactory.Create(user));
         }
 
         [AllowAnonymous]

@@ -200,6 +200,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Codes\Core\Factories\IApplicationUserResponseFactory.cs" />
+    <Compile Include="Codes\Persistence\Factories\ApplicationUserResponseFactory.cs" />
+    <Compile Include="Codes\Persistence\Factories\ResponseFactory.cs" />
     <Compile Include="Configuration\ContextCapturingControllerActivator.cs" />
     <Compile Include="Codes\Core\Identity\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Codes\Core\Identity\CustomJwtFormat.cs" />
@@ -224,7 +227,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Codes\Persistence\" />
     <Folder Include="Models\Common\" />
   </ItemGroup>
   <ItemGroup>

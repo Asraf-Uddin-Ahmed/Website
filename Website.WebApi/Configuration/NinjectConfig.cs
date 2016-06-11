@@ -37,7 +37,8 @@ namespace Website.WebApi.Configuration
         {
             List<string> listAssembly = new List<string>()
             {
-                "Website.Foundation.*"
+                "Website.Foundation.*",
+                "Website.WebApi.*"
             };
             kernel.Bind(x =>
             {

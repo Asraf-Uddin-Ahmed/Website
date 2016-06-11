@@ -22,19 +22,6 @@ namespace Website.WebApi.Models
             _AppUserManager = appUserManager;
         }
 
-        public ApplicationUserResponseModel Create(ApplicationUser appUser)
-        {
-            return new ApplicationUserResponseModel()
-            {
-                Url = _UrlHelper.Link("GetUserById", new { id = appUser.Id }),
-                ID = appUser.Id,
-                UserName = appUser.UserName,
-                Email = appUser.Email,
-                EmailConfirmed = appUser.EmailConfirmed,
-                Roles = _AppUserManager.GetRolesAsync(appUser.Id).Result,
-                Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result
-            };
-        }
 
         public IdentityRoleResponseModel Create(IdentityRole appRole)
         {
