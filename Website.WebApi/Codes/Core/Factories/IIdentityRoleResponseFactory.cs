@@ -11,5 +11,6 @@ namespace Website.WebApi.Codes.Core.Factories
     public interface IIdentityRoleResponseFactory
     {
         IdentityRoleResponseModel Create(IdentityRole appRole);
+        IEnumerable<IdentityRoleResponseModel> Create(IEnumerable<IdentityRole> identityRoles);
     }
 }

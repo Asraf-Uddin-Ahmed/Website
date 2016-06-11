@@ -16,14 +16,19 @@ namespace Website.WebApi.Codes.Persistence.Factories
         {
         }
 
-        public IdentityRoleResponseModel Create(IdentityRole appRole)
+        public IdentityRoleResponseModel Create(IdentityRole identityRole)
         {
             return new IdentityRoleResponseModel
             {
-                Url = base.UrlHelper.Link("GetRoleById", new { id = appRole.Id }),
-                ID = appRole.Id,
-                Name = appRole.Name
+                Url = base.UrlHelper.Link("GetRoleById", new { id = identityRole.Id }),
+                ID = identityRole.Id,
+                Name = identityRole.Name
             };
+        }
+
+        public IEnumerable<IdentityRoleResponseModel> Create(IEnumerable<IdentityRole> identityRoles)
+        {
+            return identityRoles.Select(r => this.Create(r));
         }
     }
 }

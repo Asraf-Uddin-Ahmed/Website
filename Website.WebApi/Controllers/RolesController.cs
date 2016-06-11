@@ -48,8 +48,7 @@ namespace Website.WebApi.Controllers
         public IHttpActionResult GetAllRoles()
         {
             var roles = _applicationRoleManager.Roles;
-
-            return Ok(roles);
+            return Ok(_identityRoleResponseFactory.Create(roles));
         }
 
         [Route("create")]
