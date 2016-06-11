@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Website.Foundation.Core.Identity;
+using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Role;
 
@@ -17,9 +18,11 @@ namespace Website.WebApi.Controllers
     [RoutePrefix("api/roles")]
     public class RolesController : BaseApiController
     {
-        public RolesController(ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
+        private IIdentityRoleResponseFactory _identityRoleResponseFactory;
+        public RolesController(IIdentityRoleResponseFactory identityRoleResponseFactory, ApplicationUserManager applicationUserManager, ApplicationRoleManager applicationRoleManager)
             :base(applicationUserManager, applicationRoleManager)
         {
+            _identityRoleResponseFactory = identityRoleResponseFactory;
         }
 
         [Route("{id:guid}", Name = "GetRoleById")]
@@ -29,7 +32,7 @@ namespace Website.WebApi.Controllers
 
             if (role != null)
             {
-                return Ok(TheModelFactory.Create(role));
+                return Ok(_identityRoleResponseFactory.Create(role));
             }
 
             return NotFound();
@@ -63,7 +66,7 @@ namespace Website.WebApi.Controllers
 
             Uri locationHeader = new Uri(Url.Link("GetRoleById", new { id = role.Id }));
 
-            return Created(locationHeader, TheModelFactory.Create(role));
+            return Created(locationHeader, _identityRoleResponseFactory.Create(role));
 
         }
 

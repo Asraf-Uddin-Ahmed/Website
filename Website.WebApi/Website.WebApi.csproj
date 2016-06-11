@@ -201,7 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Codes\Core\Factories\IApplicationUserResponseFactory.cs" />
+    <Compile Include="Codes\Core\Factories\IIdentityRoleResponseFactory.cs" />
     <Compile Include="Codes\Persistence\Factories\ApplicationUserResponseFactory.cs" />
+    <Compile Include="Codes\Persistence\Factories\IdentityRoleResponseFactory.cs" />
     <Compile Include="Codes\Persistence\Factories\ResponseFactory.cs" />
     <Compile Include="Configuration\ContextCapturingControllerActivator.cs" />
     <Compile Include="Codes\Core\Identity\ClaimsAuthorizationAttribute.cs" />
@@ -220,7 +222,6 @@
     <Compile Include="Models\Request\Account\ChangePasswordRequestModel.cs" />
     <Compile Include="Models\Request\Account\CreateUserRequestModel.cs" />
     <Compile Include="Models\Request\Claim\ClaimRequestModel.cs" />
-    <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Request\Role\CreateRoleRequestModel.cs" />
     <Compile Include="Models\Request\Role\UsersInRoleRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

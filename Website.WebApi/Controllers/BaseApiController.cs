@@ -13,8 +13,6 @@ namespace Website.WebApi.Controllers
     public class BaseApiController : ApiController
     {
 
-        private ModelFactory _modelFactory;
-
         protected ApplicationUserManager AppUserManager { get; private set; }
         protected ApplicationRoleManager AppRoleManager { get; private set; }
 
@@ -24,17 +22,6 @@ namespace Website.WebApi.Controllers
             AppRoleManager = applicationRoleManager;
         }
 
-        protected ModelFactory TheModelFactory
-        {
-            get
-            {
-                if (_modelFactory == null)
-                {
-                    _modelFactory = new ModelFactory(this.Request, this.AppUserManager);
-                }
-                return _modelFactory;
-            }
-        }
 
         protected IHttpActionResult GetErrorResult(IdentityResult result)
         {
