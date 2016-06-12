@@ -19,7 +19,7 @@ using Website.WebApi.Models.Request.Claim;
 namespace Website.WebApi.Controllers
 {
     [RoutePrefix("api/accounts")]
-    public class AccountsController : BaseApiController
+    public class AccountsController : IdentityApiController
     {
         private ILogger _logger;
         private IApplicationUserResponseFactory _applicationUserResponseFactory;

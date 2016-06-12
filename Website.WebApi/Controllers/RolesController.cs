@@ -16,7 +16,7 @@ namespace Website.WebApi.Controllers
 {
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/roles")]
-    public class RolesController : BaseApiController
+    public class RolesController : IdentityApiController
     {
         private IIdentityRoleResponseFactory _identityRoleResponseFactory;
         private ApplicationUserManager _applicationUserManager;
