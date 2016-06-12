@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Container;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.SearchData;
 
@@ -44,16 +43,16 @@ namespace Website.Foundation.Persistence.Repositories
             return total;
         }
 
-        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy)
         {
             Expression<Func<TEntity, bool>> predicateWhere = this.GetAndSearchCondition(searchItem);
-            IEnumerable<TEntity> listUser = this.GetBy(index, size, sortBy, predicateWhere);
+            IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
             return listUser;
         }
-        public IEnumerable<TEntity> GetByOr(TSearch searchItem, int index, int size, SortBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy)
         {
             Expression<Func<TEntity, bool>> predicateWhere = this.GetOrSearchCondition(searchItem);
-            IEnumerable<TEntity> listUser = this.GetBy(index, size, sortBy, predicateWhere);
+            IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
             return listUser;
         }
 
@@ -62,12 +61,12 @@ namespace Website.Foundation.Persistence.Repositories
         {
             return _context.Set<TEntity>().Count(predicateCount);
         }
-        protected IEnumerable<TEntity> GetBy(int index, int size, SortBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
+        protected IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
         {
             IEnumerable<TEntity> listEntity = _context.Set<TEntity>()
                 .Where(predicateWhere)
                 .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
-                .Skip(index).Take(size);
+                .Skip(pagination.DisplayStart).Take(pagination.DisplaySize);
             return listEntity;
         }
         protected bool IsAllPropertyNull(TSearch obj)

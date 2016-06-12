@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Website.Foundation.Core.Container;
+using Website.Foundation.Core.SearchData;
 
 namespace Website.Foundation.Core.Repositories
 {
@@ -21,7 +21,7 @@ namespace Website.Foundation.Core.Repositories
 
         TEntity Get(Guid ID);
         IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> GetBy(int index, int size, SortBy<TEntity> sortBy);
+        IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy);
 
         int GetTotal();
     }

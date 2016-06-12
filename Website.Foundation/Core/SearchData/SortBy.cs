@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Aggregates;
 
-namespace Website.Foundation.Core.Container
+namespace Website.Foundation.Core.SearchData
 {
     public class SortBy<TEntity> where TEntity : class
     {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Container;
 using Website.Foundation.Core.SearchData;
 namespace Website.Foundation.Core.Repositories
 {

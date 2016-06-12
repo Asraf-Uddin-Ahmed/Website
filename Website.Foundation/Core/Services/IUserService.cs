@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Container;
+using Website.Foundation.Core.SearchData;
+
 namespace Website.Foundation.Core.Services
 {
     public interface IUserService
     {
         bool DeleteUser(Guid userID);
-        ICollection<User> GetUserBy(int pageNumber, int pageSize, SortBy<User> sortBy);
+        ICollection<User> GetUserBy(Pagination pagination, SortBy<User> sortBy);
         User GetUser(Guid userID);
         User GetUserByEmail(string email);
         User GetUserByUserName(string userName);

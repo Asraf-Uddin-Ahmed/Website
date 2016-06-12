@@ -10,7 +10,7 @@ using Ratul.Utility;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Aggregates;
 using System.Linq.Expressions;
-using Website.Foundation.Core.Container;
+using Website.Foundation.Core.SearchData;
 
 namespace Website.Foundation.Persistence.Repositories
 {
@@ -63,11 +63,11 @@ namespace Website.Foundation.Persistence.Repositories
         {
             return dbSet.ToList();
         }
-        public IEnumerable<TEntity> GetBy(int index, int size, SortBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy)
         {
             ICollection<TEntity> listEntity = _context.Set<TEntity>()
                 .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
-                .Skip(index).Take(size).ToList<TEntity>();
+                .Skip(pagination.DisplayStart).Take(pagination.DisplaySize).ToList<TEntity>();
             return listEntity;
         }
         
