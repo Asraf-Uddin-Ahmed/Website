@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -22,16 +23,14 @@ namespace Website.WebApi.Codes.Persistence.Factories
 
         public ApplicationUserResponseModel Create(ApplicationUser applicationUser)
         {
-            return new ApplicationUserResponseModel()
+            Mapper.Initialize(cfg =>
             {
-                Url = base.UrlHelper.Link("GetUserById", new { id = applicationUser.Id }),
-                ID = applicationUser.Id,
-                UserName = applicationUser.UserName,
-                Email = applicationUser.Email,
-                EmailConfirmed = applicationUser.EmailConfirmed,
-                Roles = _applicationUserManager.GetRolesAsync(applicationUser.Id).Result,
-                Claims = _applicationUserManager.GetClaimsAsync(applicationUser.Id).Result
-            };
+                cfg.CreateMap<ApplicationUser, ApplicationUserResponseModel>()
+                    .ForMember(dest => dest.Url, opt => opt.MapFrom(src => UrlHelper.Link("GetUserById", new { id = src.Id })))
+                    .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => _applicationUserManager.GetRolesAsync(src.Id).Result))
+                    .ForMember(dest => dest.Claims, opt => opt.MapFrom(src => _applicationUserManager.GetClaimsAsync(src.Id).Result));
+            });
+            return Mapper.Map<ApplicationUserResponseModel>(applicationUser);
         }
 
         public IEnumerable<ApplicationUserResponseModel> Create(IEnumerable<ApplicationUser> applicationUsers)
