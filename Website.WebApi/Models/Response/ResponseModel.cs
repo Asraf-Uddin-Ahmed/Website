@@ -12,7 +12,5 @@ namespace Website.WebApi.Models.Response
     {
         [JsonProperty(Order = -2)]
         public string Url { get; set; }
-        [JsonProperty(Order = -1)]
-        public Object ID { get; set; }
     }
 }

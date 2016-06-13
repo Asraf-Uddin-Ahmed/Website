@@ -7,6 +7,7 @@ namespace Website.WebApi.Models.Response
 {
     public class IdentityRoleResponseModel : ResponseModel
     {
+        public string ID { get; set; }
         public string Name { get; set; }
     }
 }
