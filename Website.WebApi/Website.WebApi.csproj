@@ -223,6 +223,7 @@
     <Compile Include="Models\Request\RequestModel.cs" />
     <Compile Include="Models\Response\ApplicationUserResponseModel.cs" />
     <Compile Include="Models\Response\IdentityRoleResponseModel.cs" />
+    <Compile Include="Models\Response\ResponseCollectionModel.cs" />
     <Compile Include="Models\Response\ResponseModel.cs" />
     <Compile Include="Models\Request\Account\ChangePasswordRequestModel.cs" />
     <Compile Include="Models\Request\Account\CreateUserRequestModel.cs" />
