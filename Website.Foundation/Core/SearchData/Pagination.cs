@@ -9,8 +9,8 @@ namespace Website.Foundation.Core.SearchData
     public class Pagination
     {
         private const int DEFAULT_DISPLAY_SIZE = 10;
-        public int DisplayStart { get; private set; }
-        public int DisplaySize { get; private set; }
+        public int DisplayStart { get; set; }
+        public int DisplaySize { get; set; }
 
 
         public Pagination(int displayStart, int displaySize)

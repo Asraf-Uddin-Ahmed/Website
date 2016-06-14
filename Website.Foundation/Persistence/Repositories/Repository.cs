@@ -65,9 +65,9 @@ namespace Website.Foundation.Persistence.Repositories
         }
         public IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy)
         {
-            ICollection<TEntity> listEntity = _context.Set<TEntity>()
+            IEnumerable<TEntity> listEntity = dbSet
                 .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
-                .Skip(pagination.DisplayStart).Take(pagination.DisplaySize).ToList<TEntity>();
+                .Skip(pagination.DisplayStart).Take(pagination.DisplaySize);
             return listEntity;
         }
         
