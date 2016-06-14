@@ -11,7 +11,7 @@ using Website.WebApi.Models.Response;
 
 namespace Website.WebApi.Codes.Persistence.Factories
 {
-    public class ApplicationUserResponseFactory : ResponseFactory, IApplicationUserResponseFactory
+    public class ApplicationUserResponseFactory : ResponseFactory<ApplicationUserResponseModel>, IApplicationUserResponseFactory
     {
         private ApplicationUserManager _applicationUserManager;
         public ApplicationUserResponseFactory(HttpRequestMessage httpRequestMessage, 

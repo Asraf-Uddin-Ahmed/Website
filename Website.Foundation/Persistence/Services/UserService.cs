@@ -104,7 +104,7 @@ namespace Website.Foundation.Persistence.Services
         }
 
 
-        public ICollection<User> GetUserBy(Pagination pagination, SortBy<User> sortBy)
+        public ICollection<User> GetUserBy(Pagination pagination, OrderBy<User> sortBy)
         {
             try
             {
@@ -169,6 +169,11 @@ namespace Website.Foundation.Persistence.Services
         {
             PasswordVerification passwordVerification = _passwordVerificationRepository.GetByVerificationCode(verificationCode);
             return passwordVerification == null ? null : this.GetUser(passwordVerification.UserID);
+        }
+
+        public int GetTotal()
+        {
+            return _userRepository.GetTotal();
         }
     }
 }

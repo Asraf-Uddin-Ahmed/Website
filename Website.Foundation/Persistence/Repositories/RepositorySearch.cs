@@ -43,13 +43,13 @@ namespace Website.Foundation.Persistence.Repositories
             return total;
         }
 
-        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
         {
             Expression<Func<TEntity, bool>> predicateWhere = this.GetAndSearchCondition(searchItem);
             IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
             return listUser;
         }
-        public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
         {
             Expression<Func<TEntity, bool>> predicateWhere = this.GetOrSearchCondition(searchItem);
             IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
@@ -61,7 +61,7 @@ namespace Website.Foundation.Persistence.Repositories
         {
             return _context.Set<TEntity>().Count(predicateCount);
         }
-        protected IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
+        protected IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
         {
             IEnumerable<TEntity> listEntity = _context.Set<TEntity>()
                 .Where(predicateWhere)

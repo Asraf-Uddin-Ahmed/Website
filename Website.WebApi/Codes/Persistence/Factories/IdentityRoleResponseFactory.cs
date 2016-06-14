@@ -10,7 +10,7 @@ using Website.WebApi.Models.Response;
 
 namespace Website.WebApi.Codes.Persistence.Factories
 {
-    public class IdentityRoleResponseFactory : ResponseFactory, IIdentityRoleResponseFactory
+    public class IdentityRoleResponseFactory : ResponseFactory<IdentityRoleResponseModel>, IIdentityRoleResponseFactory
     {
         public IdentityRoleResponseFactory(HttpRequestMessage httpRequestMessage)
             :base(httpRequestMessage)

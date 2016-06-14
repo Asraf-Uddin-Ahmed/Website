@@ -9,17 +9,39 @@ namespace Website.Foundation.Core.SearchData
     public class Pagination
     {
         private const int DEFAULT_DISPLAY_SIZE = 10;
-        public int DisplayStart { get; set; }
-        public int DisplaySize { get; set; }
+        private int _displayStart;
+        private int _displaySize;
+        
+        
+        public int DisplayStart 
+        {
+            get
+            {
+                return _displayStart;
+            }
+            set
+            {
+                _displayStart = Math.Max(0, value);
+            }
+        }
+        public int DisplaySize
+         {
+            get
+            {
+                return _displaySize;
+            }
+            set
+            {
+                _displaySize = Math.Max(0, value);
+            }
+        }
 
 
         public Pagination(int displayStart, int displaySize)
         {
-            this.DisplayStart = Math.Max(0, displayStart);
-            this.DisplaySize = Math.Max(0, displaySize);
+            this.DisplayStart = displayStart;
+            this.DisplaySize = displaySize;
         }
-        public Pagination() : this(0, DEFAULT_DISPLAY_SIZE)
-        {
-        }
+        public Pagination() : this(0, DEFAULT_DISPLAY_SIZE) { }
     }
 }

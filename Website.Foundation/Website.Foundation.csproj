@@ -104,7 +104,7 @@
     <Compile Include="Core\Aggregates\UserVerification.cs" />
     <Compile Include="Core\Aggregates\User.cs" />
     <Compile Include="Core\SearchData\Pagination.cs" />
-    <Compile Include="Core\SearchData\SortBy.cs" />
+    <Compile Include="Core\SearchData\OrderBy.cs" />
     <Compile Include="Core\Factories\IPasswordVerificationFactory.cs" />
     <Compile Include="Core\Factories\IUserVerificationFactory.cs" />
     <Compile Include="Core\Identity\ApplicationRoleManager.cs" />

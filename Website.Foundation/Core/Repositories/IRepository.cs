@@ -22,7 +22,7 @@ namespace Website.Foundation.Core.Repositories
 
         TEntity Get(Guid ID);
         IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> GetBy(Pagination pagination, SortBy<TEntity> sortBy);
+        IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy);
 
         int GetTotal();
     }

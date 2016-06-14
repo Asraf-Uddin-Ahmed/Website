@@ -12,8 +12,8 @@ namespace Website.Foundation.Core.Repositories
         where TEntity : Entity
         where TSearch : EntitySearch
     {
-        IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy);
-        IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, SortBy<TEntity> sortBy);
+        IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy);
+        IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy);
         int GetTotalAnd(TSearch searchItem);
         int GetTotalOr(TSearch searchItem);
     }
