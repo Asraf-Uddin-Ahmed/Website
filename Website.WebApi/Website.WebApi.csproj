@@ -215,6 +215,7 @@
     <Compile Include="Codes\Core\Identity\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Codes\Core\Identity\CustomJwtFormat.cs" />
     <Compile Include="Codes\Core\Identity\CustomOAuthProvider.cs" />
+    <Compile Include="Configuration\UnhandledExceptionLogger.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />

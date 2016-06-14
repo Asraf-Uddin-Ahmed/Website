@@ -12,7 +12,6 @@ namespace Website.WebApi.Controllers
 {
     public class BaseApiController : ApiController
     {
-
         
     }
 }

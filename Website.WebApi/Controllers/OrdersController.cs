@@ -48,5 +48,13 @@ namespace Website.WebApi.Controllers
                 searchModel.SortBy,
                 _userSevice.GetTotal()));
         }
+
+        [Route("globallog")]
+        [HttpGet]
+        public void TestGlobalLog()
+        {
+            int I = 0;
+            int J = 10 / I;
+        }
     }
 }

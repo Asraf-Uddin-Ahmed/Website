@@ -23,6 +23,7 @@ using System.Reflection;
 using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence.Services.Email;
 using Website.WebApi.Configuration;
+using System.Web.Http.ExceptionHandling;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Website.WebApi
@@ -42,6 +43,8 @@ namespace Website.WebApi
             ConfigureWebApi(httpConfig);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            httpConfig.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger());
 
             //app.UseWebApi(httpConfig);
             app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
