@@ -43,9 +43,7 @@ namespace Website.WebApi
             ConfigureWebApi(httpConfig);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
-            httpConfig.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger());
-
+            
             //app.UseWebApi(httpConfig);
             app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
             app.UseNinjectWebApi(httpConfig);
@@ -99,6 +97,10 @@ namespace Website.WebApi
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            config.EnableCors();
+
+            config.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger());
         }
 
     }

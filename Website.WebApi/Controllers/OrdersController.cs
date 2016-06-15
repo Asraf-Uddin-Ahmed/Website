@@ -9,10 +9,12 @@ using Website.Foundation.Core.SearchData;
 using Website.Foundation.Core.Services;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Codes.Core.Identity;
+using Website.WebApi.Configuration;
 using Website.WebApi.Models.Request;
 
 namespace Website.WebApi.Controllers
 {
+    [CustomCorsPolicy]
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
