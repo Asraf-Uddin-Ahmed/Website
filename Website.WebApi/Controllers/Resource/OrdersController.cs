@@ -12,7 +12,7 @@ using Website.WebApi.Codes.Core.Identity;
 using Website.WebApi.Configuration;
 using Website.WebApi.Models.Request;
 
-namespace Website.WebApi.Controllers
+namespace Website.WebApi.Controllers.Resource
 {
     [CustomCorsPolicy]
     [RoutePrefix("api/orders")]

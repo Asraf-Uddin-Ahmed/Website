@@ -226,7 +226,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\Identity\ClaimsController.cs" />
     <Compile Include="Controllers\Identity\IdentityApiController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Resource\OrdersController.cs" />
     <Compile Include="Controllers\Identity\RolesController.cs" />
     <Compile Include="Models\Common\SortBy.cs" />
     <Compile Include="Models\Request\RequestModel.cs" />
