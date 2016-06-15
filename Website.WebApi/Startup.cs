@@ -37,13 +37,13 @@ namespace Website.WebApi
             HttpConfiguration httpConfig = new HttpConfiguration();
 
             ConfigureOAuthTokenGeneration(app);
-            
+
             ConfigureOAuthTokenConsumption(app);
 
             ConfigureWebApi(httpConfig);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            
+
             //app.UseWebApi(httpConfig);
             app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
             app.UseNinjectWebApi(httpConfig);
@@ -94,6 +94,12 @@ namespace Website.WebApi
         private void ConfigureWebApi(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
