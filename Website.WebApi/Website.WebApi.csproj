@@ -222,12 +222,12 @@
     <Compile Include="Configuration\CustomCorsPolicyAttribute.cs" />
     <Compile Include="Configuration\UnhandledExceptionLogger.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
-    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\Identity\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\ClaimsController.cs" />
-    <Compile Include="Controllers\IdentityApiController.cs" />
+    <Compile Include="Controllers\Identity\ClaimsController.cs" />
+    <Compile Include="Controllers\Identity\IdentityApiController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\Identity\RolesController.cs" />
     <Compile Include="Models\Common\SortBy.cs" />
     <Compile Include="Models\Request\RequestModel.cs" />
     <Compile Include="Models\Request\RequestSearchModel.cs" />

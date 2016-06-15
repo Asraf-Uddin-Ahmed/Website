@@ -16,7 +16,7 @@ using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Account;
 using Website.WebApi.Models.Request.Claim;
 
-namespace Website.WebApi.Controllers
+namespace Website.WebApi.Controllers.Identity
 {
     [RoutePrefix("api/accounts")]
     public class AccountsController : IdentityApiController

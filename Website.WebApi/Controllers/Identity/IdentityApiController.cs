@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Website.WebApi.Controllers
+namespace Website.WebApi.Controllers.Identity
 {
     public class IdentityApiController : BaseApiController
     {

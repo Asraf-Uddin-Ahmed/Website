@@ -12,7 +12,7 @@ using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Role;
 
-namespace Website.WebApi.Controllers
+namespace Website.WebApi.Controllers.Identity
 {
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/roles")]

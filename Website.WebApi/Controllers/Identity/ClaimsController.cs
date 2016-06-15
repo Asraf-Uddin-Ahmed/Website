@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using Website.Foundation.Core.Identity;
 
-namespace Website.WebApi.Controllers
+namespace Website.WebApi.Controllers.Identity
 {
     [RoutePrefix("api/claims")]
     public class ClaimsController : BaseApiController
