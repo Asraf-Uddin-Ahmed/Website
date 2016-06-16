@@ -15,12 +15,12 @@ using Website.WebApi.Models.Request;
 namespace Website.WebApi.Controllers.Resource
 {
     [CustomCorsPolicy]
-    [RoutePrefix("api/orders")]
-    public class OrdersController : ApiController
+    [RoutePrefix("api/test")]
+    public class TestController : BaseApiController
     {
         private IUserService _userSevice;
         private IUserResponseFactory _userResponseFactory;
-        public OrdersController(IUserService userSevice, IUserResponseFactory userResponseFactory)
+        public TestController(IUserService userSevice, IUserResponseFactory userResponseFactory)
         {
             _userSevice = userSevice;
             _userResponseFactory = userResponseFactory;
@@ -28,8 +28,8 @@ namespace Website.WebApi.Controllers.Resource
 
         [Authorize(Roles = "IncidentResolvers")]
         [HttpPut]
-        [Route("refund/{orderId}")]
-        public IHttpActionResult RefundOrder([FromUri]string orderId)
+        [Route("{orderId}")]
+        public IHttpActionResult Put([FromUri]string orderId)
         {
             return Ok();
         }
