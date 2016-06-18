@@ -1,9 +1,9 @@
-namespace Website.Foundation.Migrations
+namespace Website.Identity.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class IdentityUser : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {

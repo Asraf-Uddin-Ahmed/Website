@@ -88,10 +88,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IdentityDbContext.cs" />
+    <Compile Include="WebsiteIdentityDbContext.cs" />
     <Compile Include="Manager\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />
     <Compile Include="Message\IIdentityMessageBuilder.cs" />
+    <Compile Include="Migrations\201606181109428_Initial.cs" />
+    <Compile Include="Migrations\201606181109428_Initial.Designer.cs">
+      <DependentUpon>201606181109428_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
     <Compile Include="Manager\ApplicationUserManager.cs" />
     <Compile Include="Validator\CustomPasswordValidator.cs" />
@@ -110,6 +115,11 @@
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201606181109428_Initial.resx">
+      <DependentUpon>201606181109428_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

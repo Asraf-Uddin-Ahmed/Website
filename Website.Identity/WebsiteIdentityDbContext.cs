@@ -9,17 +9,17 @@ using Website.Identity.Model;
 
 namespace Website.Identity
 {
-    public class IdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class WebsiteIdentityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public IdentityDbContext()
+        public WebsiteIdentityDbContext()
             : base("IdentityConnection", throwIfV1Schema: false)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
-        public static IdentityDbContext Create()
+        public static WebsiteIdentityDbContext Create()
         {
-            return new IdentityDbContext();
+            return new WebsiteIdentityDbContext();
         }
 
     }

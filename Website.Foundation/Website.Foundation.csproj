@@ -126,10 +126,6 @@
     <Compile Include="Core\Services\Email\IMessageBuilder.cs" />
     <Compile Include="Core\Services\IMembershipService.cs" />
     <Compile Include="Core\Services\IPasswordVerificationService.cs" />
-    <Compile Include="Migrations\201606061203055_IdentityUser.cs" />
-    <Compile Include="Migrations\201606061203055_IdentityUser.Designer.cs">
-      <DependentUpon>201606061203055_IdentityUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="Persistence\Factories\PasswordVerificationFactory.cs" />
     <Compile Include="Persistence\Factories\UserFactory.cs" />
     <Compile Include="Migrations\201503210843158_InitialCreate.cs" />
@@ -193,9 +189,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503221659567_PasswordVerification.resx">
       <DependentUpon>201503221659567_PasswordVerification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606061203055_IdentityUser.resx">
-      <DependentUpon>201606061203055_IdentityUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
