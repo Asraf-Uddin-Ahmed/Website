@@ -14,7 +14,6 @@ using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security;
 using Website.Foundation.Persistence;
 using Website.WebApi.Codes.Core.Identity;
-using Website.Foundation.Core.Identity;
 using Website.WebApi.Codes;
 using Ninject;
 using Ninject.Web.Common.OwinHost;
@@ -24,6 +23,8 @@ using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence.Services.Email;
 using Website.WebApi.Configuration;
 using System.Web.Http.ExceptionHandling;
+using Website.Identity.Manager;
+using Website.Identity;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Website.WebApi
@@ -55,6 +56,7 @@ namespace Website.WebApi
         {
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(IdentityDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 

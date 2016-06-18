@@ -1,5 +1,4 @@
-﻿using Ninject;
-using Ratul.Utility.Email;
+﻿using Ratul.Utility.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,11 @@ using System.Threading.Tasks;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services.Email;
+using Website.Foundation.Persistence.Services.Email;
 using Website.Foundation.Persistence.Template.Email;
+using Website.Identity.Model;
 
-namespace Website.Foundation.Persistence.Services.Email
+namespace Website.Identity.Message
 {
     public class IdentityMessageBuilder : MessageBuilder, IIdentityMessageBuilder
     {
@@ -65,7 +66,6 @@ namespace Website.Foundation.Persistence.Services.Email
         }
 
 
-        [Inject]
         public IdentityMessageBuilder(ISettingsRepository settingsRepository)
             : base(settingsRepository)
         { }

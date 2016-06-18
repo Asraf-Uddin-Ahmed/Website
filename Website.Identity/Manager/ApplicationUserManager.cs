@@ -6,14 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
 using Website.Foundation.Persistence.Services.Email;
+using Website.Identity.Message;
+using Website.Identity.Model;
+using Website.Identity.Provider;
+using Website.Identity.Validator;
 
-namespace Website.Foundation.Core.Identity
+namespace Website.Identity.Manager
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

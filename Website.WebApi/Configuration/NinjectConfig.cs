@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
 using Microsoft.AspNet.Identity.Owin;
 using log4net;
 using System.Web.Http.Dispatcher;
+using Website.Identity.Manager;
 
 namespace Website.WebApi.Configuration
 {

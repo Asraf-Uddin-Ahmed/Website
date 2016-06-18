@@ -251,6 +251,10 @@
       <Project>{73069f52-24e1-4003-bb07-e7384c2821ad}</Project>
       <Name>Website.Foundation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Website.Identity\Website.Identity.csproj">
+      <Project>{aebf7163-40ee-45a2-ba02-ffae098fd366}</Project>
+      <Name>Website.Identity</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

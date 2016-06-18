@@ -7,8 +7,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
-using Website.Foundation.Core.Identity;
 using Website.Foundation.Core.Aggregates;
+using Website.Identity.Manager;
+using Website.Identity.Model;
+using Website.Identity.Provider;
 
 namespace Website.WebApi.Codes.Core.Identity
 {

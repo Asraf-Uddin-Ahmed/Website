@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
-using Website.Foundation.Core.Aggregates;
+using Website.Identity.Model;
 
-namespace Website.Foundation.Core.Identity
+namespace Website.Identity.Provider
 {
     public static class ExtendedClaimsProvider
     {

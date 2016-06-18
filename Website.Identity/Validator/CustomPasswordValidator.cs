@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Website.Foundation.Core.Identity
+namespace Website.Identity.Validator
 {
     public class CustomPasswordValidator : PasswordValidator
     {

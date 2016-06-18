@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using Website.Foundation.Core.Aggregates;
+using Website.Identity.Manager;
+using Website.Identity.Model;
 
-namespace Website.Foundation.Core.Identity
+namespace Website.Identity.Validator
 {
     public class CustomUserValidator : UserValidator<ApplicationUser>
     {

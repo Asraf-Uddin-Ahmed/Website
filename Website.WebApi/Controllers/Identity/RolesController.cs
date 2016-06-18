@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Website.Foundation.Core.Identity;
+using Website.Identity.Manager;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Role;

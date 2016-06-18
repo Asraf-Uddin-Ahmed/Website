@@ -6,9 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Website.Foundation.Persistence;
 
-namespace Website.Foundation.Core.Identity
+namespace Website.Identity.Manager
 {
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
@@ -19,7 +18,7 @@ namespace Website.Foundation.Core.Identity
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<IdentityDbContext>()));
 
             return appRoleManager;
         }
