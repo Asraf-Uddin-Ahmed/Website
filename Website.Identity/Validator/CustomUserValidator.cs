@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Website.Identity.Manager;
-using Website.Identity.Models;
+using Website.Identity.Aggregates;
 
 namespace Website.Identity.Validator
 {

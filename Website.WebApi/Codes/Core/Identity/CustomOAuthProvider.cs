@@ -9,7 +9,7 @@ using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Website.Foundation.Core.Aggregates;
 using Website.Identity.Manager;
-using Website.Identity.Models;
+using Website.Identity.Aggregates;
 using Website.Identity.Provider;
 
 namespace Website.WebApi.Codes.Core.Identity

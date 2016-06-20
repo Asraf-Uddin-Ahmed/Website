@@ -6,16 +6,16 @@ namespace Website.Identity.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Website.Identity.Models;
+    using Website.Identity.Aggregates;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebsiteIdentityDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AuthDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WebsiteIdentityDbContext context)
+        protected override void Seed(AuthDbContext context)
         {
             //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));

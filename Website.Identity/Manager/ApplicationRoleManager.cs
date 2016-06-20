@@ -18,7 +18,7 @@ namespace Website.Identity.Manager
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<WebsiteIdentityDbContext>()));
+            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<AuthDbContext>()));
 
             return appRoleManager;
         }

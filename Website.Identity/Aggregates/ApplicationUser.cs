@@ -8,7 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Website.Identity.Models
+namespace Website.Identity.Aggregates
 {
     public class ApplicationUser : IdentityUser
     {

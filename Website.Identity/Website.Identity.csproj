@@ -88,7 +88,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebsiteIdentityDbContext.cs" />
+    <Compile Include="Enums\ApplicationTypes.cs" />
+    <Compile Include="Aggregates\Client.cs" />
+    <Compile Include="Aggregates\RefreshToken.cs" />
+    <Compile Include="AuthDbContext.cs" />
     <Compile Include="Manager\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />
     <Compile Include="Message\IIdentityMessageBuilder.cs" />
@@ -97,7 +100,7 @@
       <DependentUpon>201606181109428_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Aggregates\ApplicationUser.cs" />
     <Compile Include="Manager\ApplicationUserManager.cs" />
     <Compile Include="Validator\CustomPasswordValidator.cs" />
     <Compile Include="Validator\CustomUserValidator.cs" />

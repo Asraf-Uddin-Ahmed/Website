@@ -5,21 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Website.Identity.Models;
+using Website.Identity.Aggregates;
 
 namespace Website.Identity
 {
-    public class WebsiteIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class AuthDbContext : IdentityDbContext<ApplicationUser>
     {
-        public WebsiteIdentityDbContext()
-            : base("IdentityConnection", throwIfV1Schema: false)
+        public AuthDbContext()
+            : base("AuthConnection", throwIfV1Schema: false)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
-        public static WebsiteIdentityDbContext Create()
+
+
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+
+
+        public static AuthDbContext Create()
         {
-            return new WebsiteIdentityDbContext();
+            return new AuthDbContext();
         }
 
     }

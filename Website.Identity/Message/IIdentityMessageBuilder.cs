@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Services.Email;
-using Website.Identity.Models;
+using Website.Identity.Aggregates;
 
 namespace Website.Identity.Message
 {

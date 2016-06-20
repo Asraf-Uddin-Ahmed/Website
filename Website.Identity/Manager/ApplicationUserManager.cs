@@ -12,7 +12,7 @@ using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
 using Website.Foundation.Persistence.Services.Email;
 using Website.Identity.Message;
-using Website.Identity.Models;
+using Website.Identity.Aggregates;
 using Website.Identity.Provider;
 using Website.Identity.Validator;
 
@@ -27,7 +27,7 @@ namespace Website.Identity.Manager
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            WebsiteIdentityDbContext websiteIdentityDbContext = context.Get<WebsiteIdentityDbContext>();
+            AuthDbContext websiteIdentityDbContext = context.Get<AuthDbContext>();
             ApplicationDbContext appDbContext = context.Get<ApplicationDbContext>();
             ApplicationUserManager appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(websiteIdentityDbContext));
 
