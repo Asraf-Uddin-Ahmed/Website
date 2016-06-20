@@ -13,10 +13,10 @@ using Website.Foundation.Persistence.Repositories;
 using Website.Foundation.Persistence.Services.Email;
 using Website.Identity.Message;
 using Website.Identity.Aggregates;
-using Website.Identity.Provider;
-using Website.Identity.Validator;
+using Website.Identity.Providers;
+using Website.Identity.Validators;
 
-namespace Website.Identity.Manager
+namespace Website.Identity.Managers
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

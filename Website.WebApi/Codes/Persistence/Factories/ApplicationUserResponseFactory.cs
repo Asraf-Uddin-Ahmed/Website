@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
-using Website.Identity.Manager;
+using Website.Identity.Managers;
 using Website.Identity.Aggregates;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models.Response;

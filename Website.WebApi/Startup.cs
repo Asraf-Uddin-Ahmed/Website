@@ -23,7 +23,7 @@ using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence.Services.Email;
 using Website.WebApi.Configuration;
 using System.Web.Http.ExceptionHandling;
-using Website.Identity.Manager;
+using Website.Identity.Managers;
 using Website.Identity;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

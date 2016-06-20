@@ -92,7 +92,7 @@
     <Compile Include="Aggregates\Client.cs" />
     <Compile Include="Aggregates\RefreshToken.cs" />
     <Compile Include="AuthDbContext.cs" />
-    <Compile Include="Manager\ApplicationRoleManager.cs" />
+    <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />
     <Compile Include="Message\IIdentityMessageBuilder.cs" />
     <Compile Include="Migrations\201606181109428_Initial.cs" />
@@ -101,13 +101,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Aggregates\ApplicationUser.cs" />
-    <Compile Include="Manager\ApplicationUserManager.cs" />
-    <Compile Include="Validator\CustomPasswordValidator.cs" />
-    <Compile Include="Validator\CustomUserValidator.cs" />
-    <Compile Include="Provider\EmailServiceProvider.cs" />
-    <Compile Include="Provider\ExtendedClaimsProvider.cs" />
+    <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Validators\CustomPasswordValidator.cs" />
+    <Compile Include="Validators\CustomUserValidator.cs" />
+    <Compile Include="Providers\EmailServiceProvider.cs" />
+    <Compile Include="Providers\ExtendedClaimsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\RolesFromClaims.cs" />
+    <Compile Include="Providers\RolesFromClaims.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

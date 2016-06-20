@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Website.Foundation.Core.Aggregates;
-using Website.Identity.Manager;
+using Website.Identity.Managers;
 using Website.Identity.Aggregates;
-using Website.Identity.Provider;
+using Website.Identity.Providers;
 
 namespace Website.WebApi.Codes.Core.Identity
 {

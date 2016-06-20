@@ -13,7 +13,7 @@ using Website.Foundation.Persistence.Repositories;
 using Microsoft.AspNet.Identity.Owin;
 using log4net;
 using System.Web.Http.Dispatcher;
-using Website.Identity.Manager;
+using Website.Identity.Managers;
 
 namespace Website.WebApi.Configuration
 {

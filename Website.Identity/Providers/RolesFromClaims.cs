@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 
-namespace Website.Identity.Provider
+namespace Website.Identity.Providers
 {
     public class RolesFromClaims
     {

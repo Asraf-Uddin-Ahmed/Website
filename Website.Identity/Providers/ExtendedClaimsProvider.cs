@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Web;
 using Website.Identity.Aggregates;
 
-namespace Website.Identity.Provider
+namespace Website.Identity.Providers
 {
     public static class ExtendedClaimsProvider
     {

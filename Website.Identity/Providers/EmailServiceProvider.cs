@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Services.Email;
-using Website.Identity.Manager;
+using Website.Identity.Managers;
 using Website.Identity.Message;
 using Website.Identity.Aggregates;
 
-namespace Website.Identity.Provider
+namespace Website.Identity.Providers
 {
     public class EmailServiceProvider : IIdentityMessageService
     {
