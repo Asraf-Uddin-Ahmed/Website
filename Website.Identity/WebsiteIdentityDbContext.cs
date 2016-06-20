@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Website.Identity.Model;
+using Website.Identity.Models;
 
 namespace Website.Identity
 {

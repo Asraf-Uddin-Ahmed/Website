@@ -12,7 +12,7 @@ using Website.Foundation.Persistence;
 using Website.Foundation.Persistence.Repositories;
 using Website.Foundation.Persistence.Services.Email;
 using Website.Identity.Message;
-using Website.Identity.Model;
+using Website.Identity.Models;
 using Website.Identity.Provider;
 using Website.Identity.Validator;
 

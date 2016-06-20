@@ -9,7 +9,7 @@ using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services.Email;
 using Website.Foundation.Persistence.Services.Email;
 using Website.Foundation.Persistence.Template.Email;
-using Website.Identity.Model;
+using Website.Identity.Models;
 
 namespace Website.Identity.Message
 {

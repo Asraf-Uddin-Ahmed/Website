@@ -11,7 +11,7 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Services;
 using Website.Foundation.Core.Services.Email;
 using Website.Identity.Manager;
-using Website.Identity.Model;
+using Website.Identity.Models;
 using Website.Identity.Provider;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Website.Foundation.Core.Services.Email;
 using Website.Identity.Manager;
 using Website.Identity.Message;
-using Website.Identity.Model;
+using Website.Identity.Models;
 
 namespace Website.Identity.Provider
 {

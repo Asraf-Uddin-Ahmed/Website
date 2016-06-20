@@ -6,7 +6,7 @@ namespace Website.Identity.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Website.Identity.Model;
+    using Website.Identity.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WebsiteIdentityDbContext>
     {

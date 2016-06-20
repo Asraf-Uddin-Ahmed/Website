@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Identity.Manager;
-using Website.Identity.Model;
+using Website.Identity.Models;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models.Response;
 

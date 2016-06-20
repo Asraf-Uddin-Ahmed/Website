@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Website.Foundation.Core.Aggregates;
-using Website.Identity.Model;
+using Website.Identity.Models;
 using Website.WebApi.Models.Response;
 
 namespace Website.WebApi.Codes.Core.Factories
