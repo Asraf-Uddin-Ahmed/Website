@@ -109,6 +109,7 @@
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Providers\CustomRefreshTokenProvider.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />
     <Compile Include="Repositories\IAuthRepository.cs" />

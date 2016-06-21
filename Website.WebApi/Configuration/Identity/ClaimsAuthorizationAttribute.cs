@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace Website.WebApi.Codes.Core.Identity
+namespace Website.WebApi.Configuration.Identity
 {
     public class ClaimsAuthorizationAttribute : AuthorizationFilterAttribute
     {

@@ -15,7 +15,7 @@ using Website.Identity.Repositories;
 using Website.Identity.Enums;
 using Website.Identity.Helpers;
 
-namespace Website.WebApi.Codes.Core.Identity
+namespace Website.Identity.Providers
 {
     public class CustomOAuthProvider : OAuthAuthorizationServerProvider
     {

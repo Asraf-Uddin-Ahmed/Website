@@ -10,7 +10,7 @@ using Website.Identity.Repositories;
 namespace Website.WebApi.Controllers.Identity
 {
     [RoutePrefix("api/RefreshTokens")]
-    public class RefreshTokensController : ApiController
+    public class RefreshTokensController : BaseApiController
     {
 
         private AuthRepository _authRepository;

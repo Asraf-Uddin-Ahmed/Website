@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using Thinktecture.IdentityModel.Tokens;
 
-namespace Website.WebApi.Codes.Core.Identity
+namespace Website.WebApi.Configuration.Identity
 {
     public class CustomJwtFormat : ISecureDataFormat<AuthenticationTicket>
     {

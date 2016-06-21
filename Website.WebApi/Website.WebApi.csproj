@@ -216,9 +216,8 @@
     <Compile Include="Codes\Persistence\Factories\IdentityRoleResponseFactory.cs" />
     <Compile Include="Codes\Persistence\Factories\ResponseFactory.cs" />
     <Compile Include="Configuration\ContextCapturingControllerActivator.cs" />
-    <Compile Include="Codes\Core\Identity\ClaimsAuthorizationAttribute.cs" />
-    <Compile Include="Codes\Core\Identity\CustomJwtFormat.cs" />
-    <Compile Include="Codes\Core\Identity\CustomOAuthProvider.cs" />
+    <Compile Include="Configuration\Identity\ClaimsAuthorizationAttribute.cs" />
+    <Compile Include="Configuration\Identity\CustomJwtFormat.cs" />
     <Compile Include="Configuration\CustomCorsPolicyAttribute.cs" />
     <Compile Include="Configuration\UnhandledExceptionLogger.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />

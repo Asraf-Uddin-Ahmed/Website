@@ -13,7 +13,6 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security;
 using Website.Foundation.Persistence;
-using Website.WebApi.Codes.Core.Identity;
 using Website.WebApi.Codes;
 using Ninject;
 using Ninject.Web.Common.OwinHost;
@@ -26,6 +25,7 @@ using System.Web.Http.ExceptionHandling;
 using Website.Identity.Managers;
 using Website.Identity;
 using Website.Identity.Providers;
+using Website.WebApi.Configuration.Identity;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Website.WebApi
@@ -64,8 +64,7 @@ namespace Website.WebApi
             // Plugin the OAuth bearer JSON Web Token tokens generation and Consumption will be here
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
-                //For Dev enviroment only (on production should be AllowInsecureHttp = false)
-                AllowInsecureHttp = true,
+                AllowInsecureHttp = bool.Parse(ConfigurationManager.AppSettings["as:AllowInsecureHttp"]),
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new CustomOAuthProvider(),
