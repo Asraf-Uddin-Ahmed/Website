@@ -25,6 +25,7 @@ using Website.WebApi.Configuration;
 using System.Web.Http.ExceptionHandling;
 using Website.Identity.Managers;
 using Website.Identity;
+using Website.Identity.Providers;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Website.WebApi
@@ -66,9 +67,10 @@ namespace Website.WebApi
                 //For Dev enviroment only (on production should be AllowInsecureHttp = false)
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/oauth/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new CustomOAuthProvider(),
-                AccessTokenFormat = new CustomJwtFormat(_issuer)
+                AccessTokenFormat = new CustomJwtFormat(_issuer),
+                RefreshTokenProvider = new CustomRefreshTokenProvider()
             };
 
             // OAuth 2.0 Bearer Access Token Generation
