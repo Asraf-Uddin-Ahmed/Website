@@ -28,20 +28,20 @@ namespace Website.Identity.Providers
 
             using (AuthRepository _repo = new AuthRepository())
             {
-                var refreshTokenLifeTime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime"); 
-               
-                var token = new RefreshToken() 
+                var refreshTokenLifeTime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime");
+
+                var token = new RefreshToken()
                 {
                     Id = HashGenerator.GetHash(refreshTokenId),
-                    ClientId = clientid, 
+                    ClientId = clientid,
                     Subject = context.Ticket.Identity.Name,
                     IssuedUtc = DateTime.UtcNow,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime)) 
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))
                 };
 
                 context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
                 context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
-                
+
                 token.ProtectedTicket = context.SerializeTicket();
 
                 var result = await _repo.AddRefreshToken(token);
@@ -50,7 +50,7 @@ namespace Website.Identity.Providers
                 {
                     context.SetToken(refreshTokenId);
                 }
-             
+
             }
         }
 
@@ -65,7 +65,7 @@ namespace Website.Identity.Providers
             {
                 var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
 
-                if (refreshToken != null )
+                if (refreshToken != null)
                 {
                     //Get protectedTicket from refreshToken class
                     context.DeserializeTicket(refreshToken.ProtectedTicket);
