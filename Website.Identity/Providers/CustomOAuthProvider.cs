@@ -87,9 +87,7 @@ namespace Website.Identity.Providers
             allowedOrigin = allowedOrigin == null ? "*" : allowedOrigin;
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
@@ -104,11 +102,7 @@ namespace Website.Identity.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
-
-            oAuthIdentity.AddClaims(ExtendedClaimsProvider.GetClaims(user));
-            oAuthIdentity.AddClaims(RolesFromClaims.CreateRolesBasedOnClaims(oAuthIdentity));
-
+            ClaimsIdentity oAuthIdentity = await this.GetClaimIdentity(user, userManager);
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     { 
@@ -123,7 +117,7 @@ namespace Website.Identity.Providers
             context.Validated(ticket);
         }
 
-        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
             var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
             var currentClient = context.ClientId;
@@ -131,23 +125,18 @@ namespace Website.Identity.Providers
             if (originalClient != currentClient)
             {
                 context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
-                return Task.FromResult<object>(null);
+                return;
             }
 
             // Change auth ticket for refresh token requests
-            var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
+            ClaimsIdentity currentIdentity = new ClaimsIdentity(context.Ticket.Identity);
+            ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            // Get up-to-date user with claims and roles for creating new ticket
+            ApplicationUser user = await userManager.FindByNameAsync(currentIdentity.Name);
+            ClaimsIdentity oAuthIdentity = await this.GetClaimIdentity(user, userManager);
 
-            var newClaim = newIdentity.Claims.Where(c => c.Type == "newClaim").FirstOrDefault();
-            if (newClaim != null)
-            {
-                newIdentity.RemoveClaim(newClaim);
-            }
-            newIdentity.AddClaim(new Claim("newClaim", "newValue"));
-
-            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            var newTicket = new AuthenticationTicket(oAuthIdentity, context.Ticket.Properties);
             context.Validated(newTicket);
-
-            return Task.FromResult<object>(null);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -158,6 +147,15 @@ namespace Website.Identity.Providers
             }
 
             return Task.FromResult<object>(null);
+        }
+
+
+        private async Task<ClaimsIdentity> GetClaimIdentity(ApplicationUser user, ApplicationUserManager userManager)
+        {
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+            oAuthIdentity.AddClaims(ExtendedClaimsProvider.GetClaims(user));
+            oAuthIdentity.AddClaims(RolesFromClaims.CreateRolesBasedOnClaims(oAuthIdentity));
+            return oAuthIdentity;
         }
     }
 }
