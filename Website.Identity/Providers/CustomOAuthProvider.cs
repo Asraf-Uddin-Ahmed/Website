@@ -109,10 +109,6 @@ namespace Website.Identity.Providers
             oAuthIdentity.AddClaims(ExtendedClaimsProvider.GetClaims(user));
             oAuthIdentity.AddClaims(RolesFromClaims.CreateRolesBasedOnClaims(oAuthIdentity));
 
-
-            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-            oAuthIdentity.AddClaim(new Claim("sub", context.UserName));
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     { 
