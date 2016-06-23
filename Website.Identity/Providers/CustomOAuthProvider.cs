@@ -36,7 +36,7 @@ namespace Website.Identity.Providers
                 //Remove the comments from the below line context.SetError, and invalidate context 
                 //if you want to force sending clientId/secrects once obtain access tokens. 
                 context.Validated();
-                //context.SetError("invalid_clientId", "ClientId should be sent.");
+                //context.SetError(ErrorType.invalid_clientId.ToString(), "ClientId should be sent.");
                 return Task.FromResult<object>(null);
             }
 
@@ -47,7 +47,7 @@ namespace Website.Identity.Providers
 
             if (client == null)
             {
-                context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                context.SetError(ErrorType.invalid_clientId.ToString(), string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 return Task.FromResult<object>(null);
             }
 
@@ -55,14 +55,14 @@ namespace Website.Identity.Providers
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {
-                    context.SetError("invalid_clientId", "Client secret should be sent.");
+                    context.SetError(ErrorType.invalid_clientId.ToString(), "Client secret should be sent.");
                     return Task.FromResult<object>(null);
                 }
                 else
                 {
                     if (client.Secret != HashGenerator.GetHash(clientSecret))
                     {
-                        context.SetError("invalid_clientId", "Client secret is invalid.");
+                        context.SetError(ErrorType.invalid_clientId.ToString(), "Client secret is invalid.");
                         return Task.FromResult<object>(null);
                     }
                 }
@@ -70,7 +70,7 @@ namespace Website.Identity.Providers
 
             if (!client.Active)
             {
-                context.SetError("invalid_clientId", "Client is inactive.");
+                context.SetError(ErrorType.invalid_clientId.ToString(), "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
 
@@ -92,13 +92,13 @@ namespace Website.Identity.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError(ErrorType.invalid_grant.ToString(), "The user name or password is incorrect.");
                 return;
             }
 
             if (!user.EmailConfirmed)
             {
-                context.SetError("invalid_grant", "User did not confirm email.");
+                context.SetError(ErrorType.invalid_grant.ToString(), "User did not confirm email.");
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace Website.Identity.Providers
 
             if (originalClient != currentClient)
             {
-                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
+                context.SetError(ErrorType.invalid_clientId.ToString(), "Refresh token is issued to a different clientId.");
                 return;
             }
 
