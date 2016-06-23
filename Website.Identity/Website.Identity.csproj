@@ -88,8 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\ErrorType.cs" />
-    <Compile Include="Enums\ApplicationTypes.cs" />
+    <Compile Include="Constant\ErrorKey.cs" />
+    <Compile Include="Constant\ApplicationTypes.cs" />
     <Compile Include="Aggregates\Client.cs" />
     <Compile Include="Aggregates\RefreshToken.cs" />
     <Compile Include="AuthDbContext.cs" />

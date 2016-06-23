@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Website.Identity.Enums
+namespace Website.Identity.Constant
 {
     public enum ApplicationTypes
     {
