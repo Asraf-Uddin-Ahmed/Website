@@ -8,6 +8,7 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.SearchData;
 using Website.Foundation.Core.Services;
 using Website.Identity.Constants.Claims;
+using Website.Identity.Constants.Roles;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Configuration;
 using Website.WebApi.Configuration.Identity;
@@ -27,7 +28,7 @@ namespace Website.WebApi.Controllers.Resource
             _userResponseFactory = userResponseFactory;
         }
 
-        [Authorize(Roles = "IncidentResolvers")]
+        [Authorize(Roles = CustomRoles.INCIDENT_RESOLVERS)]
         [HttpPut]
         [Route("{orderId}")]
         public IHttpActionResult Put([FromUri]string orderId)

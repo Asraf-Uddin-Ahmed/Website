@@ -96,6 +96,8 @@
     <Compile Include="Aggregates\RefreshToken.cs" />
     <Compile Include="AuthDbContext.cs" />
     <Compile Include="Constants\OwinContextKeys.cs" />
+    <Compile Include="Constants\Roles\CustomRoles.cs" />
+    <Compile Include="Constants\Roles\ApplicationRoles.cs" />
     <Compile Include="Helpers\HashGenerator.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />
@@ -142,6 +144,7 @@
       <DependentUpon>201606210423542_ClientAndRefreshToken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

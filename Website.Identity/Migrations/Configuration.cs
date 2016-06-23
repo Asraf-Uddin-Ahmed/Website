@@ -9,6 +9,7 @@ namespace Website.Identity.Migrations
     using System.Linq;
     using Website.Identity.Aggregates;
     using Website.Identity.Constants;
+    using Website.Identity.Constants.Roles;
     using Website.Identity.Helpers;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AuthDbContext>
@@ -31,9 +32,9 @@ namespace Website.Identity.Migrations
             //manager.Create(user, "MySuperP@ssword!");
             //if (roleManager.Roles.Count() == 0)
             //{
-            //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-            //    roleManager.Create(new IdentityRole { Name = "Admin" });
-            //    roleManager.Create(new IdentityRole { Name = "User" });
+            //    roleManager.Create(new IdentityRole { Name = ApplicationRoles.SUPER_ADMIN });
+            //    roleManager.Create(new IdentityRole { Name = ApplicationRoles.ADMIN });
+            //    roleManager.Create(new IdentityRole { Name = ApplicationRoles.USER });
             //}
             //var adminUser = manager.FindByName("SuperPowerUser");
             //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
