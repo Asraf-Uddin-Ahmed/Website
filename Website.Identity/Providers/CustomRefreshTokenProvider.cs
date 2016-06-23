@@ -10,6 +10,7 @@ using Website.Identity.Aggregates;
 using Website.Identity.Constants;
 using Website.Identity.Helpers;
 using Website.Identity.Repositories;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Website.Identity.Providers
 {
@@ -27,7 +28,8 @@ namespace Website.Identity.Providers
 
             var refreshTokenId = Guid.NewGuid().ToString("n");
 
-            using (AuthRepository _repo = new AuthRepository())
+            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            using (AuthRepository _repo = new AuthRepository(authDbContext))
             {
                 var refreshTokenLifeTime = context.OwinContext.Get<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME);
 
@@ -62,7 +64,8 @@ namespace Website.Identity.Providers
 
             string hashedTokenId = HashGenerator.GetHash(context.Token);
 
-            using (AuthRepository _repo = new AuthRepository())
+            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            using (AuthRepository _repo = new AuthRepository(authDbContext))
             {
                 var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
 

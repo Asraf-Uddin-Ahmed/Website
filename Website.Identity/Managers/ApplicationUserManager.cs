@@ -27,9 +27,9 @@ namespace Website.Identity.Managers
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            AuthDbContext websiteIdentityDbContext = context.Get<AuthDbContext>();
+            AuthDbContext authDbContext = context.Get<AuthDbContext>();
             ApplicationDbContext appDbContext = context.Get<ApplicationDbContext>();
-            ApplicationUserManager appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(websiteIdentityDbContext));
+            ApplicationUserManager appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(authDbContext));
 
             appUserManager.UserValidator = new CustomUserValidator(appUserManager);
             appUserManager.PasswordValidator = new CustomPasswordValidator();

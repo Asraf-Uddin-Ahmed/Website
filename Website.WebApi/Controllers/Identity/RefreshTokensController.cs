@@ -14,11 +14,11 @@ namespace Website.WebApi.Controllers.Identity
     public class RefreshTokensController : BaseApiController
     {
 
-        private AuthRepository _authRepository;
+        private IAuthRepository _authRepository;
 
-        public RefreshTokensController()
+        public RefreshTokensController(IAuthRepository authRepository)
         {
-            _authRepository = new AuthRepository();
+            _authRepository = authRepository;
         }
 
         public IHttpActionResult Get()

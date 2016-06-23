@@ -20,9 +20,9 @@ namespace Website.Identity.Repositories
 
         private UserManager<IdentityUser> _userManager;
 
-        public AuthRepository()
+        public AuthRepository(AuthDbContext authDbContext)
         {
-            _authDbContext = new AuthDbContext();
+            _authDbContext = authDbContext;
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_authDbContext));
         }
 
@@ -120,7 +120,7 @@ namespace Website.Identity.Repositories
 
         public void Dispose()
         {
-            _authDbContext.Dispose();
+            //_authDbContext.Dispose();
             _userManager.Dispose();
 
         }

@@ -40,7 +40,8 @@ namespace Website.Identity.Providers
                 return Task.FromResult<object>(null);
             }
 
-            using (AuthRepository _repo = new AuthRepository())
+            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            using (AuthRepository _repo = new AuthRepository(authDbContext))
             {
                 client = _repo.FindClient(context.ClientId);
             }
