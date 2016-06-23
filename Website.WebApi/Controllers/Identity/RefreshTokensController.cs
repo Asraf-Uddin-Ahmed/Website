@@ -5,11 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Website.Identity.Constants.Roles;
 using Website.Identity.Repositories;
 
 namespace Website.WebApi.Controllers.Identity
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ApplicationRoles.ADMIN)]
     public class RefreshTokensController : BaseApiController
     {
 

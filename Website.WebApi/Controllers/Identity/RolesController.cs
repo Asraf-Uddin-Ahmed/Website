@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Website.Identity.Constants.Roles;
 using Website.Identity.Managers;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Models;
@@ -14,7 +15,7 @@ using Website.WebApi.Models.Request.Role;
 
 namespace Website.WebApi.Controllers.Identity
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ApplicationRoles.ADMIN)]
     [RoutePrefix("api/roles")]
     public class RolesController : IdentityApiController
     {
