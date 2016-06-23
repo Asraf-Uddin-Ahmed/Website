@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Website.Identity.Aggregates;
+using Website.Identity.Constant;
 using Website.Identity.Helpers;
 using Website.Identity.Repositories;
 
@@ -28,7 +29,7 @@ namespace Website.Identity.Providers
 
             using (AuthRepository _repo = new AuthRepository())
             {
-                var refreshTokenLifeTime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime");
+                var refreshTokenLifeTime = context.OwinContext.Get<string>(OwinContextKey.CLIENT_REFRESH_TOKEN_LIFE_TIME);
 
                 var token = new RefreshToken()
                 {
@@ -56,7 +57,7 @@ namespace Website.Identity.Providers
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            var allowedOrigin = context.OwinContext.Get<string>(OwinContextKey.CLIENT_ALLOWED_ORIGIN);
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             string hashedTokenId = HashGenerator.GetHash(context.Token);

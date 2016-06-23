@@ -93,6 +93,7 @@
     <Compile Include="Aggregates\Client.cs" />
     <Compile Include="Aggregates\RefreshToken.cs" />
     <Compile Include="AuthDbContext.cs" />
+    <Compile Include="Constant\OwinContextKey.cs" />
     <Compile Include="Helpers\HashGenerator.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />

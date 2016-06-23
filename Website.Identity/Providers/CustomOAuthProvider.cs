@@ -74,8 +74,8 @@ namespace Website.Identity.Providers
                 return Task.FromResult<object>(null);
             }
 
-            context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
-            context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+            context.OwinContext.Set<string>(OwinContextKey.CLIENT_ALLOWED_ORIGIN, client.AllowedOrigin);
+            context.OwinContext.Set<string>(OwinContextKey.CLIENT_REFRESH_TOKEN_LIFE_TIME, client.RefreshTokenLifeTime.ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -83,7 +83,7 @@ namespace Website.Identity.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            var allowedOrigin = context.OwinContext.Get<string>(OwinContextKey.CLIENT_ALLOWED_ORIGIN);
             allowedOrigin = allowedOrigin == null ? "*" : allowedOrigin;
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
