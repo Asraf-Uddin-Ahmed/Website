@@ -41,8 +41,7 @@ namespace Website.Identity.Providers
             }
 
             AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
-            ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            AuthRepository _repo = new AuthRepository(authDbContext);
             client = _repo.FindClient(context.ClientId);
 
             if (client == null)

@@ -19,12 +19,9 @@ namespace Website.Identity.Repositories
     {
         private AuthDbContext _authDbContext;
 
-        private ApplicationUserManager _userManager;
-
-        public AuthRepository(AuthDbContext authDbContext, ApplicationUserManager applicationUserManager)
+        public AuthRepository(AuthDbContext authDbContext)
         {
             _authDbContext = authDbContext;
-            _userManager = applicationUserManager;
         }
 
         
