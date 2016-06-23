@@ -106,10 +106,10 @@ namespace Website.Identity.Providers
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     { 
-                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                        AuthenticationPropertyKeys.CLIENT_ID, (context.ClientId == null) ? string.Empty : context.ClientId
                     },
                     { 
-                        "userName", context.UserName
+                        AuthenticationPropertyKeys.USER_NAME, context.UserName
                     }
                 });
 
@@ -119,7 +119,7 @@ namespace Website.Identity.Providers
 
         public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
-            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
+            var originalClient = context.Ticket.Properties.Dictionary[AuthenticationPropertyKeys.CLIENT_ID];
             var currentClient = context.ClientId;
 
             if (originalClient != currentClient)

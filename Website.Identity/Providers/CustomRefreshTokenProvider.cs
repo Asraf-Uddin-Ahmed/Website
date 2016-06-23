@@ -18,7 +18,7 @@ namespace Website.Identity.Providers
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            var clientid = context.Ticket.Properties.Dictionary["as:client_id"];
+            var clientid = context.Ticket.Properties.Dictionary[AuthenticationPropertyKeys.CLIENT_ID];
 
             if (string.IsNullOrEmpty(clientid))
             {
