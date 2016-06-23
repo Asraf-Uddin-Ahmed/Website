@@ -88,12 +88,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant\ErrorKey.cs" />
-    <Compile Include="Constant\ApplicationTypes.cs" />
+    <Compile Include="Constants\ErrorKeys.cs" />
+    <Compile Include="Constants\ApplicationTypes.cs" />
     <Compile Include="Aggregates\Client.cs" />
     <Compile Include="Aggregates\RefreshToken.cs" />
     <Compile Include="AuthDbContext.cs" />
-    <Compile Include="Constant\OwinContextKey.cs" />
+    <Compile Include="Constants\OwinContextKeys.cs" />
     <Compile Include="Helpers\HashGenerator.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Message\IdentityMessageBuilder.cs" />

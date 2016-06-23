@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Website.Identity.Constant
+namespace Website.Identity.Constants
 {
-    internal static class ErrorKey
+    internal static class ErrorKeys
     {
         internal const string INVALID_CLIENT_ID = "invalid_clientId";
         internal const string INVALID_GRANT = "invalid_grant";

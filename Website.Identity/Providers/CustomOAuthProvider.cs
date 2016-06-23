@@ -13,7 +13,7 @@ using Website.Identity.Aggregates;
 using Website.Identity.Providers;
 using Website.Identity.Repositories;
 using Website.Identity.Helpers;
-using Website.Identity.Constant;
+using Website.Identity.Constants;
 
 namespace Website.Identity.Providers
 {
@@ -47,7 +47,7 @@ namespace Website.Identity.Providers
 
             if (client == null)
             {
-                context.SetError(ErrorKey.INVALID_CLIENT_ID, string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                context.SetError(ErrorKeys.INVALID_CLIENT_ID, string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 return Task.FromResult<object>(null);
             }
 
@@ -55,14 +55,14 @@ namespace Website.Identity.Providers
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {
-                    context.SetError(ErrorKey.INVALID_CLIENT_ID, "Client secret should be sent.");
+                    context.SetError(ErrorKeys.INVALID_CLIENT_ID, "Client secret should be sent.");
                     return Task.FromResult<object>(null);
                 }
                 else
                 {
                     if (client.Secret != HashGenerator.GetHash(clientSecret))
                     {
-                        context.SetError(ErrorKey.INVALID_CLIENT_ID, "Client secret is invalid.");
+                        context.SetError(ErrorKeys.INVALID_CLIENT_ID, "Client secret is invalid.");
                         return Task.FromResult<object>(null);
                     }
                 }
@@ -70,12 +70,12 @@ namespace Website.Identity.Providers
 
             if (!client.Active)
             {
-                context.SetError(ErrorKey.INVALID_CLIENT_ID, "Client is inactive.");
+                context.SetError(ErrorKeys.INVALID_CLIENT_ID, "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
 
-            context.OwinContext.Set<string>(OwinContextKey.CLIENT_ALLOWED_ORIGIN, client.AllowedOrigin);
-            context.OwinContext.Set<string>(OwinContextKey.CLIENT_REFRESH_TOKEN_LIFE_TIME, client.RefreshTokenLifeTime.ToString());
+            context.OwinContext.Set<string>(OwinContextKeys.CLIENT_ALLOWED_ORIGIN, client.AllowedOrigin);
+            context.OwinContext.Set<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME, client.RefreshTokenLifeTime.ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -83,7 +83,7 @@ namespace Website.Identity.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var allowedOrigin = context.OwinContext.Get<string>(OwinContextKey.CLIENT_ALLOWED_ORIGIN);
+            var allowedOrigin = context.OwinContext.Get<string>(OwinContextKeys.CLIENT_ALLOWED_ORIGIN);
             allowedOrigin = allowedOrigin == null ? "*" : allowedOrigin;
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
@@ -92,13 +92,13 @@ namespace Website.Identity.Providers
 
             if (user == null)
             {
-                context.SetError(ErrorKey.INVALID_GRANT, "The user name or password is incorrect.");
+                context.SetError(ErrorKeys.INVALID_GRANT, "The user name or password is incorrect.");
                 return;
             }
 
             if (!user.EmailConfirmed)
             {
-                context.SetError(ErrorKey.INVALID_GRANT, "User did not confirm email.");
+                context.SetError(ErrorKeys.INVALID_GRANT, "User did not confirm email.");
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace Website.Identity.Providers
 
             if (originalClient != currentClient)
             {
-                context.SetError(ErrorKey.INVALID_CLIENT_ID, "Refresh token is issued to a different clientId.");
+                context.SetError(ErrorKeys.INVALID_CLIENT_ID, "Refresh token is issued to a different clientId.");
                 return;
             }
 

@@ -8,7 +8,7 @@ namespace Website.Identity.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Website.Identity.Aggregates;
-    using Website.Identity.Constant;
+    using Website.Identity.Constants;
     using Website.Identity.Helpers;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AuthDbContext>
