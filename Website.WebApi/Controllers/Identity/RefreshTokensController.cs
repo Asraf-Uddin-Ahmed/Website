@@ -36,15 +36,6 @@ namespace Website.WebApi.Controllers.Identity
             return BadRequest("Token Id does not exist");
 
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _authRepository.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
+        
     }
 }

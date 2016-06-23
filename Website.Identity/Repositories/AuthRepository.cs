@@ -9,42 +9,25 @@ using System.Threading.Tasks;
 using System.Web;
 using Website.Identity;
 using Website.Identity.Aggregates;
+using Website.Identity.Managers;
 using Website.Identity.Models;
 
 namespace Website.Identity.Repositories
 {
 
-    public class AuthRepository : IDisposable, IAuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private AuthDbContext _authDbContext;
 
-        private UserManager<IdentityUser> _userManager;
+        private ApplicationUserManager _userManager;
 
-        public AuthRepository(AuthDbContext authDbContext)
+        public AuthRepository(AuthDbContext authDbContext, ApplicationUserManager applicationUserManager)
         {
             _authDbContext = authDbContext;
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_authDbContext));
+            _userManager = applicationUserManager;
         }
 
-        public async Task<IdentityResult> RegisterUser(UserModel userModel)
-        {
-            IdentityUser user = new IdentityUser
-            {
-                UserName = userModel.UserName
-            };
-
-            var result = await _userManager.CreateAsync(user, userModel.Password);
-
-            return result;
-        }
-
-        public async Task<IdentityUser> FindUser(string userName, string password)
-        {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
-
-            return user;
-        }
-
+        
         public Client FindClient(string clientId)
         {
             var client = _authDbContext.Clients.Find(clientId);
@@ -96,33 +79,6 @@ namespace Website.Identity.Repositories
         {
              return  _authDbContext.RefreshTokens.ToList();
         }
-
-        public async Task<IdentityUser> FindAsync(UserLoginInfo loginInfo)
-        {
-            IdentityUser user = await _userManager.FindAsync(loginInfo);
-
-            return user;
-        }
-
-        public async Task<IdentityResult> CreateAsync(IdentityUser user)
-        {
-            var result = await _userManager.CreateAsync(user);
-
-            return result;
-        }
-
-        public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
-        {
-            var result = await _userManager.AddLoginAsync(userId, login);
-
-            return result;
-        }
-
-        public void Dispose()
-        {
-            //_authDbContext.Dispose();
-            _userManager.Dispose();
-
-        }
+        
     }
 }

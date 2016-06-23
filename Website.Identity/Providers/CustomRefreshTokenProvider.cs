@@ -11,6 +11,7 @@ using Website.Identity.Constants;
 using Website.Identity.Helpers;
 using Website.Identity.Repositories;
 using Microsoft.AspNet.Identity.Owin;
+using Website.Identity.Managers;
 
 namespace Website.Identity.Providers
 {
@@ -29,32 +30,31 @@ namespace Website.Identity.Providers
             var refreshTokenId = Guid.NewGuid().ToString("n");
 
             AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
-            using (AuthRepository _repo = new AuthRepository(authDbContext))
+            ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            var refreshTokenLifeTime = context.OwinContext.Get<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME);
+
+            var token = new RefreshToken()
             {
-                var refreshTokenLifeTime = context.OwinContext.Get<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME);
+                Id = HashGenerator.GetHash(refreshTokenId),
+                ClientId = clientid,
+                Subject = context.Ticket.Identity.Name,
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))
+            };
 
-                var token = new RefreshToken()
-                {
-                    Id = HashGenerator.GetHash(refreshTokenId),
-                    ClientId = clientid,
-                    Subject = context.Ticket.Identity.Name,
-                    IssuedUtc = DateTime.UtcNow,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))
-                };
+            context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
+            context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
 
-                context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
-                context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
+            token.ProtectedTicket = context.SerializeTicket();
 
-                token.ProtectedTicket = context.SerializeTicket();
+            var result = await _repo.AddRefreshToken(token);
 
-                var result = await _repo.AddRefreshToken(token);
-
-                if (result)
-                {
-                    context.SetToken(refreshTokenId);
-                }
-
+            if (result)
+            {
+                context.SetToken(refreshTokenId);
             }
+
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
@@ -65,16 +65,15 @@ namespace Website.Identity.Providers
             string hashedTokenId = HashGenerator.GetHash(context.Token);
 
             AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
-            using (AuthRepository _repo = new AuthRepository(authDbContext))
-            {
-                var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
+            ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
 
-                if (refreshToken != null)
-                {
-                    //Get protectedTicket from refreshToken class
-                    context.DeserializeTicket(refreshToken.ProtectedTicket);
-                    var result = await _repo.RemoveRefreshToken(hashedTokenId);
-                }
+            if (refreshToken != null)
+            {
+                //Get protectedTicket from refreshToken class
+                context.DeserializeTicket(refreshToken.ProtectedTicket);
+                var result = await _repo.RemoveRefreshToken(hashedTokenId);
             }
         }
 
