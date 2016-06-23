@@ -9,7 +9,7 @@ using Website.Identity.Repositories;
 
 namespace Website.WebApi.Controllers.Identity
 {
-    [RoutePrefix("api/RefreshTokens")]
+    [Authorize(Roles = "Admin")]
     public class RefreshTokensController : BaseApiController
     {
 
@@ -20,16 +20,11 @@ namespace Website.WebApi.Controllers.Identity
             _authRepository = new AuthRepository();
         }
 
-        //[Authorize(Users="Admin")]
-        [Route("")]
         public IHttpActionResult Get()
         {
             return Ok(_authRepository.GetAllRefreshTokens());
         }
 
-        //[Authorize(Users = "Admin")]
-        [AllowAnonymous]
-        [Route("")]
         public async Task<IHttpActionResult> Delete(string tokenId)
         {
             var result = await _authRepository.RemoveRefreshToken(tokenId);
