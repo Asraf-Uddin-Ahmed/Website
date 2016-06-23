@@ -7,6 +7,7 @@ using System.Web.Http;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.SearchData;
 using Website.Foundation.Core.Services;
+using Website.Identity.Constants.Claims;
 using Website.WebApi.Codes.Core.Factories;
 using Website.WebApi.Configuration;
 using Website.WebApi.Configuration.Identity;
@@ -34,7 +35,7 @@ namespace Website.WebApi.Controllers.Resource
             return Ok();
         }
 
-        [ClaimsAuthorization(ClaimType = "FTE", ClaimValue = "1")]
+        [ClaimsAuthorization(ClaimType = PhoneNumberConfirmed.CLAIM_TYPE, ClaimValue = PhoneNumberConfirmed.CLAIM_VALUE.TRUE)]
         [Route("")]
         public IHttpActionResult Get()
         {

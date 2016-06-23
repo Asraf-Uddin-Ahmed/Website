@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\AuthenticationPropertyKeys.cs" />
+    <Compile Include="Constants\Claims\PhoneNumberConfirmed.cs" />
     <Compile Include="Constants\ErrorKeys.cs" />
     <Compile Include="Constants\ApplicationTypes.cs" />
     <Compile Include="Aggregates\Client.cs" />

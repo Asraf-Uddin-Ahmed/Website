@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using Website.Identity.Aggregates;
+using Website.Identity.Constants.Claims;
 
 namespace Website.Identity.Providers
 {
@@ -16,12 +17,12 @@ namespace Website.Identity.Providers
 
             if (user.PhoneNumberConfirmed)
             {
-                claims.Add(CreateClaim("FTE", "1"));
+                claims.Add(CreateClaim(PhoneNumberConfirmed.CLAIM_TYPE, PhoneNumberConfirmed.CLAIM_VALUE.TRUE));
 
             }
             else
             {
-                claims.Add(CreateClaim("FTE", "0"));
+                claims.Add(CreateClaim(PhoneNumberConfirmed.CLAIM_TYPE, PhoneNumberConfirmed.CLAIM_VALUE.FALSE));
             }
 
             return claims;
