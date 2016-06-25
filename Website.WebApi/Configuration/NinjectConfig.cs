@@ -16,6 +16,7 @@ using System.Web.Http.Dispatcher;
 using Website.Identity.Managers;
 using Website.Identity.Repositories;
 using Website.Identity;
+using Website.Identity.Helpers;
 
 namespace Website.WebApi.Configuration
 {
@@ -57,6 +58,7 @@ namespace Website.WebApi.Configuration
             kernel.Bind<ApplicationRoleManager>().ToMethod(ctx => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>()).InRequestScope();
             kernel.Bind<IHttpControllerActivator>().To<ContextCapturingControllerActivator>().InRequestScope();
             kernel.Bind<IAuthRepository>().To<AuthRepository>();
+            kernel.Bind<IAuthHelper>().To<AuthHelper>();
         }
         
     }

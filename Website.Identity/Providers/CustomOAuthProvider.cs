@@ -41,7 +41,8 @@ namespace Website.Identity.Providers
             }
 
             AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
-            AuthRepository _repo = new AuthRepository(authDbContext);
+            ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
             client = _repo.FindClient(context.ClientId);
 
             if (client == null)
@@ -101,7 +102,8 @@ namespace Website.Identity.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await this.GetClaimIdentity(user, userManager);
+            AuthHelper authHelper = new AuthHelper();
+            ClaimsIdentity oAuthIdentity = await authHelper.GetClaimIdentityAsync(user, userManager);
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     { 
@@ -132,7 +134,8 @@ namespace Website.Identity.Providers
             ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             // Get up-to-date user with claims and roles for creating new ticket
             ApplicationUser user = await userManager.FindByNameAsync(currentIdentity.Name);
-            ClaimsIdentity oAuthIdentity = await this.GetClaimIdentity(user, userManager);
+            AuthHelper authHelper = new AuthHelper();
+            ClaimsIdentity oAuthIdentity = await authHelper.GetClaimIdentityAsync(user, userManager);
 
             var newTicket = new AuthenticationTicket(oAuthIdentity, context.Ticket.Properties);
             context.Validated(newTicket);
@@ -147,14 +150,6 @@ namespace Website.Identity.Providers
 
             return Task.FromResult<object>(null);
         }
-
-
-        private async Task<ClaimsIdentity> GetClaimIdentity(ApplicationUser user, ApplicationUserManager userManager)
-        {
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
-            oAuthIdentity.AddClaims(ExtendedClaimsProvider.GetClaims(user));
-            oAuthIdentity.AddClaims(RolesFromClaims.CreateRolesBasedOnClaims(oAuthIdentity));
-            return oAuthIdentity;
-        }
+        
     }
 }
