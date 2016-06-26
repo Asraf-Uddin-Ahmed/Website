@@ -7,15 +7,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Website.Identity.Constants;
 
 namespace Website.WebApi.Configuration.Identity
 {
     public class ChallengeResult : IHttpActionResult
     {
-        public string LoginProvider { get; set; }
+        public ExternalLoginProviderName LoginProvider { get; set; }
         public HttpRequestMessage Request { get; set; }
 
-        public ChallengeResult(string loginProvider, ApiController controller)
+        public ChallengeResult(ExternalLoginProviderName loginProvider, ApiController controller)
         {
             LoginProvider = loginProvider;
             Request = controller.Request;
@@ -23,7 +24,7 @@ namespace Website.WebApi.Configuration.Identity
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            Request.GetOwinContext().Authentication.Challenge(LoginProvider);
+            Request.GetOwinContext().Authentication.Challenge(LoginProvider.ToString());
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             response.RequestMessage = Request;

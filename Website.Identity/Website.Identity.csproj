@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ExternalLoginProviderName.cs" />
     <Compile Include="Constants\AuthenticationPropertyKeys.cs" />
     <Compile Include="Constants\Claims\PhoneNumberConfirmed.cs" />
     <Compile Include="Constants\ErrorKeys.cs" />

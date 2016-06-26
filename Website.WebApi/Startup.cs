@@ -140,8 +140,8 @@ namespace Website.WebApi
             //Configure Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
-                AppId = "xxxxx",
-                AppSecret = "xxxxx",
+                AppId = ConfigurationManager.AppSettings["facebook:AppID"],
+                AppSecret = ConfigurationManager.AppSettings["facebook:AppSecret"],
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);

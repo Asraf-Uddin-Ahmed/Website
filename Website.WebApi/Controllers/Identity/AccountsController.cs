@@ -28,6 +28,8 @@ using Website.Identity.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security.OAuth;
 using Website.Identity.Helpers;
+using Website.Identity.Constants;
+using System.Configuration;
 
 namespace Website.WebApi.Controllers.Identity
 {
@@ -306,7 +308,7 @@ namespace Website.WebApi.Controllers.Identity
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        public async Task<IHttpActionResult> GetExternalLogin(ExternalLoginProviderName provider, string error = null)
         {
             string redirectUri = string.Empty;
 
@@ -340,7 +342,7 @@ namespace Website.WebApi.Controllers.Identity
                 return new ChallengeResult(provider, this);
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
+            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider.ToString(), externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
 
@@ -372,7 +374,7 @@ namespace Website.WebApi.Controllers.Identity
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider, verifiedAccessToken.user_id));
+            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -392,7 +394,7 @@ namespace Website.WebApi.Controllers.Identity
             var info = new ExternalLoginInfo()
             {
                 DefaultUserName = model.UserName,
-                Login = new UserLoginInfo(model.Provider, verifiedAccessToken.user_id)
+                Login = new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id)
             };
 
             result = await _authRepository.AddLoginAsync(appUser.Id, info.Login);
@@ -410,21 +412,15 @@ namespace Website.WebApi.Controllers.Identity
         [AllowAnonymous]
         [HttpGet]
         [Route("ObtainLocalAccessToken")]
-        public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
+        public async Task<IHttpActionResult> ObtainLocalAccessToken(ExternalLoginProviderName provider, string externalAccessToken)
         {
-
-            if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(externalAccessToken))
-            {
-                return BadRequest("Provider or external access token is not sent");
-            }
-
             var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
             if (verifiedAccessToken == null)
             {
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
+            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(provider.ToString(), verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -487,33 +483,20 @@ namespace Website.WebApi.Controllers.Identity
 
         }
 
-        private string GetQueryString(HttpRequestMessage request, string key)
-        {
-            var queryStrings = request.GetQueryNameValuePairs();
-
-            if (queryStrings == null) return null;
-
-            var match = queryStrings.FirstOrDefault(keyValue => string.Compare(keyValue.Key, key, true) == 0);
-
-            if (string.IsNullOrEmpty(match.Value)) return null;
-
-            return match.Value;
-        }
-
-        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
+        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(ExternalLoginProviderName provider, string accessToken)
         {
             ParsedExternalAccessToken parsedToken = null;
 
             var verifyTokenEndPoint = "";
 
-            if (provider == "Facebook")
+            if (provider == ExternalLoginProviderName.Facebook)
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "xxxxx";
+                var appToken = ConfigurationManager.AppSettings["facebook:AppToken"];
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
-            else if (provider == "Google")
+            else if (provider == ExternalLoginProviderName.Google)
             {
                 verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
             }
@@ -534,7 +517,7 @@ namespace Website.WebApi.Controllers.Identity
 
                 parsedToken = new ParsedExternalAccessToken();
 
-                if (provider == "Facebook")
+                if (provider == ExternalLoginProviderName.Facebook)
                 {
                     parsedToken.user_id = jObj["data"]["user_id"];
                     parsedToken.app_id = jObj["data"]["app_id"];
@@ -544,7 +527,7 @@ namespace Website.WebApi.Controllers.Identity
                         return null;
                     }
                 }
-                else if (provider == "Google")
+                else if (provider == ExternalLoginProviderName.Google)
                 {
                     parsedToken.user_id = jObj["user_id"];
                     parsedToken.app_id = jObj["audience"];
@@ -588,7 +571,7 @@ namespace Website.WebApi.Controllers.Identity
 
         private class ExternalLoginData
         {
-            public string LoginProvider { get; set; }
+            public ExternalLoginProviderName LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
             public string ExternalAccessToken { get; set; }
@@ -614,7 +597,7 @@ namespace Website.WebApi.Controllers.Identity
 
                 return new ExternalLoginData
                 {
-                    LoginProvider = providerKeyClaim.Issuer,
+                    LoginProvider = (ExternalLoginProviderName)Enum.Parse(typeof(ExternalLoginProviderName), providerKeyClaim.Issuer, true),
                     ProviderKey = providerKeyClaim.Value,
                     UserName = identity.FindFirstValue(ClaimTypes.Name),
                     ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
