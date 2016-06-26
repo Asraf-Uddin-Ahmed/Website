@@ -233,6 +233,7 @@
     <Compile Include="Configuration\CustomCorsPolicyAttribute.cs" />
     <Compile Include="Configuration\UnhandledExceptionLogger.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
+    <Compile Include="Controllers\Identity\ExternalAccountController.cs" />
     <Compile Include="Controllers\Identity\RefreshTokensController.cs" />
     <Compile Include="Controllers\Resource\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountsController.cs" />
