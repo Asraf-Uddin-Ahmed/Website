@@ -42,6 +42,12 @@ namespace Website.WebApi.Controllers.Identity
         private ApplicationRoleManager _applicationRoleManager;
         private IAuthRepository _authRepository;
         private IAuthHelper _authHelper;
+
+        private IAuthenticationManager OwinAuthentication
+        {
+            get { return Request.GetOwinContext().Authentication; }
+        }
+
         public AccountsController(ILogger logger,
             IAuthRepository authRepository,
             IAuthHelper authHelper,
@@ -298,11 +304,6 @@ namespace Website.WebApi.Controllers.Identity
 
 
 
-        private IAuthenticationManager Authentication
-        {
-            get { return Request.GetOwinContext().Authentication; }
-        }
-
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -338,7 +339,7 @@ namespace Website.WebApi.Controllers.Identity
 
             if (externalLogin.LoginProvider != provider)
             {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
             }
 
@@ -436,7 +437,16 @@ namespace Website.WebApi.Controllers.Identity
 
         }
 
+        [AllowAnonymous]
+        [Route("ExternalSignout")]
+        [HttpGet]
+        public IHttpActionResult ExternalSignout()
+        {
+            OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            return Ok();
+        }
 
+        
         #region Helpers
 
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
@@ -472,7 +482,7 @@ namespace Website.WebApi.Controllers.Identity
                 return string.Format("Client_id '{0}' is not registered in the system.", clientId);
             }
 
-            if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+            if (client.AllowedOrigin != "*" && !string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
             {
                 return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
             }
