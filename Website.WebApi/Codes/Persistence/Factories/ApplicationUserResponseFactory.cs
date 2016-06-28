@@ -28,8 +28,8 @@ namespace Website.WebApi.Codes.Persistence.Factories
             {
                 cfg.CreateMap<ApplicationUser, ApplicationUserResponseModel>()
                     .ForMember(dest => dest.Url, opt => opt.MapFrom(src => UrlHelper.Link("GetUserById", new { id = src.Id })))
-                    .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => _applicationUserManager.GetRolesAsync(src.Id).Result))
-                    .ForMember(dest => dest.Claims, opt => opt.MapFrom(src => _applicationUserManager.GetClaimsAsync(src.Id).Result));
+                    .ForMember(dest => dest.RoleUrl, opt => opt.MapFrom(src => UrlHelper.Link("GetRoleByUserID", new { userID = src.Id })));
+                    //.ForMember(dest => dest.Claims, opt => opt.MapFrom(src => _applicationUserManager.GetClaimsAsync(src.Id).Result));
             });
             return Mapper.Map<ApplicationUserResponseModel>(applicationUser);
         }

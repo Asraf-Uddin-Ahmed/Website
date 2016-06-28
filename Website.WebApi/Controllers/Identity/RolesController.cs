@@ -155,5 +155,12 @@ namespace Website.WebApi.Controllers.Identity
 
             return Ok();
         }
+
+        [Route("user/{userID:guid}", Name = "GetRoleByUserID")]
+        public async Task<IHttpActionResult> GetRoleByUserID(string userID)
+        {
+            IList<string> roles = await _applicationUserManager.GetRolesAsync(userID);
+            return Ok(roles);
+        }
     }
 }
