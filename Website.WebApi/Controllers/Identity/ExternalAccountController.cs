@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using Ninject.Extensions.Logging;
 using System;
@@ -18,6 +22,7 @@ using Website.Identity.Constants;
 using Website.Identity.Helpers;
 using Website.Identity.Managers;
 using Website.Identity.Models;
+using Website.Identity.Providers;
 using Website.Identity.Repositories;
 using Website.WebApi.Configuration.Identity;
 
@@ -84,14 +89,13 @@ namespace Website.WebApi.Controllers.Identity
 
             if (externalLogin.LoginProvider != provider)
             {
-                OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                this.OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
             }
 
             IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider.ToString(), externalLogin.ProviderKey));
-
             bool hasRegistered = user != null;
-
+            
             redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,
@@ -190,7 +194,7 @@ namespace Website.WebApi.Controllers.Identity
         [HttpGet]
         public IHttpActionResult Signout()
         {
-            OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            this.OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             return Ok();
         }
 
@@ -302,6 +306,23 @@ namespace Website.WebApi.Controllers.Identity
 
         private async Task<JObject> GenerateLocalAccessTokenResponse(string userName)
         {
+            //OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+            //ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager, OAuthDefaults.AuthenticationType);
+            //ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager, CookieAuthenticationDefaults.AuthenticationType);
+
+            //AuthenticationProperties properties = CustomOAuthProvider.CreateProperties(userName);
+
+            // ADD THIS PART
+            //var ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            //var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+
+            //AuthenticationTokenCreateContext context = new AuthenticationTokenCreateContext(Request.GetOwinContext(), Startup.OAuthServerOptions.AccessTokenFormat, ticket);
+            //await Startup.OAuthServerOptions.RefreshTokenProvider.CreateAsync(context);
+
+            //properties.Dictionary.Add("refresh_token", context.Token);
+
+
             ApplicationUser user = await _applicationUserManager.FindByNameAsync(userName);
             ClaimsIdentity oAuthIdentity = await _authHelper.GetClaimIdentityAsync(user, _applicationUserManager);
 
@@ -309,15 +330,23 @@ namespace Website.WebApi.Controllers.Identity
             AuthenticationProperties props = new AuthenticationProperties()
             {
                 IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
+                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration)
             };
+            props.Dictionary[AuthenticationPropertyKeys.CLIENT_ID] = "ngAuthApp";
+            props.Dictionary[AuthenticationPropertyKeys.USER_NAME] = userName;
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, props);
             string accessToken = Startup.OAuthServerOptions.AccessTokenFormat.Protect(ticket);
+
+            AuthenticationTokenCreateContext context = new AuthenticationTokenCreateContext(Request.GetOwinContext(), Startup.OAuthServerOptions.AccessTokenFormat, ticket);
+            await Startup.OAuthServerOptions.RefreshTokenProvider.CreateAsync(context);
+
+            //OwinAuthentication.SignIn(props, oAuthIdentity);
 
             JObject tokenResponse = new JObject(
                 new JProperty("userName", userName),
                 new JProperty("access_token", accessToken),
                 new JProperty("token_type", "bearer"),
+                new JProperty("refresh_token", context.Token),
                 new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
                 new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
                 new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())

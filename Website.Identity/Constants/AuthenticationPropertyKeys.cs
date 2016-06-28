@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Website.Identity.Constants
 {
-    internal static class AuthenticationPropertyKeys
+    public static class AuthenticationPropertyKeys
     {
-        internal const string CLIENT_ID = "as:client_id";
-        internal const string USER_NAME = "userName";
+        public const string CLIENT_ID = "as:client_id";
+        public const string USER_NAME = "userName";
     }
 }

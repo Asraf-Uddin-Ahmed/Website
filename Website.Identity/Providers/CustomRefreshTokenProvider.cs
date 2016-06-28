@@ -12,6 +12,8 @@ using Website.Identity.Helpers;
 using Website.Identity.Repositories;
 using Microsoft.AspNet.Identity.Owin;
 using Website.Identity.Managers;
+using Microsoft.Owin.Security.DataHandler.Serializer;
+using System.Text;
 
 namespace Website.Identity.Providers
 {
@@ -32,7 +34,12 @@ namespace Website.Identity.Providers
             AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
             ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
-            var refreshTokenLifeTime = context.OwinContext.Get<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME);
+            Client client = _repo.FindClient(clientid);
+            
+            if(client == null)
+            {
+                return;
+            }
 
             var token = new RefreshToken()
             {
@@ -40,16 +47,17 @@ namespace Website.Identity.Providers
                 ClientId = clientid,
                 Subject = context.Ticket.Identity.Name,
                 IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime))
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(client.RefreshTokenLifeTime))
             };
 
             context.Ticket.Properties.IssuedUtc = token.IssuedUtc;
             context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
 
-            token.ProtectedTicket = context.SerializeTicket();
+            //token.ProtectedTicket = context.SerializeTicket();
+            TicketSerializer serializer = new TicketSerializer();
+            token.ProtectedTicket = Encoding.Default.GetString(serializer.Serialize(context.Ticket));
 
             var result = await _repo.AddRefreshToken(token);
-
             if (result)
             {
                 context.SetToken(refreshTokenId);
@@ -72,7 +80,10 @@ namespace Website.Identity.Providers
             if (refreshToken != null)
             {
                 //Get protectedTicket from refreshToken class
-                context.DeserializeTicket(refreshToken.ProtectedTicket);
+                //context.DeserializeTicket(refreshToken.ProtectedTicket);
+                TicketSerializer serializer = new TicketSerializer();
+                context.SetTicket(serializer.Deserialize(Encoding.Default.GetBytes(refreshToken.ProtectedTicket)));
+
                 var result = await _repo.RemoveRefreshToken(hashedTokenId);
             }
         }

@@ -75,7 +75,6 @@ namespace Website.Identity.Providers
             }
 
             context.OwinContext.Set<string>(OwinContextKeys.CLIENT_ALLOWED_ORIGIN, client.AllowedOrigin);
-            context.OwinContext.Set<string>(OwinContextKeys.CLIENT_REFRESH_TOKEN_LIFE_TIME, client.RefreshTokenLifeTime.ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);

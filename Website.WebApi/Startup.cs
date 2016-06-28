@@ -73,7 +73,9 @@ namespace Website.WebApi
             // Plugin the OAuth bearer JSON Web Token tokens generation and Consumption will be here
             OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
-                AllowInsecureHttp = bool.Parse(ConfigurationManager.AppSettings["as:AllowInsecureHttp"]),
+#if DEBUG
+                AllowInsecureHttp = true,
+#endif
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new CustomOAuthProvider(),
@@ -125,14 +127,12 @@ namespace Website.WebApi
         {
             //use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
-            //OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
-            //app.UseOAuthBearerAuthentication(OAuthBearerOptions);
 
             //Configure Google External Login
             googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "xxxxxx",
-                ClientSecret = "xxxxxx",
+                ClientId = ConfigurationManager.AppSettings["google:ClientID"],
+                ClientSecret = ConfigurationManager.AppSettings["google:ClientSecret"],
                 Provider = new GoogleAuthProvider()
             };
             app.UseGoogleAuthentication(googleAuthOptions);
