@@ -202,7 +202,9 @@
   <ItemGroup>
     <Content Include="Index.html" />
     <Content Include="packages.config" />
-    <Content Include="AppSettings.config" />
+    <Content Include="AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ConnectionString.config" />
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
@@ -218,6 +220,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ExternalLoginConfig.cs" />
+    <Compile Include="App_Start\OAuthTokenConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Codes\Core\Factories\IApplicationUserResponseFactory.cs" />
     <Compile Include="Codes\Core\Factories\IIdentityRoleResponseFactory.cs" />
     <Compile Include="Codes\Persistence\Factories\ApplicationUserResponseFactory.cs" />
