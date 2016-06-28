@@ -78,9 +78,9 @@ namespace Website.WebApi
 #endif
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new CustomOAuthProvider(),
+                Provider = new ApplicationOAuthProvider(),
                 AccessTokenFormat = new CustomJwtFormat(_issuer),
-                RefreshTokenProvider = new CustomRefreshTokenProvider()
+                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
             };
 
             // OAuth 2.0 Bearer Access Token Generation

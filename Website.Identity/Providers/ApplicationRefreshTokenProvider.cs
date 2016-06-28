@@ -17,7 +17,7 @@ using System.Text;
 
 namespace Website.Identity.Providers
 {
-    public class CustomRefreshTokenProvider : IAuthenticationTokenProvider
+    public class ApplicationRefreshTokenProvider : IAuthenticationTokenProvider
     {
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)

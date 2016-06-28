@@ -129,8 +129,8 @@
     <Compile Include="Models\ExternalLocalAccessToken.cs" />
     <Compile Include="Models\ParsedExternalAccessToken.cs" />
     <Compile Include="Models\RegisterExternalBindingModel.cs" />
-    <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="Providers\CustomRefreshTokenProvider.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Providers\ApplicationRefreshTokenProvider.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />
     <Compile Include="Providers\GoogleAuthProvider.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />

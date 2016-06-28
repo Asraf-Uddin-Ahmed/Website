@@ -17,7 +17,7 @@ using Website.Identity.Constants;
 
 namespace Website.Identity.Providers
 {
-    public class CustomOAuthProvider : OAuthAuthorizationServerProvider
+    public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
