@@ -15,7 +15,7 @@ namespace Website.WebApi.Models.Response
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string RoleUrl { get; set; }
-        public IList<System.Security.Claims.Claim> Claims { get; set; }
+        public string ClaimUrl { get; set; }
 
     }
 }

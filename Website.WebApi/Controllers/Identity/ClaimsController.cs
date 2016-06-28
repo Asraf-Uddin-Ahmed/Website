@@ -4,15 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Website.Identity.Constants.Roles;
+using Website.Identity.Managers;
 
 namespace Website.WebApi.Controllers.Identity
 {
     [RoutePrefix("api/claims")]
     public class ClaimsController : BaseApiController
     {
-        public ClaimsController()
+        private ApplicationUserManager _applicationUserManager;
+        public ClaimsController(ApplicationUserManager applicationUserManager)
         {
+            _applicationUserManager = applicationUserManager;
         }
 
         [Authorize]
@@ -32,5 +37,12 @@ namespace Website.WebApi.Controllers.Identity
             return Ok(claims);
         }
 
+        [Route("user/{userID:guid}", Name = "GetClaimByUserID")]
+        [Authorize(Roles = ApplicationRoles.ADMIN)]
+        public async Task<IHttpActionResult> GetClaimByUserID(string userID)
+        {
+            IList<Claim> claims = await _applicationUserManager.GetClaimsAsync(userID);
+            return Ok(claims);
+        }
     }
 }
