@@ -126,8 +126,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Aggregates\ApplicationUser.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Models\ExternalLoginModels.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\ExternalLocalAccessToken.cs" />
+    <Compile Include="Models\ParsedExternalAccessToken.cs" />
+    <Compile Include="Models\RegisterExternalBindingModel.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Providers\CustomRefreshTokenProvider.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />

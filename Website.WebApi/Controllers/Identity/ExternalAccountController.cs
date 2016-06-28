@@ -155,7 +155,7 @@ namespace Website.WebApi.Controllers.Identity
             }
 
             //generate access token response
-            var accessTokenResponse = await GenerateLocalAccessTokenResponse(model.UserName);
+            var accessTokenResponse = await GenerateLocalAccessTokenResponse(model.UserName, model.ClientID);
 
             return Ok(accessTokenResponse);
         }
@@ -164,15 +164,20 @@ namespace Website.WebApi.Controllers.Identity
         [AllowAnonymous]
         [HttpGet]
         [Route("ObtainLocalAccessToken")]
-        public async Task<IHttpActionResult> ObtainLocalAccessToken(ExternalLoginProviderName provider, string externalAccessToken)
+        public async Task<IHttpActionResult> ObtainLocalAccessToken([FromUri]ExternalLocalAccessToken model)
         {
-            var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
             if (verifiedAccessToken == null)
             {
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(provider.ToString(), verifiedAccessToken.user_id));
+            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -182,7 +187,7 @@ namespace Website.WebApi.Controllers.Identity
             }
 
             //generate access token response
-            var accessTokenResponse = await GenerateLocalAccessTokenResponse(user.UserName);
+            var accessTokenResponse = await GenerateLocalAccessTokenResponse(user.UserName, model.ClientID);
 
             return Ok(accessTokenResponse);
 
@@ -304,25 +309,8 @@ namespace Website.WebApi.Controllers.Identity
             return parsedToken;
         }
 
-        private async Task<JObject> GenerateLocalAccessTokenResponse(string userName)
+        private async Task<JObject> GenerateLocalAccessTokenResponse(string userName, string clientID)
         {
-            //OwinAuthentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
-            //ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager, OAuthDefaults.AuthenticationType);
-            //ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager, CookieAuthenticationDefaults.AuthenticationType);
-
-            //AuthenticationProperties properties = CustomOAuthProvider.CreateProperties(userName);
-
-            // ADD THIS PART
-            //var ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            //var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
-
-            //AuthenticationTokenCreateContext context = new AuthenticationTokenCreateContext(Request.GetOwinContext(), Startup.OAuthServerOptions.AccessTokenFormat, ticket);
-            //await Startup.OAuthServerOptions.RefreshTokenProvider.CreateAsync(context);
-
-            //properties.Dictionary.Add("refresh_token", context.Token);
-
-
             ApplicationUser user = await _applicationUserManager.FindByNameAsync(userName);
             ClaimsIdentity oAuthIdentity = await _authHelper.GetClaimIdentityAsync(user, _applicationUserManager);
 
@@ -332,15 +320,13 @@ namespace Website.WebApi.Controllers.Identity
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration)
             };
-            props.Dictionary[AuthenticationPropertyKeys.CLIENT_ID] = "ngAuthApp";
+            props.Dictionary[AuthenticationPropertyKeys.CLIENT_ID] = clientID;
             props.Dictionary[AuthenticationPropertyKeys.USER_NAME] = userName;
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, props);
             string accessToken = Startup.OAuthServerOptions.AccessTokenFormat.Protect(ticket);
 
             AuthenticationTokenCreateContext context = new AuthenticationTokenCreateContext(Request.GetOwinContext(), Startup.OAuthServerOptions.AccessTokenFormat, ticket);
             await Startup.OAuthServerOptions.RefreshTokenProvider.CreateAsync(context);
-
-            //OwinAuthentication.SignIn(props, oAuthIdentity);
 
             JObject tokenResponse = new JObject(
                 new JProperty("userName", userName),
