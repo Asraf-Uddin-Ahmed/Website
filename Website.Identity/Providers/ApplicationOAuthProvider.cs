@@ -103,16 +103,7 @@ namespace Website.Identity.Providers
 
             AuthHelper authHelper = new AuthHelper();
             ClaimsIdentity oAuthIdentity = await authHelper.GetClaimIdentityAsync(user, userManager);
-            var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    { 
-                        AuthenticationPropertyKeys.CLIENT_ID, (context.ClientId == null) ? string.Empty : context.ClientId
-                    },
-                    { 
-                        AuthenticationPropertyKeys.USER_NAME, context.UserName
-                    }
-                });
-
+            var props = authHelper.GetAuthenticationProperties(context.UserName, context.ClientId);
             var ticket = new AuthenticationTicket(oAuthIdentity, props);
             context.Validated(ticket);
         }
@@ -149,6 +140,6 @@ namespace Website.Identity.Providers
 
             return Task.FromResult<object>(null);
         }
-        
+
     }
 }

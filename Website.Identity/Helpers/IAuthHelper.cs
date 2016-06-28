@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Website.Identity.Aggregates;
@@ -8,5 +9,6 @@ namespace Website.Identity.Helpers
     public interface IAuthHelper
     {
         Task<ClaimsIdentity> GetClaimIdentityAsync(ApplicationUser appUser, ApplicationUserManager appUserManager);
+        AuthenticationProperties GetAuthenticationProperties(string userName, string clientID);
     }
 }

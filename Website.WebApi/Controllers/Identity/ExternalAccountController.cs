@@ -95,7 +95,7 @@ namespace Website.WebApi.Controllers.Identity
 
             IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider.ToString(), externalLogin.ProviderKey));
             bool hasRegistered = user != null;
-            
+
             redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,
@@ -166,7 +166,7 @@ namespace Website.WebApi.Controllers.Identity
         [Route("ObtainLocalAccessToken")]
         public async Task<IHttpActionResult> ObtainLocalAccessToken([FromUri]ExternalLocalAccessToken model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -315,13 +315,9 @@ namespace Website.WebApi.Controllers.Identity
             ClaimsIdentity oAuthIdentity = await _authHelper.GetClaimIdentityAsync(user, _applicationUserManager);
 
             TimeSpan tokenExpiration = Startup.OAuthServerOptions.AccessTokenExpireTimeSpan;
-            AuthenticationProperties props = new AuthenticationProperties()
-            {
-                IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration)
-            };
-            props.Dictionary[AuthenticationPropertyKeys.CLIENT_ID] = clientID;
-            props.Dictionary[AuthenticationPropertyKeys.USER_NAME] = userName;
+            AuthenticationProperties props = _authHelper.GetAuthenticationProperties(userName, clientID);
+            props.IssuedUtc = DateTime.UtcNow;
+            props.ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, props);
             string accessToken = Startup.OAuthServerOptions.AccessTokenFormat.Protect(ticket);
 
@@ -377,6 +373,6 @@ namespace Website.WebApi.Controllers.Identity
         }
 
         #endregion
-    
+
     }
 }
