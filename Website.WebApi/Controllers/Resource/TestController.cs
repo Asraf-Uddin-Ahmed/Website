@@ -32,7 +32,7 @@ namespace Website.WebApi.Controllers.Resource
             _userResponseFactory = userResponseFactory;
         }
 
-        [Authorize(Roles = CustomRoles.INCIDENT_RESOLVERS)]
+        //[Authorize(Roles = CustomRoles.INCIDENT_RESOLVERS)]
         [HttpPut]
         [Route("{orderId}")]
         public IHttpActionResult Put([FromUri]string orderId)
