@@ -3,33 +3,18 @@ using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Services;
-using Website.Foundation.Core.Services.Email;
-using Website.Identity.Managers;
 using Website.Identity.Aggregates;
+using Website.Identity.Constants.Roles;
+using Website.Identity.Helpers;
+using Website.Identity.Managers;
 using Website.Identity.Providers;
+using Website.Identity.Repositories;
 using Website.WebApi.Codes.Core.Factories;
-using Website.WebApi.Models;
 using Website.WebApi.Models.Request.Account;
 using Website.WebApi.Models.Request.Claim;
-using Website.Identity.Constants.Roles;
-using Microsoft.Owin.Security;
-using Website.WebApi.Configuration.Identity;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Website.Identity.Repositories;
-using Microsoft.AspNet.Identity.Owin;
-using Website.Identity.Models;
-using Newtonsoft.Json.Linq;
-using Microsoft.Owin.Security.OAuth;
-using Website.Identity.Helpers;
-using Website.Identity.Constants;
-using System.Configuration;
 
 namespace Website.WebApi.Controllers.Identity
 {
@@ -290,7 +275,6 @@ namespace Website.WebApi.Controllers.Identity
                 {
                     if (appUser.Claims.Any(c => c.ClaimType == claimModel.Type))
                     {
-
                         await _applicationUserManager.RemoveClaimAsync(id, ExtendedClaimsProvider.CreateClaim(claimModel.Type, claimModel.Value));
                     }
                     await _applicationUserManager.AddClaimAsync(id, ExtendedClaimsProvider.CreateClaim(claimModel.Type, claimModel.Value));
