@@ -17,10 +17,6 @@ namespace Website.WebApi.Codes.Persistence.Factories
         public ApplicationUserResponseFactory(HttpRequestMessage httpRequestMessage)
             :base(httpRequestMessage)
         {
-        }
-
-        public ApplicationUserResponseModel Create(ApplicationUser applicationUser)
-        {
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, ApplicationUserResponseModel>()
@@ -28,6 +24,10 @@ namespace Website.WebApi.Codes.Persistence.Factories
                     .ForMember(dest => dest.RoleUrl, opt => opt.MapFrom(src => UrlHelper.Link("GetRoleByUserID", new { userID = src.Id })))
                     .ForMember(dest => dest.ClaimUrl, opt => opt.MapFrom(src => UrlHelper.Link("GetClaimByUserID", new { userID = src.Id })));
             });
+        }
+
+        public ApplicationUserResponseModel Create(ApplicationUser applicationUser)
+        {
             return Mapper.Map<ApplicationUserResponseModel>(applicationUser);
         }
 
