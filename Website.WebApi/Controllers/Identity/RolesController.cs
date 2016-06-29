@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Ninject.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace Website.WebApi.Controllers.Identity
         private IIdentityRoleResponseFactory _identityRoleResponseFactory;
         private ApplicationUserManager _applicationUserManager;
         private ApplicationRoleManager _applicationRoleManager;
-        public RolesController(IIdentityRoleResponseFactory identityRoleResponseFactory, 
+        public RolesController(ILogger logger,
+            IIdentityRoleResponseFactory identityRoleResponseFactory, 
             ApplicationUserManager applicationUserManager, 
             ApplicationRoleManager applicationRoleManager)
+            :base(logger)
         {
             _identityRoleResponseFactory = identityRoleResponseFactory;
             _applicationUserManager = applicationUserManager;

@@ -45,6 +45,7 @@ namespace Website.WebApi.Controllers.Identity
             IAuthRepository authRepository,
             IAuthHelper authHelper,
             ApplicationUserManager applicationUserManager)
+            : base(logger)
         {
             _logger = logger;
             _authRepository = authRepository;

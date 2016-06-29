@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,7 +16,8 @@ namespace Website.WebApi.Controllers.Identity
     public class ClaimsController : BaseApiController
     {
         private ApplicationUserManager _applicationUserManager;
-        public ClaimsController(ApplicationUserManager applicationUserManager)
+        public ClaimsController(ILogger logger, ApplicationUserManager applicationUserManager) 
+            : base(logger)
         {
             _applicationUserManager = applicationUserManager;
         }
