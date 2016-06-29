@@ -10,12 +10,12 @@ namespace Website.WebApi.Models.Response
 {
     public class ApplicationUserResponseModel : ResponseModel
     {
+        public string RoleUrl { get; set; }
+        public string ClaimUrl { get; set; }
         public string ID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public string RoleUrl { get; set; }
-        public string ClaimUrl { get; set; }
-
+        
     }
 }
