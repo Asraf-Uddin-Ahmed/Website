@@ -10,6 +10,7 @@ using System.Web.Http.ExceptionHandling;
 using Website.WebApi.Configuration;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
+using PartialResponse.Net.Http.Formatting;
 
 namespace Website.WebApi.App_Start
 {
@@ -19,6 +20,11 @@ namespace Website.WebApi.App_Start
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
 
+            httpConfig.Formatters.Clear();
+            PartialJsonMediaTypeFormatter partialJsonMediaTypeFormatter = new PartialJsonMediaTypeFormatter() { IgnoreCase = true };
+            partialJsonMediaTypeFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            httpConfig.Formatters.Add(partialJsonMediaTypeFormatter);
+
             httpConfig.MapHttpAttributeRoutes();
 
             httpConfig.Routes.MapHttpRoute(
@@ -26,9 +32,6 @@ namespace Website.WebApi.App_Start
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            var jsonFormatter = httpConfig.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             httpConfig.EnableCors();
 
