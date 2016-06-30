@@ -26,9 +26,9 @@ namespace Website.WebApi.App_Start
             httpConfig.Formatters.Add(partialJsonMediaTypeFormatter);
 
             httpConfig.MessageHandlers.Add(new XHttpMethodOverrideHandler());
+            httpConfig.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger());
 
             httpConfig.MapHttpAttributeRoutes();
-
             httpConfig.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
@@ -36,9 +36,6 @@ namespace Website.WebApi.App_Start
             );
 
             httpConfig.EnableCors();
-
-            httpConfig.Services.Add(typeof(IExceptionLogger), new UnhandledExceptionLogger());
-
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             //app.UseWebApi(httpConfig);
