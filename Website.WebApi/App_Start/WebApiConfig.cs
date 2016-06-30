@@ -25,7 +25,7 @@ namespace Website.WebApi.App_Start
             partialJsonMediaTypeFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             httpConfig.Formatters.Add(partialJsonMediaTypeFormatter);
 
-            httpConfig.MessageHandlers.Add(new MethodOverrideHandler());
+            httpConfig.MessageHandlers.Add(new XHttpMethodOverrideHandler());
 
             httpConfig.MapHttpAttributeRoutes();
 

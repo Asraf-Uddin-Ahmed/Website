@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Website.WebApi.Configuration
 {
-    public class MethodOverrideHandler : DelegatingHandler
+    public class XHttpMethodOverrideHandler : DelegatingHandler
     {
         private readonly string[] _methods = { "DELETE", "HEAD", "PUT" };
         private const string _header = "X-HTTP-Method-Override";
