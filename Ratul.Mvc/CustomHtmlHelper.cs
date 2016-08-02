@@ -35,8 +35,21 @@ namespace Ratul.Mvc
         {
             string currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
             string currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
-            if (actionName.Equals(currentAction, StringComparison.OrdinalIgnoreCase) 
-                && controllerName.Equals(currentController, StringComparison.OrdinalIgnoreCase))
+            if (controllerName.Equals(currentController, StringComparison.OrdinalIgnoreCase)
+                && actionName.Equals(currentAction, StringComparison.OrdinalIgnoreCase))
+            {
+                return cssClassName;
+            }
+            return "";
+        }
+
+        public static string AddCssClassIfNeeded(this HtmlHelper htmlHelper,
+            string[] actionNames, string controllerName, string cssClassName)
+        {
+            string currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
+            string currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
+            if (controllerName.Equals(currentController, StringComparison.OrdinalIgnoreCase)
+                && Array.Exists(actionNames, s => s.Equals(currentAction, StringComparison.OrdinalIgnoreCase)))
             {
                 return cssClassName;
             }
