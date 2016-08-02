@@ -35,7 +35,8 @@ namespace Ratul.Mvc
         {
             string currentAction = htmlHelper.ViewContext.RouteData.GetRequiredString("action");
             string currentController = htmlHelper.ViewContext.RouteData.GetRequiredString("controller");
-            if (actionName == currentAction && controllerName == currentController)
+            if (actionName.Equals(currentAction, StringComparison.OrdinalIgnoreCase) 
+                && controllerName.Equals(currentController, StringComparison.OrdinalIgnoreCase))
             {
                 return cssClassName;
             }
