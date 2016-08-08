@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Persistence.EntityConfigurations;
 
 namespace Website.Foundation.Persistence
 {
@@ -29,5 +30,11 @@ namespace Website.Foundation.Persistence
             return new ApplicationDbContext();
         }
 
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new UserConfiguration());
+        }
     }
 }

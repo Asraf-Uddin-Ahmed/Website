@@ -10,7 +10,6 @@ namespace Website.Foundation.Core.Aggregates
 {
     public class UserVerification : Entity
     {
-        [Required]
         public Guid UserID { get; set; }
         public User User { get; set; }
 
