@@ -130,6 +130,8 @@
     <Compile Include="Migrations\201608080613016_EnhanceUserTable.Designer.cs">
       <DependentUpon>201608080613016_EnhanceUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\EntityConfigurations\PasswordVerificationConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UserVerificationConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\UserConfiguration.cs" />
     <Compile Include="Persistence\Factories\PasswordVerificationFactory.cs" />
     <Compile Include="Persistence\Factories\UserFactory.cs" />

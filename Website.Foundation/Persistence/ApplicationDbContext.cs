@@ -34,7 +34,9 @@ namespace Website.Foundation.Persistence
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new PasswordVerificationConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new UserVerificationConfiguration());
         }
     }
 }

@@ -13,10 +13,8 @@ namespace Website.Foundation.Core.Aggregates
         public Guid UserID { get; set; }
         public User User { get; set; }
 
-        [Required]
         public string VerificationCode { get; set; }
 
-        [Required]
         public DateTime CreationTime { get; set; }
     }
 }
