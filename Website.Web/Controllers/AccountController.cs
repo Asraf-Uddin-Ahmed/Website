@@ -1,23 +1,15 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Website.Web.Models;
-using Website.Web.Models.Account;
-using Website.Web.Codes;
-using Website.Foundation.Core.Enums;
+﻿using Ninject.Extensions.Logging;
 using Ratul.Mvc;
-using Ninject.Extensions.Logging;
-using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Services;
 using Ratul.Mvc.Authorization;
-using Website.Web.Codes.Core.Services;
+using System;
 using System.Net.Mail;
+using System.Web.Mvc;
+using Website.Foundation.Core.Aggregates;
+using Website.Foundation.Core.Enums;
+using Website.Foundation.Core.Services;
+using Website.Web.Codes;
+using Website.Web.Codes.Core.Services;
+using Website.Web.Models.Account;
 
 namespace Website.Web.Controllers
 {
