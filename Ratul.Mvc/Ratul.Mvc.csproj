@@ -55,7 +55,7 @@
     <Compile Include="Bootstrap\ActionResponseMessageType.cs" />
     <Compile Include="Bootstrap\CustomValidationMessage.cs" />
     <Compile Include="CustomHtmlHelper.cs" />
-    <Compile Include="UserIdentity.cs" />
+    <Compile Include="Authorization\UserIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

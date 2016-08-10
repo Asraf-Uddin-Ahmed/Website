@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ratul.Mvc
+namespace Ratul.Mvc.Authorization
 {
     public class UserIdentity
     {
