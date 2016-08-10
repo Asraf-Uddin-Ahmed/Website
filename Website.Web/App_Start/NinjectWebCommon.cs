@@ -9,6 +9,7 @@ namespace Website.Web.App_Start
     using Ninject.Modules;
     using Ninject.Web.Common;
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using Website.Web.Codes;
 
@@ -72,10 +73,21 @@ namespace Website.Web.App_Start
                 new NinjectWebModule()
             });
 
+
             kernel.Bind(x =>
             {
-                x.FromAssembliesMatching("*") // Scans all assemblies
+                List<string> listAssembly = new List<string>()
+                {
+                    "Website.Foundation.*",
+                    "Website.Web.*"
+                };
+                List<string> listExcludeAssembly = new List<string>()
+                {
+                    "Website.Foundation.Persistence.Repositories"
+                };
+                x.FromAssembliesMatching(listAssembly) // Scans all assemblies
                  .SelectAllClasses() // Retrieve all non-abstract classes
+                 .NotInNamespaces(listExcludeAssembly)
                  .BindDefaultInterface(); // Binds the default interface to them;
             });
         }
