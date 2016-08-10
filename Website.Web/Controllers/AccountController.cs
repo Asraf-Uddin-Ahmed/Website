@@ -17,6 +17,7 @@ using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Services;
 using Ratul.Mvc.Authorization;
 using Website.Web.Codes.Core.Services;
+using System.Net.Mail;
 
 namespace Website.Web.Controllers
 {
@@ -101,9 +102,10 @@ namespace Website.Web.Controllers
                 _validationMessageService.StoreActionResponseMessageError(ModelState);
                 return View(model);
             }
+            User user = null;
             try
             {
-                User user = model.CreateUser();
+                user = model.CreateUser();
                 model.SendCofirmEmailIfRequired(user);
                 _validationMessageService.StoreActionResponseMessageSuccess("Successfully Registered. Please check your email.");
                 return RedirectToAction("Login");
@@ -111,6 +113,11 @@ namespace Website.Web.Controllers
             catch (ArgumentException)
             {
                 _validationMessageService.StoreActionResponseMessageError("Invalid Email");
+            }
+            catch (SmtpException)
+            {
+                _userService.DeleteUser(user.ID);
+                _validationMessageService.StoreActionResponseMessageError("Failed to send confirmation email. Please try again.");
             }
             catch (Exception ex)
             {
