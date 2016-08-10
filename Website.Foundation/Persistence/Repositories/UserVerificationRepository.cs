@@ -12,7 +12,6 @@ namespace Website.Foundation.Persistence.Repositories
     public class UserVerificationRepository : Repository<UserVerification>, IUserVerificationRepository
     {
         private ApplicationDbContext _context;
-        [Inject]
         public UserVerificationRepository(ApplicationDbContext context)
             : base(context)
         {

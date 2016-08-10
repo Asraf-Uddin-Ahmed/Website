@@ -14,7 +14,6 @@ namespace Website.Foundation.Persistence.Repositories
     public class PasswordVerificationRepository : Repository<PasswordVerification>, IPasswordVerificationRepository
     {
         private ApplicationDbContext _context;
-        [Inject]
         public PasswordVerificationRepository(ApplicationDbContext context)
             : base(context)
         {

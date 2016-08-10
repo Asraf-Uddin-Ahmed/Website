@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Website.Foundation.Core;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Services.Email;
@@ -50,8 +51,8 @@ namespace Website.Foundation.Persistence.Services.Email
 
 
         [Inject]
-        public ConfirmUserMessageBuilder(ISettingsRepository settingsRepository)
-            : base(settingsRepository)
+        public ConfirmUserMessageBuilder(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         { }
 
         public void Build(User newUser, string url)

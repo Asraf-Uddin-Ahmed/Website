@@ -13,7 +13,6 @@ namespace Website.Foundation.Persistence.Repositories
     public class SettingsRepository : Repository<Settings>, ISettingsRepository
     {
         private ApplicationDbContext _context;
-        [Inject]
         public SettingsRepository(ApplicationDbContext context)
             : base(context)
         {

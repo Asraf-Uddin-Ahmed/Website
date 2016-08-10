@@ -15,6 +15,7 @@ using Website.Identity.Message;
 using Website.Identity.Aggregates;
 using Website.Identity.Providers;
 using Website.Identity.Validators;
+using Website.Foundation.Core;
 
 namespace Website.Identity.Managers
 {
@@ -42,9 +43,9 @@ namespace Website.Identity.Managers
 
         private static void ConfigureEmailServiceProvider(ApplicationDbContext appDbContext, ApplicationUserManager appUserManager, IdentityFactoryOptions<ApplicationUserManager> options)
         {
-            ISettingsRepository settingsRepository = new SettingsRepository(appDbContext);
-            IIdentityMessageBuilder identityMessageBuilder = new IdentityMessageBuilder(settingsRepository);
-            IEmailService emailService = new EmailService(settingsRepository);
+            IUnitOfWork unitOfWork = new UnitOfWork(appDbContext);
+            IIdentityMessageBuilder identityMessageBuilder = new IdentityMessageBuilder(unitOfWork);
+            IEmailService emailService = new EmailService(unitOfWork);
             appUserManager.EmailService = new EmailServiceProvider(emailService, appUserManager, identityMessageBuilder);
 
             var dataProtectionProvider = options.DataProtectionProvider;
