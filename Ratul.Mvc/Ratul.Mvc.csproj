@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Authorization\OwnerAuthorizeAttribute.cs" />
     <Compile Include="Authorization\AreaAuthorizeAttribute.cs" />
-    <Compile Include="BaseController.cs" />
     <Compile Include="Bootstrap\ActionResponse.cs" />
     <Compile Include="Bootstrap\ActionResponseMessageType.cs" />
     <Compile Include="Bootstrap\CustomValidationMessage.cs" />
