@@ -28,7 +28,6 @@ namespace Website.WebApi.Codes.Persistence.Factories.Aggregates
                     .ForMember(dest => dest.RoleUrl, opt => opt.MapFrom(src => UrlHelper.Link(UriName.Identity.Roles.GET_ROLE_BY_USER_ID, new { userID = src.Id })))
                     .ForMember(dest => dest.ClaimUrl, opt => opt.MapFrom(src => UrlHelper.Link(UriName.Identity.Claims.GET_CLAIM_BY_USER_ID, new { userID = src.Id })));
             });
-            
         }
 
 

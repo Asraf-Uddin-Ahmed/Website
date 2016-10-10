@@ -16,19 +16,20 @@ namespace Website.WebApi.Codes.Persistence.Factories.Aggregates
 {
     public class IdentityRoleResponseFactory : ResponseFactory<IdentityRoleResponseModel>, IIdentityRoleResponseFactory
     {
+        private MapperConfiguration _mapperConfiguration;
         public IdentityRoleResponseFactory(HttpRequestMessage httpRequestMessage)
             : base(httpRequestMessage)
         {
-            Mapper.Initialize(cfg =>
+            _mapperConfiguration = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<CustomRole, IdentityRoleResponseModel>()
                     .ForMember(dest => dest.Url, opt => opt.MapFrom(src => UrlHelper.Link(UriName.Identity.Roles.GET_ROLE, new { id = src.Id })));
-            });
+            }); 
         }
 
         public IdentityRoleResponseModel Create(CustomRole identityRole)
         {
-            return Mapper.Map<IdentityRoleResponseModel>(identityRole);
+            return _mapperConfiguration.CreateMapper().Map<IdentityRoleResponseModel>(identityRole);
         }
 
         public ICollection<IdentityRoleResponseModel> Create(ICollection<CustomRole> identityRoles)
