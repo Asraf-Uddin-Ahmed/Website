@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Website.WebApi.Models.Common
+namespace Website.WebApi.Models
 {
     public class SortBy
     {

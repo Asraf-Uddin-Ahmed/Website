@@ -256,7 +256,7 @@
     <Compile Include="Controllers\Identity\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\Resource\TestController.cs" />
-    <Compile Include="Models\Common\SortBy.cs" />
+    <Compile Include="Models\SortBy.cs" />
     <Compile Include="Models\Request\RequestModel.cs" />
     <Compile Include="Models\Request\RequestSearchModel.cs" />
     <Compile Include="Models\Response\Aggregates\ApplicationUserResponseModel.cs" />

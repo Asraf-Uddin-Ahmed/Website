@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.SearchData;
-using Website.WebApi.Models.Common;
+using Website.WebApi.Models;
 using Website.WebApi.Models.Request;
 using Website.WebApi.Models.Response;
 namespace Website.WebApi.Codes.Core.Factories

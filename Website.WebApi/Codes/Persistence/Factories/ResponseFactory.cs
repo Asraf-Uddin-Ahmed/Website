@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Routing;
 using Website.Foundation.Core.SearchData;
-using Website.WebApi.Models.Common;
+using Website.WebApi.Models;
 using Website.WebApi.Models.Response;
 
 namespace Website.WebApi.Codes.Persistence.Factories

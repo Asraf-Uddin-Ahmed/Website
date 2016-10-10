@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Web;
 using Website.Foundation.Core.Aggregates;
 using Website.Foundation.Core.SearchData;
-using Website.WebApi.Models.Common;
 
 namespace Website.WebApi.Models.Request
 {
