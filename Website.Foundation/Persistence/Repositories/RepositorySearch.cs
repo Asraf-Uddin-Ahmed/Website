@@ -25,43 +25,43 @@ namespace Website.Foundation.Persistence.Repositories
         }
 
 
-        protected abstract Expression<Func<TEntity, bool>> GetAndSearchCondition(TSearch searchItem);
-        protected abstract Expression<Func<TEntity, bool>> GetOrSearchCondition(TSearch searchItem);
+        protected abstract Func<TEntity, bool> GetAndSearchCondition(TSearch searchItem);
+        protected abstract Func<TEntity, bool> GetOrSearchCondition(TSearch searchItem);
 
 
 
         public int GetTotalAnd(TSearch searchItem)
         {
-            Expression<Func<TEntity, bool>> predicateCount = this.GetAndSearchCondition(searchItem);
+            Func<TEntity, bool> predicateCount = this.GetAndSearchCondition(searchItem);
             int total = this.GetTotalBy(predicateCount);
             return total;
         }
         public int GetTotalOr(TSearch searchItem)
         {
-            Expression<Func<TEntity, bool>> predicateCount = this.GetOrSearchCondition(searchItem);
+            Func<TEntity, bool> predicateCount = this.GetOrSearchCondition(searchItem);
             int total = this.GetTotalBy(predicateCount);
             return total;
         }
 
         public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
         {
-            Expression<Func<TEntity, bool>> predicateWhere = this.GetAndSearchCondition(searchItem);
-            IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
-            return listUser;
+            Func<TEntity, bool> predicateWhere = this.GetAndSearchCondition(searchItem);
+            IEnumerable<TEntity> listEntity = this.GetBy(pagination, sortBy, predicateWhere);
+            return listEntity;
         }
         public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
         {
-            Expression<Func<TEntity, bool>> predicateWhere = this.GetOrSearchCondition(searchItem);
-            IEnumerable<TEntity> listUser = this.GetBy(pagination, sortBy, predicateWhere);
-            return listUser;
+            Func<TEntity, bool> predicateWhere = this.GetOrSearchCondition(searchItem);
+            IEnumerable<TEntity> listEntity = this.GetBy(pagination, sortBy, predicateWhere);
+            return listEntity;
         }
 
 
-        protected int GetTotalBy(Expression<Func<TEntity, bool>> predicateCount)
+        protected int GetTotalBy(Func<TEntity, bool> predicateCount)
         {
             return _context.Set<TEntity>().Count(predicateCount);
         }
-        protected IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy, Expression<Func<TEntity, bool>> predicateWhere)
+        protected IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy, Func<TEntity, bool> predicateWhere)
         {
             IEnumerable<TEntity> listEntity = _context.Set<TEntity>()
                 .Where(predicateWhere)
@@ -71,6 +71,10 @@ namespace Website.Foundation.Persistence.Repositories
         }
         protected bool IsAllPropertyNull(TSearch obj)
         {
+            if (obj == null)
+            {
+                return true;
+            }
             bool isAnyNotNull = obj.GetType().GetProperties().Any(c => c.GetValue(obj) != null);
             return !isAnyNotNull;
         }
