@@ -37,7 +37,7 @@ namespace Website.Foundation.Persistence.Repositories
         }
         public void RemoveByUserID(Guid userID)
         {
-            base.RemoveRange(_context.UserVerifications.Where(c => c.UserID == userID));
+            base.RemoveRange(_context.UserVerifications.Where(c => c.UserID == userID).ToList());
         }
     }
 }
