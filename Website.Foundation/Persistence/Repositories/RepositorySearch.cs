@@ -43,16 +43,16 @@ namespace Website.Foundation.Persistence.Repositories
             return total;
         }
 
-        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByAnd(TSearch searchItem, Pagination pagination, OrderBy<TEntity> orderBy)
         {
             Func<TEntity, bool> predicateWhere = this.GetAndSearchCondition(searchItem);
-            IEnumerable<TEntity> listEntity = this.GetBy(pagination, sortBy, predicateWhere);
+            IEnumerable<TEntity> listEntity = this.GetBy(pagination, orderBy, predicateWhere);
             return listEntity;
         }
-        public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, OrderBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetByOr(TSearch searchItem, Pagination pagination, OrderBy<TEntity> orderBy)
         {
             Func<TEntity, bool> predicateWhere = this.GetOrSearchCondition(searchItem);
-            IEnumerable<TEntity> listEntity = this.GetBy(pagination, sortBy, predicateWhere);
+            IEnumerable<TEntity> listEntity = this.GetBy(pagination, orderBy, predicateWhere);
             return listEntity;
         }
 
@@ -61,11 +61,11 @@ namespace Website.Foundation.Persistence.Repositories
         {
             return _context.Set<TEntity>().Count(predicateCount);
         }
-        protected IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy, Func<TEntity, bool> predicateWhere)
+        protected IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> orderBy, Func<TEntity, bool> predicateWhere)
         {
             IEnumerable<TEntity> listEntity = _context.Set<TEntity>()
                 .Where(predicateWhere)
-                .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
+                .OrderByDirection(orderBy.PredicateOrderBy, orderBy.IsAscending)
                 .Skip(pagination.DisplayStart).Take(pagination.DisplaySize);
             return listEntity;
         }

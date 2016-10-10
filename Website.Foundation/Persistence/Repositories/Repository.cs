@@ -64,10 +64,10 @@ namespace Website.Foundation.Persistence.Repositories
         {
             return dbSet.ToList();
         }
-        public IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> sortBy)
+        public IEnumerable<TEntity> GetBy(Pagination pagination, OrderBy<TEntity> orderBy)
         {
             IEnumerable<TEntity> listEntity = dbSet
-                .OrderByDirection(sortBy.PredicateOrderBy, sortBy.IsAscending)
+                .OrderByDirection(orderBy.PredicateOrderBy, orderBy.IsAscending)
                 .Skip(pagination.DisplayStart).Take(pagination.DisplaySize);
             return listEntity;
         }
