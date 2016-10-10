@@ -17,7 +17,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Website.Identity.Aggregates;
+using Website.Foundation.Core.Aggregates.Identity;
 using Website.Identity.Constants;
 using Website.Identity.Helpers;
 using Website.Identity.Managers;
@@ -25,10 +25,11 @@ using Website.Identity.Models;
 using Website.Identity.Providers;
 using Website.Identity.Repositories;
 using Website.WebApi.Configuration.Identity;
+using Website.WebApi.Codes.Core.Constant;
 
 namespace Website.WebApi.Controllers.Identity
 {
-    [RoutePrefix("api/account/external")]
+    [RoutePrefix("account/external")]
     public class ExternalAccountController : IdentityApiController
     {
         private ILogger _logger;
@@ -58,7 +59,7 @@ namespace Website.WebApi.Controllers.Identity
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
-        [Route("Login", Name = "ExternalLogin")]
+        [Route("Login")]
         [HttpGet]
         public async Task<IHttpActionResult> Login(ExternalLoginProviderName provider, string error = null)
         {
@@ -94,7 +95,7 @@ namespace Website.WebApi.Controllers.Identity
                 return new ChallengeResult(provider, this);
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider.ToString(), externalLogin.ProviderKey));
+            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(externalLogin.LoginProvider.ToString(), externalLogin.ProviderKey));
             bool hasRegistered = user != null;
 
             redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
@@ -126,7 +127,7 @@ namespace Website.WebApi.Controllers.Identity
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
+            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 
@@ -178,7 +179,7 @@ namespace Website.WebApi.Controllers.Identity
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
+            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
 
             bool hasRegistered = user != null;
 

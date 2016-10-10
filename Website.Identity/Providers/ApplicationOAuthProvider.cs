@@ -1,19 +1,17 @@
-﻿using Microsoft.Owin.Security;
+﻿using Website.Foundation.Core.Aggregates.Identity;
+using Website.Foundation.Core.Enums;
+using Website.Foundation.Persistence;
+using Website.Foundation.Persistence.Services;
+using Website.Identity.Constants;
+using Website.Identity.Helpers;
+using Website.Identity.Managers;
+using Website.Identity.Repositories;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.AspNet.Identity.Owin;
-using Website.Foundation.Core.Aggregates;
-using Website.Identity.Managers;
-using Website.Identity.Aggregates;
-using Website.Identity.Providers;
-using Website.Identity.Repositories;
-using Website.Identity.Helpers;
-using Website.Identity.Constants;
 
 namespace Website.Identity.Providers
 {
@@ -40,9 +38,9 @@ namespace Website.Identity.Providers
                 return Task.FromResult<object>(null);
             }
 
-            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            ApplicationDbContext appDbContext = context.OwinContext.Get<ApplicationDbContext>();
             ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            AuthRepository _repo = new AuthRepository(appDbContext, applicationUserManager);
             client = _repo.FindClient(context.ClientId);
 
             if (client == null)
@@ -51,7 +49,7 @@ namespace Website.Identity.Providers
                 return Task.FromResult<object>(null);
             }
 
-            if (client.ApplicationType == ApplicationTypes.NativeConfidential)
+            if (client.ApplicationType == ApplicationType.NativeConfidential)
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {
@@ -105,6 +103,7 @@ namespace Website.Identity.Providers
             ClaimsIdentity oAuthIdentity = await authHelper.GetClaimIdentityAsync(user, userManager);
             var props = authHelper.GetAuthenticationProperties(context.UserName, context.ClientId);
             var ticket = new AuthenticationTicket(oAuthIdentity, props);
+            ticket.Properties.Dictionary.Add("userID", user.Id.ToString());
             context.Validated(ticket);
         }
 

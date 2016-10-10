@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Website.Foundation.Core.Services.Email;
+﻿using Website.Foundation.Core.Services.Email;
+using Website.Foundation.Core.Aggregates.Identity;
 using Website.Identity.Managers;
 using Website.Identity.Message;
-using Website.Identity.Aggregates;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace Website.Identity.Providers
 {

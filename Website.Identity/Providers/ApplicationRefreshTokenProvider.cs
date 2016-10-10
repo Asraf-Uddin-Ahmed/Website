@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using Website.Identity.Aggregates;
 using Website.Identity.Constants;
 using Website.Identity.Helpers;
 using Website.Identity.Repositories;
@@ -14,6 +13,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Website.Identity.Managers;
 using Microsoft.Owin.Security.DataHandler.Serializer;
 using System.Text;
+using Website.Foundation.Core.Aggregates.Identity;
+using Website.Foundation.Persistence;
+using Website.Foundation.Persistence.Services;
 
 namespace Website.Identity.Providers
 {
@@ -31,12 +33,12 @@ namespace Website.Identity.Providers
 
             var refreshTokenId = Guid.NewGuid().ToString("n");
 
-            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            ApplicationDbContext appDbContext = context.OwinContext.Get<ApplicationDbContext>();
             ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            AuthRepository _repo = new AuthRepository(appDbContext, applicationUserManager);
             Client client = _repo.FindClient(clientid);
-            
-            if(client == null)
+
+            if (client == null)
             {
                 return;
             }
@@ -72,9 +74,9 @@ namespace Website.Identity.Providers
 
             string hashedTokenId = HashGenerator.GetHash(context.Token);
 
-            AuthDbContext authDbContext = context.OwinContext.Get<AuthDbContext>();
+            ApplicationDbContext appDbContext = context.OwinContext.Get<ApplicationDbContext>();
             ApplicationUserManager applicationUserManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            AuthRepository _repo = new AuthRepository(authDbContext, applicationUserManager);
+            AuthRepository _repo = new AuthRepository(appDbContext, applicationUserManager);
             var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
 
             if (refreshToken != null)

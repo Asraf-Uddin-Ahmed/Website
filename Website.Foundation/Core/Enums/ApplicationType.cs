@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Website.Identity.Constants
+namespace Website.Foundation.Core.Enums
 {
-    public enum ApplicationTypes
+    public enum ApplicationType
     {
         JavaScript = 0,
         NativeConfidential = 1

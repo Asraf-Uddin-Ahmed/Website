@@ -2,7 +2,7 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Website.Identity.Aggregates;
+using Website.Foundation.Core.Aggregates.Identity;
 using Website.Identity.Managers;
 namespace Website.Identity.Helpers
 {

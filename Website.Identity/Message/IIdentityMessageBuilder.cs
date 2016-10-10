@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Website.Foundation.Core.Aggregates;
-using Website.Foundation.Core.Services.Email;
-using Website.Identity.Aggregates;
+﻿using Website.Foundation.Core.Services.Email;
+using Website.Foundation.Core.Aggregates.Identity;
 
 namespace Website.Identity.Message
 {

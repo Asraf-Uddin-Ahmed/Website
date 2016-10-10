@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Website.Identity.Aggregates
+namespace Website.Foundation.Core.Aggregates.Identity
 {
     public class RefreshToken
     {

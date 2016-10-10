@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Website.Identity.Aggregates;
+using Website.Foundation.Core.Aggregates.Identity;
 using Website.Identity.Models;
 namespace Website.Identity.Repositories
 {
@@ -16,8 +16,8 @@ namespace Website.Identity.Repositories
         Task<bool> RemoveRefreshToken(string refreshTokenId);
         Task<bool> RemoveRefreshToken(RefreshToken refreshToken);
 
-        Task<IdentityUser> FindAsync(UserLoginInfo loginInfo);
+        Task<IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim>> FindAsync(UserLoginInfo loginInfo);
         Task<IdentityResult> CreateAsync(ApplicationUser user);
-        Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login);
+        Task<IdentityResult> AddLoginAsync(Guid userId, UserLoginInfo login);
     }
 }

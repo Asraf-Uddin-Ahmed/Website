@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Web;
 using Website.Identity.Constants.Claims;
 using Website.Identity.Constants.Roles;
+using Website.Foundation.Core.Constant;
 
 namespace Website.Identity.Providers
 {

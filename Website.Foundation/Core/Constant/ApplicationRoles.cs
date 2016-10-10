@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Website.Identity.Constants.Roles
+namespace Website.Foundation.Core.Constant
 {
     public static class ApplicationRoles
     {
