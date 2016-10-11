@@ -60,7 +60,7 @@ namespace Website.WebApi.Controllers.Identity
             return Ok(_identityRoleResponseFactory.Create(roles.ToList()));
         }
 
-        [Route("create")]
+        [Route("")]
         public async Task<IHttpActionResult> Create(CreateRoleRequestModel model)
         {
             if (!ModelState.IsValid)
