@@ -125,11 +125,10 @@ namespace Website.WebApi.Controllers.Identity
                 }
 
                 string code = await _applicationUserManager.GenerateEmailConfirmationTokenAsync(appUser.Id);
-                var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = appUser.Id, code = code }));
+                var callbackUrl = new Uri(Url.Link(UriName.Identity.Accounts.CONFIRM_EMAIL, new { userId = appUser.Id, code = code }));
                 await _applicationUserManager.SendEmailAsync(appUser.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = appUser.Id }));
-                return Created(locationHeader, _applicationUserResponseFactory.Create(appUser));
+                return CreatedAtRoute(UriName.Identity.Accounts.GET_USER, new { id = appUser.Id }, _applicationUserResponseFactory.Create(appUser));
             }
             catch (Exception ex)
             {
@@ -184,12 +183,75 @@ namespace Website.WebApi.Controllers.Identity
                 {
                     return GetErrorResult(result);
                 }
-                return Ok();
+                return Ok("Password changed");
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Failed to ChangePassword");
                 return InternalServerError(ex, "Failed to ChangePassword");
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("forgotpassword")]
+        [HttpPut]
+        public async Task<IHttpActionResult> ForgotPassword(string email = "")
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Valid email field is required.");
+            }
+
+            try
+            {
+                var user = await _applicationUserManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    return base.NotFound();
+                }
+                if (!await _applicationUserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    return base.BadRequest("Email is not confirm yet.");
+                }
+
+                var code = await _applicationUserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = new Uri(Url.Link(UriName.Identity.Accounts.RESET_PASSWORD, new { userId = user.Id, code = code }));
+                await _applicationUserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                return Ok("An email send");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to ForgotPassword");
+                return InternalServerError(ex, "Failed to ForgotPassword");
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("resetpassword", Name = UriName.Identity.Accounts.RESET_PASSWORD)]
+        [HttpPut]
+        public async Task<IHttpActionResult> ResetPassword([FromBody] ResetPasswordRequestModel model, [FromUri] Guid userId, [FromUri] string code = "")
+        {
+            if (userId == Guid.Empty || string.IsNullOrEmpty(code))
+            {
+                return BadRequest("User Id and Code are required");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                IdentityResult result = await _applicationUserManager.ResetPasswordAsync(userId, code, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+                return Ok("Password changed");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to ResetPassword");
+                return InternalServerError(ex, "Failed to ResetPassword");
             }
         }
 
