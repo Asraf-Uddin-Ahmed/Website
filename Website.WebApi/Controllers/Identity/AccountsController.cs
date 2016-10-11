@@ -168,8 +168,9 @@ namespace Website.WebApi.Controllers.Identity
         }
 
         [Authorize]
-        [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequestModel model)
+        [Route("user/{userID:guid}/changepassword")]
+        [HttpPut]
+        public async Task<IHttpActionResult> ChangePassword(Guid userID, ChangePasswordRequestModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -178,7 +179,7 @@ namespace Website.WebApi.Controllers.Identity
 
             try
             {
-                IdentityResult result = await _applicationUserManager.ChangePasswordAsync(Guid.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+                IdentityResult result = await _applicationUserManager.ChangePasswordAsync(userID, model.CurrentPassword, model.NewPassword);
                 if (!result.Succeeded)
                 {
                     return GetErrorResult(result);

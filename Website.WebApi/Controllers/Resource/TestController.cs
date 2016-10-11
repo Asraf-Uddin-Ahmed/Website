@@ -18,7 +18,7 @@ using Website.WebApi.Models.Request;
 namespace Website.WebApi.Controllers.Resource
 {
     [CustomCorsPolicy]
-    [RoutePrefix("api/test")]
+    [RoutePrefix("test")]
     public class TestController : BaseApiController
     {
         private IUserService _userSevice;

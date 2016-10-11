@@ -39,11 +39,11 @@ namespace Website.Foundation.Migrations
             var user = new ApplicationUser()
             {
                 Id = GuidUtility.GetNewSequentialGuid(),
-                UserName = "ExamlogAdmin",
+                UserName = "SuperPowerUser",
                 Email = "13ratul@gmail.com",
                 EmailConfirmed = true
             };
-            manager.Create(user, "Examlog123Admin");
+            manager.Create(user, "MySuperP@ssword!");
             var adminUser = manager.FindByName(user.UserName);
             manager.AddToRoles(adminUser.Id, new string[] { ApplicationRoles.ADMIN });
 
@@ -100,8 +100,8 @@ namespace Website.Foundation.Migrations
                 new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "Email Password", Name = SettingsName.EmailPassword.ToString(), Type = SettingsType.String, Value = "projectinfo"},
                 new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "Email Port", Name = SettingsName.EmailPort.ToString(), Type = SettingsType.Integer, Value = "587"},
                 new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "Email Enable SSL", Name = SettingsName.EmailEnableSSL.ToString(), Type = SettingsType.Boolean, Value = "true"},
-                new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "System Email Address", Name = SettingsName.SystemEmailAddress.ToString(), Type = SettingsType.String, Value = "info@examlog.com"},
-                new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "System Email Name", Name = SettingsName.SystemEmailName.ToString(), Type = SettingsType.String, Value = "Examlog"}
+                new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "System Email Address", Name = SettingsName.SystemEmailAddress.ToString(), Type = SettingsType.String, Value = "info@system.com"},
+                new Settings(){ID = GuidUtility.GetNewSequentialGuid(), DisplayName = "System Email Name", Name = SettingsName.SystemEmailName.ToString(), Type = SettingsType.String, Value = "System_Name"}
             };
             listSettings.ForEach(s => context.Settings.AddOrUpdate(p => p.ID, s));
         }
