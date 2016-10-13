@@ -192,7 +192,6 @@ namespace Website.WebApi.Controllers.Identity
             //generate access token response
             var accessTokenResponse = await GenerateLocalAccessTokenResponse(user.UserName, model.ClientID);
             return Ok(accessTokenResponse);
-
         }
 
         //GET api/account/external/Signout
@@ -282,19 +281,33 @@ namespace Website.WebApi.Controllers.Identity
             var content = await response.Content.ReadAsStringAsync();
             dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
             ParsedExternalAccessToken parsedToken = new ParsedExternalAccessToken();
-            parsedToken.UserID = jObj["data"]["user_id"];
-            parsedToken.AppID = jObj["data"]["app_id"];
 
-            if (provider == ExternalLoginProviderName.Facebook && string.Equals(Startup.FacebookAuthOptions.AppId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+            if (provider == ExternalLoginProviderName.Facebook)
             {
+                parsedToken.UserID = jObj["data"]["user_id"];
+                parsedToken.AppID = jObj["data"]["app_id"];
+
+                if (!string.Equals(Startup.FacebookAuthOptions.AppId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+                {
+                    return null;
+                }
+
                 var fbClient = new FacebookClient(accessToken);
                 dynamic userEmailInfo = fbClient.Get("/me?fields=email");
                 parsedToken.Email = userEmailInfo.email;
             }
-            else if (provider == ExternalLoginProviderName.Google && string.Equals(Startup.GoogleAuthOptions.ClientId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+            else if (provider == ExternalLoginProviderName.Google)
             {
-            }
+                parsedToken.UserID = jObj["user_id"];
+                parsedToken.AppID = jObj["audience"];
+                parsedToken.Email = jObj["email"];
 
+                if (!string.Equals(Startup.GoogleAuthOptions.ClientId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+                {
+                    return null;
+                }
+            }
+            
             return parsedToken;
         }
 
