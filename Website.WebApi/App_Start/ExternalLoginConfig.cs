@@ -37,6 +37,7 @@ namespace Website.WebApi.App_Start
             {
                 AppId = ConfigurationManager.AppSettings["facebook:AppID"],
                 AppSecret = ConfigurationManager.AppSettings["facebook:AppSecret"],
+                Scope = { "email" },
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);

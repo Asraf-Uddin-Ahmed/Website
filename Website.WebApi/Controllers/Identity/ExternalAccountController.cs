@@ -26,6 +26,8 @@ using Website.Identity.Providers;
 using Website.Identity.Repositories;
 using Website.WebApi.Configuration.Identity;
 using Website.WebApi.Codes.Core.Constant;
+using Website.Foundation.Core.Factories;
+using Facebook;
 
 namespace Website.WebApi.Controllers.Identity
 {
@@ -36,6 +38,7 @@ namespace Website.WebApi.Controllers.Identity
         private ApplicationUserManager _applicationUserManager;
         private IAuthRepository _authRepository;
         private IAuthHelper _authHelper;
+        private IApplicationUserFactory _applicationUserFactory;
 
         private IAuthenticationManager OwinAuthentication
         {
@@ -45,12 +48,14 @@ namespace Website.WebApi.Controllers.Identity
         public ExternalAccountController(ILogger logger,
             IAuthRepository authRepository,
             IAuthHelper authHelper,
+            IApplicationUserFactory applicationUserFactory,
             ApplicationUserManager applicationUserManager)
             : base(logger)
         {
             _logger = logger;
             _authRepository = authRepository;
             _authHelper = authHelper;
+            _applicationUserFactory = applicationUserFactory;
             _applicationUserManager = applicationUserManager;
         }
 
@@ -121,22 +126,21 @@ namespace Website.WebApi.Controllers.Identity
                 return BadRequest(ModelState);
             }
 
-            var verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
+            ParsedExternalAccessToken verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
             if (verifiedAccessToken == null)
             {
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
-
+            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.UserID));
             bool hasRegistered = user != null;
-
             if (hasRegistered)
             {
                 return BadRequest("External user is already registered");
             }
 
-            ApplicationUser appUser = new ApplicationUser() { UserName = model.UserName };
+            ApplicationUser appUser = _applicationUserFactory.Create(model.UserName, verifiedAccessToken.Email);
+            appUser.EmailConfirmed = true;
 
             IdentityResult result = await _authRepository.CreateAsync(appUser);
             if (!result.Succeeded)
@@ -147,7 +151,7 @@ namespace Website.WebApi.Controllers.Identity
             var info = new ExternalLoginInfo()
             {
                 DefaultUserName = model.UserName,
-                Login = new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id)
+                Login = new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.UserID)
             };
 
             result = await _authRepository.AddLoginAsync(appUser.Id, info.Login);
@@ -158,7 +162,6 @@ namespace Website.WebApi.Controllers.Identity
 
             //generate access token response
             var accessTokenResponse = await GenerateLocalAccessTokenResponse(model.UserName, model.ClientID);
-
             return Ok(accessTokenResponse);
         }
 
@@ -173,16 +176,14 @@ namespace Website.WebApi.Controllers.Identity
                 return BadRequest(ModelState);
             }
 
-            var verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
+            ParsedExternalAccessToken verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
             if (verifiedAccessToken == null)
             {
                 return BadRequest("Invalid Provider or External Access Token");
             }
 
-            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.user_id));
-
+            IdentityUser<Guid, CustomUserLogin, CustomUserRole, CustomUserClaim> user = await _authRepository.FindAsync(new UserLoginInfo(model.Provider.ToString(), verifiedAccessToken.UserID));
             bool hasRegistered = user != null;
-
             if (!hasRegistered)
             {
                 return BadRequest("External user is not registered");
@@ -190,7 +191,6 @@ namespace Website.WebApi.Controllers.Identity
 
             //generate access token response
             var accessTokenResponse = await GenerateLocalAccessTokenResponse(user.UserName, model.ClientID);
-
             return Ok(accessTokenResponse);
 
         }
@@ -252,8 +252,6 @@ namespace Website.WebApi.Controllers.Identity
 
         private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(ExternalLoginProviderName provider, string accessToken)
         {
-            ParsedExternalAccessToken parsedToken = null;
-
             var verifyTokenEndPoint = "";
 
             if (provider == ExternalLoginProviderName.Facebook)
@@ -276,36 +274,25 @@ namespace Website.WebApi.Controllers.Identity
             var uri = new Uri(verifyTokenEndPoint);
             var response = await client.GetAsync(uri);
 
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
+                return null;
+            }
 
-                dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+            var content = await response.Content.ReadAsStringAsync();
+            dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+            ParsedExternalAccessToken parsedToken = new ParsedExternalAccessToken();
+            parsedToken.UserID = jObj["data"]["user_id"];
+            parsedToken.AppID = jObj["data"]["app_id"];
 
-                parsedToken = new ParsedExternalAccessToken();
-
-                if (provider == ExternalLoginProviderName.Facebook)
-                {
-                    parsedToken.user_id = jObj["data"]["user_id"];
-                    parsedToken.app_id = jObj["data"]["app_id"];
-
-                    if (!string.Equals(Startup.FacebookAuthOptions.AppId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return null;
-                    }
-                }
-                else if (provider == ExternalLoginProviderName.Google)
-                {
-                    parsedToken.user_id = jObj["user_id"];
-                    parsedToken.app_id = jObj["audience"];
-
-                    if (!string.Equals(Startup.GoogleAuthOptions.ClientId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return null;
-                    }
-
-                }
-
+            if (provider == ExternalLoginProviderName.Facebook && string.Equals(Startup.FacebookAuthOptions.AppId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+            {
+                var fbClient = new FacebookClient(accessToken);
+                dynamic userEmailInfo = fbClient.Get("/me?fields=email");
+                parsedToken.Email = userEmailInfo.email;
+            }
+            else if (provider == ExternalLoginProviderName.Google && string.Equals(Startup.GoogleAuthOptions.ClientId, parsedToken.AppID, StringComparison.OrdinalIgnoreCase))
+            {
             }
 
             return parsedToken;
