@@ -18,7 +18,7 @@ namespace Website.Foundation.Persistence.Template.Email
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
+    #line 1 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class ForgotPassword : ForgotPasswordBase
     {
@@ -30,7 +30,7 @@ namespace Website.Foundation.Persistence.Template.Email
         {
             this.Write("\r\nHello ");
             
-            #line 7 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
+            #line 7 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.RegisteredUser.Name));
             
             #line default
@@ -38,7 +38,7 @@ namespace Website.Foundation.Persistence.Template.Email
             this.Write(",\r\n\r\nA request was made to change the password on your Website account. \r\nTo comp" +
                     "lete this request please follow the link below:\r\n");
             
-            #line 11 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
+            #line 11 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ForgotPassword.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Url));
             
             #line default

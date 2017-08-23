@@ -18,7 +18,7 @@ namespace Website.Foundation.Persistence.Template.Email
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
+    #line 1 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class ConfirmUser : ConfirmUserBase
     {
@@ -30,7 +30,7 @@ namespace Website.Foundation.Persistence.Template.Email
         {
             this.Write("\r\nHello ");
             
-            #line 7 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
+            #line 7 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.NewUser.Name));
             
             #line default
@@ -38,7 +38,7 @@ namespace Website.Foundation.Persistence.Template.Email
             this.Write(",\r\n\r\nYour new account has been created. \r\nTo complete the registration process, p" +
                     "lease confirm your email address by clicking the link below:\r\n");
             
-            #line 11 "G:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
+            #line 11 "F:\HOME\Website\Website.Foundation\Persistence\Template\Email\ConfirmUser.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Url));
             
             #line default
