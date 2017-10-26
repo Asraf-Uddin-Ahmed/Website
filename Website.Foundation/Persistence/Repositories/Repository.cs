@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Reflection;
 using Ninject;
-using Ratul.Utility;
+using Ratul.Utility.Extensions;
 using Website.Foundation.Core.Repositories;
 using Website.Foundation.Core.Aggregates;
 using System.Linq.Expressions;
