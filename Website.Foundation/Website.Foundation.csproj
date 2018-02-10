@@ -83,7 +83,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ratul.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ratul.Utility.1.0.4\lib\Ratul.Utility.dll</HintPath>
+      <HintPath>..\packages\Ratul.Utility.1.1.0\lib\Ratul.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -224,7 +224,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
